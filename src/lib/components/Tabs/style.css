@@ -1,0 +1,21 @@
+.tabs {
+  display: flex;
+}
+
+.tab {
+  flex-grow: 1;
+  flex-basis: 0;
+  border: 1px solid gray;
+}
+
+.tab-active {
+  background-color: gray;
+}
+
+.content {
+  width: 100%;
+}
+
+.content-hidden {
+  display: none;
+}
