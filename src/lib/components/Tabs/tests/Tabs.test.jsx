@@ -15,7 +15,7 @@ describe('Tabs tests', () => {
         </Tab>
       </Tabs>
     )
-    expect(wrapper.find(Tab)).toHaveLength(2)
+    expect(wrapper).toContainMatchingElements(2, Tab)
   })
   it('should render the content of the tabs', () => {
     const wrapper = shallow(
@@ -28,7 +28,7 @@ describe('Tabs tests', () => {
         </Tab>
       </Tabs>
     )
-    expect(wrapper.text()).toContain("Content")
+    expect(wrapper).toIncludeText("Content")
   })
   it('should render hidden tabs as hidden', () => {
     const wrapper = shallow(
@@ -41,7 +41,7 @@ describe('Tabs tests', () => {
         </Tab>
       </Tabs>
     )
-    expect(wrapper.find('.content-hidden')).toHaveLength(1)
+    expect(wrapper).toContainExactlyOneMatchingElement('.content-hidden')
   })
   it('should switch shown tab on click', () => {
     const wrapper = shallow(
@@ -56,6 +56,6 @@ describe('Tabs tests', () => {
     )
     wrapper.find(Tab).last().simulate('click')
     const firstTab = wrapper.find('.content').first()
-    expect(firstTab.hasClass('content-hidden')).toBe(true)
+    expect(firstTab).toHaveClassName('content-hidden')
   })
 })
