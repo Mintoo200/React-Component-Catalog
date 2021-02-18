@@ -26,7 +26,7 @@ test:
 
 build:
   stage: build
-  artifact: 
+  artifacts: 
     paths: 
       - build/
   script:
@@ -34,7 +34,7 @@ build:
 
 build-storybook:
   stage: build
-  artifact: 
+  artifacts: 
     paths: 
       - storybook-static/
   script:
