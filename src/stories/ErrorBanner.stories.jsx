@@ -8,33 +8,33 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: "Source code comming soon..."
+        component: 'Source code comming soon...',
         // component: `\`\`\`js
         // ${ErrorBannerCode}
         // \`\`\``
-      }
-    }
-  }
+      },
+    },
+  },
 }
 
 const Template = (args) => <ErrorBanner {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
-  message: "There is an error!",
+  message: 'There is an error!',
 }
 
 export const WithChild = Template.bind({})
 WithChild.args = {
   children: [
-    <button>Ok</button>
-  ]
+    <button type="button">Ok</button>,
+  ],
 }
 
 export const WithMessageAndChild = Template.bind({})
 WithMessageAndChild.args = {
   children: [
-    <button>Ok</button>
+    <button type="button">Ok</button>,
   ],
-  message: "Message"
+  message: 'Message',
 }

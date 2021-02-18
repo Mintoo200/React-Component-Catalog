@@ -1,5 +1,5 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import { shallow } from 'enzyme'
 import Banner from '../ErrorBanner'
 
 describe('Error Banner tests', () => {
@@ -8,7 +8,7 @@ describe('Error Banner tests', () => {
     expect(wrapper).toExist()
   })
   it('should render the message when provided', () => {
-    const message = "This is a message"
+    const message = 'This is a message'
     const wrapper = shallow(<Banner message={message} />)
     expect(wrapper).toIncludeText(message)
   })

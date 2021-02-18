@@ -1,5 +1,5 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import { shallow } from 'enzyme'
 import Tabs from '../Tabs'
 import Tab from '../Tab'
 
@@ -13,7 +13,7 @@ describe('Tabs tests', () => {
         <Tab label="Salut 2">
           Content 2
         </Tab>
-      </Tabs>
+      </Tabs>,
     )
     expect(wrapper).toContainMatchingElements(2, Tab)
   })
@@ -26,9 +26,9 @@ describe('Tabs tests', () => {
         <Tab label="Salut 2">
           Content 2
         </Tab>
-      </Tabs>
+      </Tabs>,
     )
-    expect(wrapper).toIncludeText("Content")
+    expect(wrapper).toIncludeText('Content')
   })
   it('should render hidden tabs as hidden', () => {
     const wrapper = shallow(
@@ -39,7 +39,7 @@ describe('Tabs tests', () => {
         <Tab label="Salut 2">
           Content 2
         </Tab>
-      </Tabs>
+      </Tabs>,
     )
     expect(wrapper).toContainExactlyOneMatchingElement('.content-hidden')
   })
@@ -52,7 +52,7 @@ describe('Tabs tests', () => {
         <Tab label="Salut 2">
           Content 2
         </Tab>
-      </Tabs>
+      </Tabs>,
     )
     wrapper.find(Tab).last().simulate('click')
     const firstTab = wrapper.find('.content').first()

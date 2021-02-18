@@ -10,7 +10,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: "Source code comming soon..."
+        component: 'Source code comming soon...',
         // component: `\`\`\`js
         // // Tabs.jsx
         // ${TabsCode}
@@ -19,9 +19,9 @@ export default {
         // // Tab.jsx
         // ${TabCode}
         // \`\`\``
-      }
-    }
-  }
+      },
+    },
+  },
 }
 
 const Template = (args) => <Tabs {...args} />
@@ -34,6 +34,6 @@ Default.args = {
     </Tab>,
     <Tab label="This is the second tab">
       This is the content of the second tab
-    </Tab>
-  ]
+    </Tab>,
+  ],
 }

@@ -5,24 +5,27 @@ const propTypes = {
   active: PropTypes.bool,
   label: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.node
+    PropTypes.node,
   ]),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
+  // children: PropTypes.oneOfType([
+  //   PropTypes.arrayOf(PropTypes.node),
+  //   PropTypes.node,
+  // ]),
   onClick: PropTypes.func,
 }
 
 const defaultProps = {
   active: false,
   label: 'default tab label',
-  children: [],
+  // children: [],
   onClick: () => {},
 }
 
-const Tab = ({active, label, onClick}) => (
-  <button className={`tab ${active? 'tab-active': ''}`} onClick={onClick}>
+const Tab = ({ active, label, onClick }) => (
+  <button
+    className={`tab ${active ? 'tab-active' : ''}`}
+    onClick={onClick}
+    type="button">
     {label}
   </button>
 )
