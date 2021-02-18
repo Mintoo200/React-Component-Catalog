@@ -1,0 +1,41 @@
+image:
+  name: node:12.16.3
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - ./node_modules
+
+before_script:
+  - yarn
+
+stages:
+  - lint
+  - test
+  - build
+
+lint:
+  stage: lint
+  script:
+    - yarn lint
+
+test:
+  stage: test
+  script:
+    - yarn test
+
+build:
+  stage: build
+  artifacts: 
+    paths: 
+      - build/
+  script:
+    - yarn build
+
+build-storybook:
+  stage: build
+  artifacts: 
+    paths: 
+      - storybook-static/
+  script:
+    - yarn build-storybook
