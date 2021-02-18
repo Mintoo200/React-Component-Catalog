@@ -1,0 +1,49 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/jsx-props-no-spreading": [
+      "error",
+      {
+        "custom": "ignore"
+      }
+    ],
+    "react/no-array-index-key": "off",
+    "no-nested-ternary": "off",
+    "quotes": ["error", "single"],
+    "semi": ["error", "never"],
+    "react/jsx-closing-bracket-location": ["error", "after-props"]
+  },
+  "overrides": [
+    {
+      "env": {
+        "jest": true
+      },
+      "files": [
+        "**/*.test.js",
+        "**/*.test.jsx"
+      ]
+    }
+  ]
+}

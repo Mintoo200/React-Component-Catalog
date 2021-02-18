@@ -7,23 +7,23 @@ const propTypes = {
   message: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+    PropTypes.node,
+  ]),
 }
 
 const defaultProps = {
   message: '',
-  children: []
+  children: [],
 }
 
-const ErrorBanner = ({message, children}) => (
+const ErrorBanner = ({ message, children }) => (
   <div className="error-banner">
-    ❌ {message}
+    {`❌ ${message} `}
     {children}
   </div>
 )
 
-ErrorBanner.defaultProps = propTypes
+ErrorBanner.propTypes = propTypes
 ErrorBanner.defaultProps = defaultProps
 
 export default ErrorBanner

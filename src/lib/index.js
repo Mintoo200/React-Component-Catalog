@@ -1,8 +1,9 @@
-import Example from './components/Example';
-import SecondExample from './components/SecondExample';
+import Tabs from './components/Tabs/Tabs'
+import Tab from './components/Tabs/Tab'
+import ErrorBanner from './components/ErrorBanner/ErrorBanner'
 
-export default Example;
-
-export {
-  SecondExample,
-};
+export default {
+  Tabs,
+  Tab,
+  ErrorBanner,
+}
