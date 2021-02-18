@@ -3,7 +3,7 @@ image:
 
 workflow:
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $CI_MERGE_REQUEST_TITLE !~ /^(WIP|Draft).*$/
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
