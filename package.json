@@ -29,7 +29,7 @@
     "@storybook/addon-links": "^6.1.18",
     "@storybook/react": "^6.1.18",
     "@svgr/webpack": "4.3.2",
-    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^2.2.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "^24.9.0",
@@ -112,7 +112,7 @@
       "react-app-polyfill/jsdom"
     ],
     "setupFilesAfterEnv": [
-      "./testsSetup.js",
+      "./testsSetup.ts",
       "./node_modules/jest-enzyme/lib/index.js"
     ],
     "testMatch": [
