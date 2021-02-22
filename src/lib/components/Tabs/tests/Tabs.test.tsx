@@ -3,8 +3,8 @@ import { shallow } from 'enzyme'
 import Tabs from '../Tabs'
 import Tab from '../Tab'
 
-describe('Tabs tests', () => {
-  it('should render the Tabs', () => {
+describe('Tabs tests', (): void => {
+  it('should render the Tabs', (): void => {
     const wrapper = shallow(
       <Tabs>
         <Tab label="Salut">
@@ -15,9 +15,12 @@ describe('Tabs tests', () => {
         </Tab>
       </Tabs>,
     )
-    expect(wrapper).toContainMatchingElements(2, Tab)
+    // Here is why I don't like TS:
+    // The following error is caused by the selector type being "string"
+    // Where it is strongly recommended to use the constructor instead of the name
+    expect(wrapper).toContainMatchingElements(2, 'Tab')
   })
-  it('should render the content of the tabs', () => {
+  it('should render the content of the tabs', (): void => {
     const wrapper = shallow(
       <Tabs>
         <Tab label="Salut">
@@ -30,7 +33,7 @@ describe('Tabs tests', () => {
     )
     expect(wrapper).toIncludeText('Content')
   })
-  it('should render hidden tabs as hidden', () => {
+  it('should render hidden tabs as hidden', (): void => {
     const wrapper = shallow(
       <Tabs>
         <Tab label="Salut">
@@ -43,7 +46,7 @@ describe('Tabs tests', () => {
     )
     expect(wrapper).toContainExactlyOneMatchingElement('.content-hidden')
   })
-  it('should switch shown tab on click', () => {
+  it('should switch shown tab on click', (): void => {
     const wrapper = shallow(
       <Tabs>
         <Tab label="Salut">

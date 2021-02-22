@@ -3,7 +3,7 @@ import ErrorBanner from '../lib/components/ErrorBanner/ErrorBanner'
 import Tabs from '../lib/components/Tabs/Tabs'
 import Tab from '../lib/components/Tabs/Tab'
 
-const App = () => {
+const App = (): JSX.Element => {
   const [error, setError] = useState(null)
   // capture Console.error to add error banner
   /* eslint-disable no-console */

@@ -1,28 +1,29 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 
 import './style.css'
 
-const propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+type Props = {
+  children: React.ReactElement|React.ReactElement[],
 }
 
-const defaultProps = {
-  children: [],
-}
-
-const Tabs = ({ children }) => {
+const Tabs = ({ children }: Props): JSX.Element => {
   const [currentTab, setCurrentTab] = useState(0)
 
   const content = []
-  const tabs = React.Children.map(children, (child, index) => {
+  const tabs = React.Children.map(children, (child, index): React.ReactNode => {
     content.push(child.props.children || [])
     return React.cloneElement(child, {
       active: currentTab === index,
-      onClick: () => setCurrentTab(index),
+      onClick: () => {
+        setCurrentTab(index)
+        return (child.props.onClick ?? false) ? child.props.onClick() : null
+      },
+      onKeyPress: (e) => {
+        if (e.key === 'Enter') {
+          setCurrentTab(index)
+        }
+        return (child.props.onKeyPress ?? false) ? child.props.onKeyPress(e) : null
+      },
     })
   })
 
@@ -39,8 +40,5 @@ const Tabs = ({ children }) => {
     </div>
   )
 }
-
-Tabs.propTypes = propTypes
-Tabs.defaultProps = defaultProps
 
 export default Tabs

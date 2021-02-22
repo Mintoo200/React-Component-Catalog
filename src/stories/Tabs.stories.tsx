@@ -24,7 +24,7 @@ export default {
   },
 }
 
-const Template = (args) => <Tabs {...args} />
+const Template = (args): JSX.Element => <Tabs {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
