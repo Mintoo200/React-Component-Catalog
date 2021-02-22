@@ -17,7 +17,7 @@ export default {
   },
 }
 
-const Template = (args) => <ErrorBanner {...args} />
+const Template = (args): JSX.Element => <ErrorBanner {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
