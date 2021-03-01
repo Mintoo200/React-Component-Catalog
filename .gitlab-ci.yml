@@ -24,13 +24,13 @@ test:
   script:
     - yarn test
 
-build:
+build-lib:
   stage: build
   artifacts: 
     paths: 
-      - build/
+      - dist/
   script:
-    - yarn build
+    - yarn build-lib
 
 build-storybook:
   stage: build

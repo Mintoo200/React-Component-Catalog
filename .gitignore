@@ -10,7 +10,7 @@
 
 # production
 /build
-/demo
+/dist
 /storybook-static
 
 # misc
