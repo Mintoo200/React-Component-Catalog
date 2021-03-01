@@ -6,13 +6,28 @@ import Tab from '../../lib/components/Tabs/v1/Tab'
 import { ReactComponent as CodeBrackets } from '../assets/code-brackets.svg'
 import { ReactComponent as Comments } from '../assets/comments.svg'
 
+const documentation = `
+## API
+\`\`\`xml
+<Tabs>
+  <Tab label="Tab 1">
+    Content 1
+  </Tab>
+  <Tab label="Tab 2">
+    Content 2
+  </Tab>
+</Tabs>
+\`\`\`
+learn more [here](/story/tabs-study--page#version-1)
+`
+
 export default {
   title: 'Tabs/v1',
   component: Tabs,
   parameters: {
     docs: {
       description: {
-        component: 'Source code comming soon...',
+        component: documentation,
       },
     },
   },
