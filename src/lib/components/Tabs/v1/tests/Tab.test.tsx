@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import Tab from '../Tab'
+import Tab from '../../Tab'
 
 describe('Tab tests', (): void => {
   it('should render a button', () => {
