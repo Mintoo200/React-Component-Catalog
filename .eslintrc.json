@@ -54,9 +54,13 @@
       }
    ],
    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-   "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx", "testsSetup.ts", "global.d.ts"]}],
+   "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx", "src/setupTests.ts", "global.d.ts", "src/stories/**"]}],
    "react/prop-types": "off",
-   "react/require-default-props": "off"
+   "react/require-default-props": "off",
+   "no-use-before-define": "off",
+   "@typescript-eslint/no-use-before-define": ["error"],
+   "no-unused-vars": "off",
+   "@typescript-eslint/no-unused-vars": "error" 
   },
   "overrides": [
     {

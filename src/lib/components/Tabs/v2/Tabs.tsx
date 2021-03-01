@@ -7,8 +7,8 @@ export const Context = React.createContext({
   setActiveIndex: (() => (null)) as (_: number) => void,
 })
 
-type Props = {
-  children: React.ReactElement,
+export type Props = {
+  children: React.ReactNode,
 }
 
 const Tabs = ({ children }: Props): JSX.Element => {
