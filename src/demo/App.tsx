@@ -8,7 +8,7 @@ const App = (): JSX.Element => {
   // capture Console.error to add error banner
   /* eslint-disable no-console */
   const previousConsole = console.error
-  console.error = (message) => {
+  console.error = (message: string) => {
     setError(message)
     return previousConsole(message)
   }

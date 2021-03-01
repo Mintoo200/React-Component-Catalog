@@ -2,7 +2,7 @@ import React from 'react'
 
 import './style.css'
 
-type Props = {
+export type Props = {
   message?: string,
   children?: React.ReactNode,
 }

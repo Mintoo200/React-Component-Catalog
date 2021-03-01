@@ -1,6 +1,6 @@
 import React from 'react'
-import ErrorBanner from '../lib/components/ErrorBanner/ErrorBanner'
-// import ErrorBannerCode from '../lib/components/ErrorBanner/ErrorBanner.code'
+import { Story } from '@storybook/react'
+import ErrorBanner, { Props as ErrorBannerProps } from '../lib/components/ErrorBanner/ErrorBanner'
 
 export default {
   title: 'Error Banner',
@@ -9,15 +9,12 @@ export default {
     docs: {
       description: {
         component: 'Source code comming soon...',
-        // component: `\`\`\`js
-        // ${ErrorBannerCode}
-        // \`\`\``
       },
     },
   },
 }
 
-const Template = (args): JSX.Element => <ErrorBanner {...args} />
+const Template: Story<ErrorBannerProps> = (args): JSX.Element => <ErrorBanner {...args} />
 
 export const Default = Template.bind({})
 Default.args = {

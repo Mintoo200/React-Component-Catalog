@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 
 import '../style.css'
 
-type Props = {
+export type Props = {
   children: React.ReactElement|React.ReactElement[],
 }
 
 const Tabs = ({ children }: Props): JSX.Element => {
   const [currentTab, setCurrentTab] = useState(0)
 
-  const content = []
+  const content: React.ReactNode[] = []
   const tabs = React.Children.map(children, (child, index): React.ReactNode => {
     content.push(child.props.children || [])
     return React.cloneElement(child, {
@@ -18,7 +18,7 @@ const Tabs = ({ children }: Props): JSX.Element => {
         setCurrentTab(index)
         return (child.props.onClick ?? false) ? child.props.onClick() : null
       },
-      onKeyPress: (e) => {
+      onKeyPress: (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
           setCurrentTab(index)
         }
