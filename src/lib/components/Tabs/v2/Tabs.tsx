@@ -1,10 +1,11 @@
 import React, { useState, Dispatch } from 'react'
+import NoContextError from '../../Errors/NoContextError'
 
 import '../style.css'
 
 export const Context = React.createContext({
   activeIndex: 0,
-  setActiveIndex: (() => (null)) as Dispatch<number>,
+  setActiveIndex: (() => { throw new NoContextError() }) as Dispatch<number>,
 })
 
 export type Props = {
