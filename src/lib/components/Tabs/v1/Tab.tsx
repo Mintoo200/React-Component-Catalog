@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../style.css'
+
 type Props = {
   active?: boolean,
   label: React.ReactNode,

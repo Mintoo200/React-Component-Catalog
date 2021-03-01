@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ErrorBanner from '../lib/components/ErrorBanner/ErrorBanner'
-import Tabs from '../lib/components/Tabs/Tabs'
-import Tab from '../lib/components/Tabs/Tab'
+import Tabs from '../lib/components/Tabs/v1/Tabs'
+import Tab from '../lib/components/Tabs/v1/Tab'
 
 const App = (): JSX.Element => {
   const [error, setError] = useState(null)

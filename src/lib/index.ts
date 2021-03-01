@@ -1,5 +1,5 @@
-import Tabs from './components/Tabs/Tabs'
-import Tab from './components/Tabs/Tab'
+import Tabs from './components/Tabs/v1/Tabs'
+import Tab from './components/Tabs/v1/Tab'
 import ErrorBanner from './components/ErrorBanner/ErrorBanner'
 
 export default {
