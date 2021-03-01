@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, Dispatch } from 'react'
 
 import '../style.css'
 
 export const Context = React.createContext({
   activeIndex: 0,
-  setActiveIndex: (() => (null)) as (_: number) => void,
+  setActiveIndex: (() => (null)) as Dispatch<number>,
 })
 
 export type Props = {
