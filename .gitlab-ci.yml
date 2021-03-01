@@ -18,11 +18,15 @@ lint:
   stage: lint
   script:
     - yarn lint
+  only:
+    - merge_requests
 
 test:
   stage: test
   script:
     - yarn test
+  only:
+    - merge_requests
 
 build-lib:
   stage: build
@@ -31,6 +35,8 @@ build-lib:
       - dist/
   script:
     - yarn build-lib
+  only:
+    - master
 
 build-demo:
   stage: build
@@ -39,6 +45,8 @@ build-demo:
       - build/
   script:
     - yarn build-demo
+  only:
+    - master
 
 build-storybook:
   stage: build
@@ -47,3 +55,5 @@ build-storybook:
       - storybook-static/
   script:
     - yarn build-storybook
+  only:
+    - master
