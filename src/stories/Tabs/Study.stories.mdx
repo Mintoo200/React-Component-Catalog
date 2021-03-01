@@ -1,0 +1,82 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import Code from '../assets/code-brackets.svg';
+import Colors from '../assets/colors.svg';
+import Comments from '../assets/comments.svg';
+import Direction from '../assets/direction.svg';
+import Flow from '../assets/flow.svg';
+import Plugin from '../assets/plugin.svg';
+import Repo from '../assets/repo.svg';
+import StackAlt from '../assets/stackalt.svg';
+import TryBadge from '../assets/Badges/TryBadge'
+
+import './Study.style.css'
+import '../style.css'
+
+<Meta title="Tabs/Study" />
+
+# The <code>Tabs</code> Component
+
+## Version 1
+
+<TryBadge href="/?path=/docs/tabs-v1--default" />
+
+<div className="subheading">API</div>
+
+```xml
+<Tabs>
+  <Tab label="Tab 1">
+    Content 1
+  </Tab>
+  <Tab label="Tab 2">
+    Content 2
+  </Tab>
+</Tabs>
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Only 2 components (<code>Tabs</code> and <code>Tab</code>)</li>
+  <li>All information about a tab is at the same place in the code</li>
+  <li>Very simple implementation</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li><code>label</code> is prop (cf. <a href="/?path=/docs/tabs-v1--with-icons">icons as labels</a>)</li>
+  <li>Not very customizable</li>
+</ul>
+
+## Version 2
+
+<TryBadge href="/?path=/docs/tabs-v2--default" />
+
+<div className="subheading">API</div>
+
+```xml
+<Tabs>
+  <TabList>
+    <Tab>Tab 1</Tab>
+    <Tab>Tab 2</Tab>
+  </TabList>
+  <TabContent>
+    <div>Content 1</div>
+    <div>Content 2</div>
+  </TabContent>
+</Tabs>
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>The components follow their natural flow, no need to access the <code>Tabs</code> grand-children to render them separately</li>
+  <li>Customizable (relocate tabs in relation to content, inclusion of other components in the midst, <a href="/?path=/docs/tabs-v2--with-icons">label as tabs</a>, ...)</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>Split between label and content</li>
+  <li>Loads of components</li>
+  <li>More complex implementation (with <code>Context</code>)</li>
+</ul>
+
+<hr />
+<a className="read-more" href="https://octo.atlassian.net/l/c/rc1M1GdG">Read more here</a>
