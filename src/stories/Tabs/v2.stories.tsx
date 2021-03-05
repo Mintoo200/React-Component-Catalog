@@ -80,3 +80,17 @@ WithIcons.args = {
 
   ],
 }
+
+export const BottomTabs = Template.bind({})
+BottomTabs.args = {
+  children: [
+    <TabContent key="TabContent">
+      <div>Content 1</div>
+      <div>Content 2</div>
+    </TabContent>,
+    <TabList key="TabList">
+      <Tab>Tab1</Tab>
+      <Tab>Tab2</Tab>
+    </TabList>,
+  ],
+}
