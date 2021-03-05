@@ -27,6 +27,7 @@ const Tabs = ({ children }: Props): JSX.Element => {
     })
   })
 
+  /* Renders hidden tabs with `display: none;` */
   return (
     <div>
       <div className="tabs">{tabs}</div>
@@ -39,6 +40,14 @@ const Tabs = ({ children }: Props): JSX.Element => {
       ))}
     </div>
   )
+  /* Renders only the current tab
+  * return (
+  *   <div>
+  *     <div className="tabs">{tabs}</div>
+  *     {content[currentTab]}
+  *   </div>
+  * )
+  */
 }
 
 export default Tabs

@@ -7,10 +7,24 @@ type Props = {
 
 const TabContent = ({ children }: Props): JSX.Element => {
   const { activeIndex } = useContext(Context)
+  /* Renders only the current tab */
   return (
     <div className="content">
       {children[activeIndex]}
     </div>
   )
+  /* Renders hidden tabs with `display: none;`
+  * return (
+  *   <div className="content">
+  *     {React.Children.map(children, (child, index) => (
+  *       <div
+  *         key={index}
+  *         className={`content ${activeIndex === index ? '' : 'content-hidden'}`}>
+  *         {child}
+  *       </div>
+  *     ))}
+  *   </div>
+  * )
+  */
 }
 export default TabContent
