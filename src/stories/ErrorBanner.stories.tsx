@@ -14,7 +14,7 @@ export default {
   },
 }
 
-const Template: Story<ErrorBannerProps> = (args): JSX.Element => <ErrorBanner {...args} />
+const Template: Story<ErrorBannerProps> = (args) => <ErrorBanner {...args} />
 
 export const Default = Template.bind({})
 Default.args = {

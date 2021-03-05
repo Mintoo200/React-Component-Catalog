@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNodeArray,
 }
 
-const TabContent = ({ children }: Props): JSX.Element => {
+const TabContent: React.FC<Props> = ({ children }) => {
   const { activeIndex } = useContext(Context)
   /* Renders only the current tab */
   return (

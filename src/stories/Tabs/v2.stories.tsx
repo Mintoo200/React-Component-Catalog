@@ -46,7 +46,7 @@ export default {
   },
 }
 
-const Template: Story<TabsProps> = (args): JSX.Element => <Tabs {...args} />
+const Template: Story<TabsProps> = (args) => <Tabs {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
