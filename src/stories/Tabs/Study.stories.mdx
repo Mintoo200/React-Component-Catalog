@@ -8,6 +8,7 @@ import Plugin from '../assets/plugin.svg';
 import Repo from '../assets/repo.svg';
 import StackAlt from '../assets/stackalt.svg';
 import TryBadge from '../assets/Badges/TryBadge'
+import DeprecatedBadge from '../assets/Badges/DeprecatedBadge'
 import Tip from '../assets/Banners/Tip'
 
 import '../style.css'
@@ -15,6 +16,37 @@ import '../style.css'
 <Meta title="Tabs/Study" />
 
 # The <code>Tabs</code> Component
+
+## Version 0
+
+<TryBadge href="/?path=/docs/tabs-v0-deprecated--default" />
+<DeprecatedBadge />
+
+<div className="subheading">API</div>
+
+```xml
+const content = [
+  {label: 'Tab 1', content: 'Content 1'},
+  {label: 'Tab 2', content: 'Content 2'},
+]
+<Tabs tabs={content} />
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Quick to implement</li>
+  <li>Only one component</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li><code>label</code> is prop (cf. <a href="/?path=/docs/tabs-v0--with-icons">icons as labels</a>)</li>
+  <li>Not customizable at all</li>
+</ul>
+
+
+
+<hr />
 
 <Tip><p>The following versions have two render methods possible for the content of the tab: conditionally render the content <em>or</em> render all tabs hidden except the current one.
 To switch between render methods, check the source code.</p></Tip>
