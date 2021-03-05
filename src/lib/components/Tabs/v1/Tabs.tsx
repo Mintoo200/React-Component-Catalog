@@ -6,7 +6,10 @@ export type Props = {
   children: React.ReactElement|React.ReactElement[],
 }
 
-const Tabs = ({ children }: Props): JSX.Element => {
+// Can't use React.FC here because it assumes the type of children
+// and in this instance, since we use the children's children to render
+// the content, we can't have React.ReactNode and need React.ReactElements
+const Tabs = ({ children }: Props): React.ReactElement => {
   const [currentTab, setCurrentTab] = useState(0)
 
   const content: React.ReactNode[] = []

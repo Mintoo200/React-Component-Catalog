@@ -11,9 +11,9 @@ type Props = {
   onKeyPress?: () => void,
 }
 
-const Tab = ({
+const Tab: React.FC<Props> = ({
   active = false, children, label, onClick, onKeyPress,
-}: Props): JSX.Element => (
+}) => (
   <>
     <button
       tabIndex={0}

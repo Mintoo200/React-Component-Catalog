@@ -6,7 +6,7 @@ type Props = {
   onClick?: () => void,
 }
 
-const Tab = ({ children, active = false, onClick }: Props): JSX.Element => (
+const Tab: React.FC<Props> = ({ children, active = false, onClick }) => (
   <button
     type="button"
     className={`tab ${active ? 'tab-active' : ''}`}
