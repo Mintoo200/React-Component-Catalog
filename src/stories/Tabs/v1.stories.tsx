@@ -25,6 +25,13 @@ export default {
   title: 'Tabs/v1',
   component: Tabs,
   parameters: {
+    componentSource: {
+      url: [
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FTabs%2Fv1%2FTabs%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2flib%2fcomponents%2fTabs%2fv1%2fTab%2Etsx/raw?ref=master',
+      ],
+      language: 'javascript',
+    },
     docs: {
       description: {
         component: documentation,

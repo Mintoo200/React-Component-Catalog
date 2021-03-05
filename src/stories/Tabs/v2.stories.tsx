@@ -29,6 +29,15 @@ export default {
   title: 'Tabs/v2',
   component: Tabs,
   parameters: {
+    componentSource: {
+      url: [
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FTabs%2Fv2%2FTabs%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FTabs%2Fv2%2FTabList%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2flib%2fcomponents%2fTabs%2fv2%2fTab%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2flib%2fcomponents%2fTabs%2fv2%2fTabContent%2Etsx/raw?ref=master',
+      ],
+      language: 'javascript',
+    },
     docs: {
       description: {
         component: documentation,
