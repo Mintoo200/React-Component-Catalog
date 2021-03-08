@@ -1,0 +1,27 @@
+/*
+Classes disponibles mais non utilisées pour le moment
+.accordeon{}
+.accordeon__item{}
+.accordeon__panel{}
+*/
+
+.accordeon__label{
+  font-weight: bold;
+  border: none;
+  background: none;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.accordeon__image{
+  width: auto;
+}
+
+.isButtonActive{
+  color: darkturquoise;
+  cursor: pointer;
+}
+
+.isButtonInactive{
+  color: dimgray;
+  cursor: pointer;
+}
