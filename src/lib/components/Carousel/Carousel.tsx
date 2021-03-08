@@ -5,8 +5,8 @@ import NoContextError from '../Errors/NoContextError'
 import './style.css'
 
 const CarouselContext = React.createContext({
-  slideComponent: [],
-  setSlideComponent: (() => { throw new NoContextError() }) as Dispatch<[]>,
+  slideComponent: [] as React.ReactNode[],
+  setSlideComponent: (() => { throw new NoContextError() }) as Dispatch<React.ReactNode[]>,
   isPlaying: false,
   setIsPlaying: (() => { throw new NoContextError() }) as Dispatch<boolean>,
   currentIndex: 0,
@@ -14,26 +14,26 @@ const CarouselContext = React.createContext({
 })
 
 export type CarouselProps = {
-  children: React.ReactElement,
+  children: React.ReactElement|React.ReactElement[],
   isPlaying?: boolean,
 }
 
 export const Carousel = ({ children, isPlaying = false }: CarouselProps): React.ReactElement => {
-  const [slideComponent, setSlideComponent] = useState([])
+  const [slideComponent, setSlideComponent] = useState([] as React.ReactNode[])
   const [isCurrentlyPlaying, setIsCurrentlyPlaying] = useState(isPlaying)
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const carouselContext = {
     slideComponent,
-    setSlideComponent: (value) => setSlideComponent(value),
+    setSlideComponent: (value: React.ReactNode[]) => setSlideComponent(value),
     isPlaying: isCurrentlyPlaying,
-    setIsPlaying: (value) => setIsCurrentlyPlaying(value),
+    setIsPlaying: (value: boolean) => setIsCurrentlyPlaying(value),
     currentIndex,
-    setCurrentIndex: (value) => setCurrentIndex(value),
+    setCurrentIndex: (value: number) => setCurrentIndex(value),
   }
 
   const carouselChildren = React.Children.map(children, (child) => React.cloneElement(child, {
-    onNumberOfSlidesChanged: (newNumber) => setSlideComponent(newNumber),
+    onNumberOfSlidesChanged: (newNumber: React.ReactNode[]) => setSlideComponent(newNumber),
   }))
 
   return (
@@ -44,11 +44,11 @@ export const Carousel = ({ children, isPlaying = false }: CarouselProps): React.
 }
 
 export type SlidesProps = {
-  children: React.ReactNode,
+  children: React.ReactNode[],
   onNumberOfSlidesChanged?: (_: React.ReactNode) => void,
 }
 
-export const Slides: React.FC<SlidesProps> = ({ children, onNumberOfSlidesChanged }) => {
+export const Slides = ({ children, onNumberOfSlidesChanged }: SlidesProps): React.ReactElement => {
   const { currentIndex, setCurrentIndex, isPlaying } = useContext(CarouselContext)
   const numberOfSlidesChildren = React.Children.count(children)
 
@@ -114,10 +114,10 @@ export const SlideNav: React.FC<SlideNavProps> = ({ className, navType }) => (
 )
 
 export type PlayPauseProps = {
-  children: React.ReactNode,
+  children: React.ReactNode[],
 }
 
-export const PlayPause: React.FC<PlayPauseProps> = ({ children }) => {
+export const PlayPause = ({ children }: PlayPauseProps): React.ReactElement => {
   const { isPlaying, setIsPlaying } = useContext(CarouselContext)
 
   return (
