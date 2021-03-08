@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import './style.css'
 
@@ -12,6 +12,12 @@ const Overlay: React.FC<Props> = ({ children, isOpen = false, onClose }) => {
   const handleEscape = useCallback((event: React.KeyboardEvent|KeyboardEvent) => {
     if (event.key === 'Escape') { onClose() }
   }, [])
+  useEffect(() => {
+    document.addEventListener('keypress', handleEscape, false)
+    return () => {
+      document.removeEventListener('keypress', handleEscape, false)
+    }
+  })
   return (
     <div
       tabIndex={0}
