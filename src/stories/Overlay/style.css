@@ -1,0 +1,14 @@
+.overlay-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-content {
+  background: white;
+  width: fit-content;
+  height: fit-content;
+  opacity: 1;
+}
