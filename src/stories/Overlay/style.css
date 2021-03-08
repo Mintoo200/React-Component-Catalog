@@ -1,0 +1,60 @@
+.overlay-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-content {
+  background: white;
+  width: fit-content;
+  height: fit-content;
+  opacity: 1;
+}
+
+.modal {
+  background: white;
+  border-radius: 1em;
+}
+
+.header {
+  display: flex;
+}
+
+.header>h3 {
+  flex-grow: 1;
+  margin-top: 0;
+}
+
+.quit {
+  height: fit-content;
+  width: fit-content;
+}
+
+.modal-content {
+  width: 100%;
+  height: 100%;
+}
+
+.tutorial-bubble {
+	max-width: 15em;
+	background-color: #fff;
+	padding: 1.125em 1.5em;
+	border-radius: 1rem;
+  box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+}
+
+.tutorial-bubble:before {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	bottom: 100%;
+	left: 1.5em;
+	border: .75rem solid transparent;
+	border-top: none;
+
+	border-bottom-color: #fff;
+	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
+}
