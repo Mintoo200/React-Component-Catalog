@@ -32,7 +32,7 @@ export const Accordeon = ({ children, isOpen = 0 }: AccordeonProps): React.React
       return React.cloneElement(child, {
         activeIndex,
         indexAccordeonItem: index,
-        onActiveLabel: (newActiveIndex) => { setActiveIndex(newActiveIndex) },
+        onActiveLabel: (newActiveIndex: number) => { setActiveIndex(newActiveIndex) },
       })
     }
     return child
