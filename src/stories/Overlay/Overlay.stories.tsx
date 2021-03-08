@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Story } from '@storybook/react'
 import Overlay, { Props as OverlayProps } from '../../lib/components/Overlay/Overlay'
 
@@ -113,4 +113,64 @@ CustomModal.args = {
       </div>
     </div>,
   ],
+}
+
+// Tutorial with custom template to allow refs
+
+const TutorialComponent = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const button = useRef(null)
+  const offset = button.current && button.current.getBoundingClientRect()
+  return (
+    <>
+      <button type="button" onClick={() => setIsOpen(true)} ref={button}>Try Me!</button>
+      <Overlay isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <div
+          style={{
+            position: 'fixed',
+            top: offset && (offset.top + offset.height + 15),
+            left: offset && offset.left,
+          }}
+          className="tutorial-bubble">
+          When you click on this button, this tutorial pop-up appears
+        </div>
+      </Overlay>
+    </>
+  )
+}
+
+const Template2: Story<Record<string, never>> = (args) => <TutorialComponent {...args} />
+
+const code = `
+const TutorialComponent = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const button = useRef(null)
+  const offset = button.current && button.current.getBoundingClientRect()
+  return (
+    <>
+      <button type="button" onClick={() => setIsOpen(true)} ref={button}>Try Me!</button>
+      <Overlay isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <div
+          style={{
+            position: 'fixed',
+            top: offset && (offset.top + offset.height + 15),
+            left: offset && offset.left,
+          }}
+          className="tutorial-bubble">
+          When you click on this button, this tutorial pop-up appears
+        </div>
+      </Overlay>
+    </>
+  )
+}
+`
+
+export const Tutorial = Template2.bind({})
+Tutorial.args = {}
+Tutorial.parameters = {
+  docs: {
+    source: {
+      code,
+    },
+  },
 }
