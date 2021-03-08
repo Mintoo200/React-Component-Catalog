@@ -74,3 +74,43 @@ Default.args = {
     </div>,
   ],
 }
+
+export const CustomModal = Template.bind({})
+CustomModal.args = {
+  children: [
+    <div className="overlay-wrapper">
+      <div
+        className="modal"
+        onClick={(event: React.MouseEvent) => event.stopPropagation()}
+        onKeyPress={() => null}
+        role="presentation">
+        <div className="header">
+          <h3>Welcome to my custom modal!</h3>
+          <button
+            className="quit"
+            type="button"
+            onClick={() => {
+              // very dirty but Storybook's interface doesn't really
+              // allow me to control my component
+              const event = new KeyboardEvent('keypress', {
+                key: 'Escape',
+              })
+              document.dispatchEvent(event)
+            }}>
+            x
+          </button>
+        </div>
+        <hr />
+        <div className="modal-content">
+          There is an input for example:
+          <br />
+          <input placeholder="You can type in here if you want :)" />
+          <br />
+          also, a submit button that does nothing:
+          <br />
+          <button type="submit">Submit</button>
+        </div>
+      </div>
+    </div>,
+  ],
+}
