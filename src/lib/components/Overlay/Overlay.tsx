@@ -13,9 +13,9 @@ const Overlay: React.FC<Props> = ({ children, isOpen = false, onClose }) => {
     if (event.key === 'Escape') { onClose() }
   }, [])
   useEffect(() => {
-    document.addEventListener('keypress', handleEscape, false)
+    document.addEventListener('keydown', handleEscape, false)
     return () => {
-      document.removeEventListener('keypress', handleEscape, false)
+      document.removeEventListener('keydown', handleEscape, false)
     }
   })
   return (
