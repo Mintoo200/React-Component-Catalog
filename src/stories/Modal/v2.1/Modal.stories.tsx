@@ -60,3 +60,14 @@ Default.args = {
     </ModalContent>,
   ],
 }
+
+export const withNonModal = Template.bind({})
+withNonModal.args = {
+  children: [
+    <ModalTitle>This is my modal</ModalTitle>,
+    <ModalContent>
+      Try clicking outside of the modal or pressing &lsquo;Escape&rsquo;!
+    </ModalContent>,
+    <div>This is neither in &lsquo;ModalTitle&rsquo; nor in &lsquo;ModalContent&rsquo;.</div>,
+  ],
+}
