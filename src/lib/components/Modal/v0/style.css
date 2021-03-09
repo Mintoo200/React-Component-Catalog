@@ -1,0 +1,35 @@
+/******* MODAL *******/
+.btnClose{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnClose > button{
+  background: none;
+  border: none;
+  color: #22483C;
+  font-weight: bolder;
+}
+
+.overlay{
+  min-height: 100vh;
+  min-width: 100vh;
+  backdrop-filter: brightness(60%);
+  opacity: 0.7;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal{
+  background: whitesmoke;
+  border: 1px solid darkgrey;
+  padding: 1rem;
+  margin: auto;
+  width: 50%;
+  z-index: 2;
+  position: relative;
+}

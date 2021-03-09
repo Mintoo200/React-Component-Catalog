@@ -1,35 +1,29 @@
-/******* MODAL *******/
-.btnClose{
+.overlay-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
 }
 
-.btnClose > button{
-  background: none;
+.modal {
+  width: fit-content;
+  height: fit-content;
+  background: white;
+  border-radius: 1em;
+}
+
+.modal-title {
+  display: flex;
+}
+
+.modal-title-content {
+  flex-grow: 1;
+  font-size: large;
+  margin: 0;
+}
+
+.modal-quit-button {
+  height: fit-content;
+  width: fit-content;
   border: none;
-  color: #22483C;
-  font-weight: bolder;
-}
-
-.overlay{
-  min-height: 100vh;
-  min-width: 100vh;
-  backdrop-filter: brightness(60%);
-  opacity: 0.7;
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.modal{
-  background: whitesmoke;
-  border: 1px solid darkgrey;
-  padding: 1rem;
-  margin: auto;
-  width: 50%;
-  z-index: 2;
-  position: relative;
+  background: none;
 }
