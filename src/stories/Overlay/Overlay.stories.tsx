@@ -92,7 +92,7 @@ CustomModal.args = {
             onClick={() => {
               // very dirty but Storybook's interface doesn't really
               // allow me to control my component
-              const event = new KeyboardEvent('keypress', {
+              const event = new KeyboardEvent('keydown', {
                 key: 'Escape',
               })
               document.dispatchEvent(event)
