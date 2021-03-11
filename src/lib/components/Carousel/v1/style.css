@@ -32,3 +32,8 @@
 .dot-active {
   background: grey;
 }
+
+.controls {
+  display: flex;
+  justify-content: space-evenly;
+}
