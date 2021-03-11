@@ -24,7 +24,6 @@ Courtesy of LETO (Camille Toulouse) \n
   </div>
 </Carousel>
 \`\`\`
-learn more [here](/story/carousel-study--page#version-2)
 `
 
 export default {
