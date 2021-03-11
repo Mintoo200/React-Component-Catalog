@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import Carousel, {
   CarouselProps, Next, PlayPause, Previous, Slide, SlideNav, Slides,
-} from '../../lib/components/Carousel/Carousel'
+} from '../../../lib/components/Carousel/v0/Carousel'
 
 const documentation = `
 Courtesy of LETO (Camille Toulouse) \n
@@ -24,11 +24,10 @@ Courtesy of LETO (Camille Toulouse) \n
   </div>
 </Carousel>
 \`\`\`
-learn more [here](/story/carousel-study--page#version-2)
 `
 
 export default {
-  title: 'Carousel/Carousel',
+  title: 'Carousel/v0',
   component: Carousel,
   argTypes: {
     isPlaying: {
@@ -38,7 +37,7 @@ export default {
   parameters: {
     componentSource: {
       url: [
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FCarousel%2FCarousel%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FCarousel%2Fv0%2FCarousel%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },
