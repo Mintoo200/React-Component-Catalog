@@ -5,7 +5,7 @@ import Slides from '../../../lib/components/Carousel/v1/Slides'
 import Slide from '../../../lib/components/Carousel/v1/Slide'
 import Dots from '../../../lib/components/Carousel/v1/Dots'
 import Controls from '../../../lib/components/Carousel/v1/Controls'
-import { Next, Previous } from '../../../lib/components/Carousel/v1/Buttons'
+import { Next, Play, Previous } from '../../../lib/components/Carousel/v1/Buttons'
 
 export default {
   title: 'Carousel/v1',
@@ -26,6 +26,7 @@ Default.args = {
       <Dots />
       <Controls>
         <Previous />
+        <Play />
         <Next />
       </Controls>
     </Slides>,
@@ -45,6 +46,7 @@ controlsOutside.args = {
     <Dots />,
     <Controls>
       <Previous />
+      <Play />
       <Next />
     </Controls>,
   ],
@@ -60,6 +62,7 @@ controlsInTheMiddle.args = {
       <Dots />
       <Controls>
         <Previous />
+        <Play />
         <Next />
       </Controls>
       <Slide><img src="https://picsum.photos/id/1003/200/200" alt="Oh deer!" /></Slide>
