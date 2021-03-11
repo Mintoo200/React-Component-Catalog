@@ -26,7 +26,7 @@ export default {
     controls: { hideNoControlsWarning: true },
     componentSource: {
       url: [
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2FModal%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv0%2FModal%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },
