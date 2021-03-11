@@ -1,0 +1,13 @@
+.slides {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+}
+
+.slide {
+}
+
+.slide-hidden {
+  display: none;
+}
