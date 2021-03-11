@@ -44,7 +44,7 @@ const Slides: React.FC<Props> = ({ children }) => {
   }, [isPlaying, currentSlide])
 
   return (
-    <div className="slides">{processedChildren}</div>
+    <div className="slides">{slideCount > 0 ? processedChildren : 'No slides'}</div>
   )
 }
 
