@@ -7,7 +7,7 @@ const Dots: React.FC = () => {
   return (
     <ul className="dots">
       {[...Array(slideCount)].map((_, index) => (
-        <li>
+        <li key={index}>
           <button
             className="dot-button"
             type="button"
