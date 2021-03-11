@@ -8,7 +8,9 @@ export type Props = {
 }
 
 const Slides: React.FC<Props> = ({ children }) => {
-  const { currentSlide, dispatch } = useContext(Context)
+  const {
+    currentSlide, isPlaying, timer, dispatch,
+  } = useContext(Context)
   let slideCount = 0
   const processedChildren = React.Children.map(children, (child) => {
     if (React.isValidElement(child)
@@ -29,6 +31,17 @@ const Slides: React.FC<Props> = ({ children }) => {
       slideCount,
     })
   }, [JSON.stringify(children)])
+  useEffect(() => {
+    if (isPlaying) {
+      const timeout = setTimeout(() => {
+        dispatch({
+          type: ReducerActions.nextSlide,
+        })
+      }, timer)
+      return () => clearTimeout(timeout)
+    }
+    return null
+  }, [isPlaying, currentSlide])
 
   return (
     <div className="slides">{processedChildren}</div>

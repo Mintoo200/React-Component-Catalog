@@ -6,6 +6,7 @@ export type Action = {
   type: ReducerActions,
   slideCount?: number,
   slideIndex?: number,
+  timer?: number,
 }
 
 export enum ReducerActions {
@@ -13,6 +14,8 @@ export enum ReducerActions {
   previousSlide,
   setCurrentSlide,
   setSlideCount,
+  togglePlay,
+  setPlayTimer,
 }
 
 export const Reducer: ReducerType<ContextType, Action> = (state, action) => {
@@ -42,6 +45,18 @@ export const Reducer: ReducerType<ContextType, Action> = (state, action) => {
         currentSlide: (state.currentSlide < action.slideCount)
           ? state.currentSlide
           : action.slideCount - 1,
+      }
+
+    case ReducerActions.togglePlay:
+      return {
+        ...state,
+        isPlaying: !state.isPlaying,
+      }
+
+    case ReducerActions.setPlayTimer:
+      return {
+        ...state,
+        timer: action.timer,
       }
 
     default:

@@ -2,6 +2,20 @@ import React, { useContext } from 'react'
 import Context from './Context'
 import { ReducerActions } from './Reducer'
 
+export const Play: React.FC = () => {
+  const { isPlaying, dispatch } = useContext(Context)
+
+  return (
+    <button
+      onClick={() => dispatch({
+        type: ReducerActions.togglePlay,
+      })}
+      type="button">
+      {isPlaying ? 'Pause' : 'Play'}
+    </button>
+  )
+}
+
 export const Next: React.FC = () => {
   const { dispatch } = useContext(Context)
   return (
