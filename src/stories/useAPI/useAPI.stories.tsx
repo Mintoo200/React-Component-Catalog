@@ -142,3 +142,17 @@ MultipleAPI.args = {
     <MultiAPIComponent2 />,
   ],
 }
+
+export const withToken = Template.bind({})
+withToken.args = {
+  url: 'https://gitlab.com/api/v4',
+  APIClass: MyAPI,
+  token: 'your token goes here',
+  children: [
+    <div>
+      By checking the Network tab of the dev tools,
+      you can see that the header &ldquo;Authorization&rdquo; was added
+    </div>,
+    <SingleAPIComponent />,
+  ],
+}
