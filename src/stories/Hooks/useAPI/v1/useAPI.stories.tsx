@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Story } from '@storybook/react'
 import { AxiosResponse } from 'axios'
-import useAPI from '../../../lib/hooks/useAPI/useAPI'
-import APIContext, { Props as APIContextProps } from '../../../lib/hooks/useAPI/Context'
-import { APIClassConstructor } from '../../../lib/hooks/useAPI/APIClass'
-import MyAPI from './MyAPI'
-import MySecondAPI from './MySecondAPI'
-import makeCancelable from '../../../lib/CancelablePromise'
-import CanceledError from '../../../lib/errors/CanceledError'
+import useAPI from '../../../../lib/hooks/useAPI/v1/useAPI'
+import APIContext, { Props as APIContextProps } from '../../../../lib/hooks/useAPI/v1/Context'
+import { APIClassConstructor } from '../../../../lib/hooks/useAPI/APIClass'
+import MyAPI from '../MyAPI'
+import MySecondAPI from '../MySecondAPI'
+import makeCancelable from '../../../../lib/CancelablePromise'
+import CanceledError from '../../../../lib/errors/CanceledError'
 
 const documentation = `
 ## API
@@ -69,7 +69,7 @@ class MyAPI extends APIClass {
 `
 
 export default {
-  title: 'Hooks/useAPI/useAPI',
+  title: 'Hooks/useAPI/v1 - Either Single or Multi',
   parameters: {
     componentSource: {
       url: [
