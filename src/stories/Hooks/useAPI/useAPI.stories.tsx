@@ -6,47 +6,29 @@ import APIContext, { Props as APIContextProps } from '../../../lib/hooks/useAPI/
 import { APIClassConstructor } from '../../../lib/hooks/useAPI/APIClass'
 import MyAPI from './MyAPI'
 import MySecondAPI from './MySecondAPI'
+import makeCancelable from '../../../lib/CancelablePromise'
+import CanceledError from '../../../lib/errors/CanceledError'
 
 export default {
   title: 'Hooks/useAPI/useAPI',
-}
-
-type CancelablePromise<ReturnType> = {
-  promise: Promise<ReturnType>,
-  cancel: () => void,
-}
-
-function makeCancelable<ReturnType>(promise: Promise<ReturnType>): CancelablePromise<ReturnType> {
-  let hasCanceled = false
-
-  const wrappedPromise = new Promise<ReturnType>((resolve, reject) => {
-    promise.then(
-      (val) => ((hasCanceled) ? reject(new Error('Canceled')) : resolve(val)),
-      (error) => ((hasCanceled) ? reject(new Error('Canceled')) : reject(error)),
-    )
-  })
-
-  return {
-    promise: wrappedPromise,
-    cancel() {
-      hasCanceled = true
-    },
-  }
 }
 
 const SingleAPIComponent: React.FC<{timeout?: boolean}> = ({ timeout = false }) => {
   const [file, setFile] = useState(null as string)
   const API = useAPI<MyAPI>()
   useEffect(() => {
-    let promise = null as CancelablePromise<AxiosResponse>
-    if (timeout) {
-      promise = makeCancelable<AxiosResponse>(API.getFileWithTimeout())
-    } else {
-      promise = makeCancelable<AxiosResponse>(API.getFile())
-    }
-    promise.promise.then((response) => setFile(response.data))
-      .catch(() => null)
-    return () => promise.cancel()
+    const cancelablePromise = makeCancelable<AxiosResponse>(
+      (timeout) ? API.getFileWithTimeout() : API.getFile(),
+    )
+    cancelablePromise.promise.then((response) => setFile(response.data))
+      .catch((error) => {
+        if (error instanceof CanceledError) {
+          // Muting CanceledError since it is the expected behavior
+          return null
+        }
+        throw error
+      })
+    return () => cancelablePromise.cancel()
   }, [])
   return (
     <div style={{ whiteSpace: 'pre' }}>
