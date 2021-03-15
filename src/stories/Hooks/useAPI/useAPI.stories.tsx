@@ -71,6 +71,14 @@ class MyAPI extends APIClass {
 export default {
   title: 'Hooks/useAPI/useAPI',
   parameters: {
+    componentSource: {
+      url: [
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2FContext%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2FAPIClass%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2FuseAPI%2Etsx/raw?ref=master',
+      ],
+      language: 'javascript',
+    },
     docs: {
       description: {
         component: documentation,
