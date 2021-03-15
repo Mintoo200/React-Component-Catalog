@@ -28,7 +28,7 @@ const App: React.FC = () => {
 \`\`\`
 \`\`\`tsx
 class MyAPI extends APIClass {
-  getMyResource() {
+  async getMyResource() {
     return this.axios.get('/my-resource')
   }
 }
@@ -61,7 +61,7 @@ const App: React.FC = () => {
 \`\`\`
 \`\`\`tsx
 class MyAPI extends APIClass {
-  getMyResource() {
+  async getMyResource() {
     return this.axios.get('/my-resource')
   }
 }
