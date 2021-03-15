@@ -9,8 +9,74 @@ import MySecondAPI from './MySecondAPI'
 import makeCancelable from '../../../lib/CancelablePromise'
 import CanceledError from '../../../lib/errors/CanceledError'
 
+const documentation = `
+## API
+
+### single API
+\`\`\`tsx
+<APIProvider url="root.of.your/api" APIClass={MyAPI}>
+  <App />
+</APIProvider>
+\`\`\`
+\`\`\`tsx
+const App: React.FC = () => {
+  const API = useAPI<MyAPI>()
+  return (
+    ...
+  )
+}
+\`\`\`
+\`\`\`tsx
+class MyAPI extends APIClass {
+  getMyResource() {
+    return this.axios.get('/my-resource')
+  }
+}
+\`\`\`
+
+### multiple APIs
+\`\`\`tsx
+<APIProvider APIs={[
+    {
+      name: 'My First API'
+      url: 'root.of.your/api',
+      APIClass: MyAPI,
+    },
+    {
+      name: 'My Second API'
+      url: 'root.of.your/second/api',
+      APIClass: MySecondAPI,
+    },
+  ]}>
+  <App />
+</APIProvider>
+\`\`\`
+\`\`\`tsx
+const App: React.FC = () => {
+  const API = useAPI<MyAPI>('My First API')
+  return (
+    ...
+  )
+}
+\`\`\`
+\`\`\`tsx
+class MyAPI extends APIClass {
+  getMyResource() {
+    return this.axios.get('/my-resource')
+  }
+}
+\`\`\`
+`
+
 export default {
   title: 'Hooks/useAPI/useAPI',
+  parameters: {
+    docs: {
+      description: {
+        component: documentation,
+      },
+    },
+  },
 }
 
 const SingleAPIComponent: React.FC<{timeout?: boolean}> = ({ timeout = false }) => {
