@@ -88,8 +88,8 @@ const SingleAPIComponent: React.FC<{timeout?: boolean}> = ({ timeout = false }) 
     )
     cancelablePromise.promise.then((response) => setFile(response.data))
       .catch((error) => {
-        if (error instanceof CanceledError) {
-          // Muting CanceledError since it is the expected behavior
+        if (error instanceof CanceledError || (error.response && error.response.status === 401)) {
+          // Muting CanceledError and Unauthorized since it is the expected behavior
           return null
         }
         throw error
