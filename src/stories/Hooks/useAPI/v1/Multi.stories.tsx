@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Story } from '@storybook/react'
 import { AxiosResponse } from 'axios'
-import useAPI from '../../../../lib/hooks/useAPI/v1/useAPI'
-import APIContext, { Props as APIContextProps } from '../../../../lib/hooks/useAPI/v1/Context'
+import useAPI from '../../../../lib/hooks/useAPI/v1/Multi/useAPI'
+import APIContext, { Props as APIContextProps } from '../../../../lib/hooks/useAPI/v1/Multi/Context'
 import { APIClassConstructor } from '../../../../lib/hooks/useAPI/APIClass'
 import MyAPI from '../MyAPI'
 import MySecondAPI from '../MySecondAPI'
@@ -69,13 +69,13 @@ class MyAPI extends APIClass {
 `
 
 export default {
-  title: 'Hooks/useAPI/v1 - Either Single or Multi',
+  title: 'Hooks/useAPI/v1 - APIs as props',
   parameters: {
     componentSource: {
       url: [
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv1%2FContext%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv1%2FMulti%2FContext%2Etsx/raw?ref=master',
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2FAPIClass%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv1%2FuseAPI%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv1%2FMulti%2FuseAPI%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },

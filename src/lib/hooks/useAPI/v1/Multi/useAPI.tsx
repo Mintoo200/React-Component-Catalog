@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import BaseAPIClass from '../APIClass'
+import BaseAPIClass from '../../APIClass'
 import { Context } from './Context'
 
 // FIXME: The generic type T does not exist at runtime,
