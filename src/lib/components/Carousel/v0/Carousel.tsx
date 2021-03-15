@@ -1,7 +1,7 @@
 import React, {
   useState, useContext, useEffect, Dispatch,
 } from 'react'
-import NoContextError from '../../Errors/NoContextError'
+import NoContextError from '../../../errors/NoContextError'
 import './style.css'
 
 const CarouselContext = React.createContext({

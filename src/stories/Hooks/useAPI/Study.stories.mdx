@@ -1,0 +1,202 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import Code from '../../assets/code-brackets.svg';
+import Colors from '../../assets/colors.svg';
+import Comments from '../../assets/comments.svg';
+import Direction from '../../assets/direction.svg';
+import Flow from '../../assets/flow.svg';
+import Plugin from '../../assets/plugin.svg';
+import Repo from '../../assets/repo.svg';
+import StackAlt from '../../assets/stackalt.svg';
+import TryBadge from '../../assets/Badges/TryBadge'
+import DeprecatedBadge from '../../assets/Badges/DeprecatedBadge'
+import Tip from '../../assets/Banners/Tip'
+
+import '../../style.css'
+
+<Meta title="Hooks/useAPI/Study" />
+
+# The <code>useAPI</code> Hook
+
+<Tip>
+  We recommand using an `enum` when you have multiple APIs to keep track of their names:
+</Tip>
+
+```tsx
+enum APIs {
+  myFirstAPI="My first API",
+  mySecondAPI="My second API",
+}
+```
+```tsx
+const App = () => {
+  const API = useAPI<MyAPIClass>(APIs.myFirstAPI)
+  return (
+    ...
+  )
+}
+```
+
+## Version 1 — APIs as props
+
+<TryBadge href="?path=/docs/hooks-useapi-v1-apis-as-props--default" />
+
+<Tip>If your project only uses one API (like most projects that include a custom backend), please consider using <a href="/?path=/docs/hooks-useapi-study--page#version-1--only-single-api">this implementation</a></Tip>
+
+<div className="subheading">API</div>
+
+```tsx
+class MyAPI extends APIClass {
+  async getMyResource() {
+    return this.axios.get('/my-resource')
+  }
+}
+```
+
+### single API
+```tsx
+<APIProvider url="root.of.your/api" APIClass={MyAPI}>
+  <App />
+</APIProvider>
+```
+```tsx
+const App: React.FC = () => {
+  const API = useAPI<MyAPI>()
+  return (
+    ...
+  )
+}
+```
+
+### multiple APIs
+```tsx
+<APIProvider APIs={[
+    {
+      name: 'My First API'
+      url: 'root.of.your/api',
+      APIClass: MyAPI,
+    },
+    {
+      name: 'My Second API'
+      url: 'root.of.your/second/api',
+      APIClass: MySecondAPI,
+    },
+  ]}>
+  <App />
+</APIProvider>
+```
+```tsx
+const App: React.FC = () => {
+  const API = useAPI<MyAPI>('My First API')
+  return (
+    ...
+  )
+}
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>(relatively) Quick to implement</li>
+  <li>Support for either one or multiple APIs</li>
+  <li>Interface affordance, custom component API for single API</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>Very complex typing</li>
+  <li>Plenty of big props</li>
+</ul>
+
+## Version 1 — Only Single API
+
+<TryBadge href="?path=/docs/hooks-useapi-v1-only-single-api--default" />
+
+<div className="subheading">API</div>
+
+```tsx
+<APIProvider url="root.of.your/api" APIClass={MyAPI}>
+  <App />
+</APIProvider>
+```
+```tsx
+const App: React.FC = () => {
+  const API = useAPI<MyAPI>()
+  return (
+    ...
+  )
+}
+```
+```tsx
+class MyAPI extends APIClass {
+  async getMyResource() {
+    return this.axios.get('/my-resource')
+  }
+}
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Same concept as <a href="/?path=/docs/hooks-useapi-study--page#version-1--apis-as-props">Version 1</a> but simpler implementation</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>Only support one API</li>
+</ul>
+
+## Version 2 — APIs as Components
+
+<TryBadge href="/?path=/docs/hooks-useapi-v2-apis-as-components--default" />
+
+<div className="subheading">API</div>
+
+```tsx
+class MyAPI extends APIClass {
+  async getMyResource() {
+    return this.axios.get('/my-resource')
+  }
+}
+```
+
+### single API
+```tsx
+<APIProvider>
+  <API url="root.of.your/api" APIClass={MyAPI} />
+  <App />
+</APIProvider>
+```
+```tsx
+const App: React.FC = () => {
+  const API = useAPI<MyAPI>()
+  return (
+    ...
+  )
+}
+```
+
+### multiple APIs
+```tsx
+<APIProvider>
+  <API name="My First API" url="root.of.your/api" APIClass={MyAPI} />
+  <API name="My Second API" url="root.of.your/second/api" APIClass={MySecondAPI} />
+  <App />
+</APIProvider>
+```
+```tsx
+const App: React.FC = () => {
+  const API = useAPI<MyAPI>('My First API')
+  return (
+    ...
+  )
+}
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Almost native support for multiple APIs</li>
+  <li>Very affordant</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>More components</li>
+</ul>

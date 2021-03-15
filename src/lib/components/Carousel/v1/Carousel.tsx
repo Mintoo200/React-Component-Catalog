@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import NoContextError from '../../Errors/NoContextError'
+import NoContextError from '../../../errors/NoContextError'
 import Context from './Context'
 import Reducer, { ReducerActions } from './Reducer'
 

@@ -1,5 +1,5 @@
 import React, { Dispatch } from 'react'
-import NoContextError from '../../Errors/NoContextError'
+import NoContextError from '../../../errors/NoContextError'
 import { Action } from './Reducer'
 
 export type ContextType = {

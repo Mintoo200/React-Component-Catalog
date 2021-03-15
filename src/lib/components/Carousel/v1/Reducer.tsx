@@ -1,5 +1,5 @@
 import { Reducer as ReducerType } from 'react'
-import InvalidActionError from '../../Errors/InvalidActionError'
+import InvalidActionError from '../../../errors/InvalidActionError'
 import { ContextType } from './Context'
 
 export type Action = {

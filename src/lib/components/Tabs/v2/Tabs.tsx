@@ -1,5 +1,5 @@
 import React, { useState, Dispatch } from 'react'
-import NoContextError from '../../Errors/NoContextError'
+import NoContextError from '../../../errors/NoContextError'
 
 import '../style.css'
 
