@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import Accordion, {
   AccordeonItem, AccordeonLabel, AccordeonPanel, AccordeonProps,
-} from '../../lib/components/Accordion/Accordion'
+} from '../../../lib/components/Accordion/Accordion'
 
 const documentation = `
 Courtesy of LETO (Camille Toulouse) \n
@@ -33,7 +33,7 @@ learn more [here](/story/accordion-study--page#version-2)
 `
 
 export default {
-  title: 'Accordion/Accordion',
+  title: 'Components/Accordion/Accordion',
   component: Accordion,
   argTypes: {
     isOpen: {

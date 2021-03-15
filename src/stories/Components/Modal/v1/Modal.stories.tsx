@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
-import Modal, { Props as ModalProps } from '../../../lib/components/Modal/v1/Modal'
+import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v1/Modal'
 
 const documentation = `
 ## API
@@ -13,7 +13,7 @@ learn more [here](/story/modal-study--page#version-1)
 `
 
 export default {
-  title: 'Modal/v1',
+  title: 'Components/Modal/v1',
   component: Modal,
   argTypes: {
     isOpen: {

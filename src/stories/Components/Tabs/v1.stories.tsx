@@ -1,10 +1,10 @@
 import React from 'react'
 import { Story } from '@storybook/react'
-import Tabs, { Props as TabsProps } from '../../lib/components/Tabs/v1/Tabs'
-import Tab from '../../lib/components/Tabs/v1/Tab'
+import Tabs, { Props as TabsProps } from '../../../lib/components/Tabs/v1/Tabs'
+import Tab from '../../../lib/components/Tabs/v1/Tab'
 
-import { ReactComponent as CodeBrackets } from '../assets/code-brackets.svg'
-import { ReactComponent as Comments } from '../assets/comments.svg'
+import { ReactComponent as CodeBrackets } from '../../assets/code-brackets.svg'
+import { ReactComponent as Comments } from '../../assets/comments.svg'
 
 const documentation = `
 ## API
@@ -22,7 +22,7 @@ learn more [here](/story/tabs-study--page#version-1)
 `
 
 export default {
-  title: 'Tabs/v1',
+  title: 'Components/Tabs/v1',
   component: Tabs,
   parameters: {
     componentSource: {

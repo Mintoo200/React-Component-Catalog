@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import APIClass from '../../lib/hooks/useAPI/APIClass'
+import APIClass from '../../../lib/hooks/useAPI/APIClass'
 
 class mySecondAPI extends APIClass {
   async getFile(): Promise<AxiosResponse> {

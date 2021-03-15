@@ -1,11 +1,11 @@
 import React from 'react'
 import { Story } from '@storybook/react'
-import Carousel, { Props as CarouselProps } from '../../../lib/components/Carousel/v1/Carousel'
-import Slides from '../../../lib/components/Carousel/v1/Slides'
-import Slide from '../../../lib/components/Carousel/v1/Slide'
-import Dots from '../../../lib/components/Carousel/v1/Dots'
-import Controls from '../../../lib/components/Carousel/v1/Controls'
-import { Next, Play, Previous } from '../../../lib/components/Carousel/v1/Buttons'
+import Carousel, { Props as CarouselProps } from '../../../../lib/components/Carousel/v1/Carousel'
+import Slides from '../../../../lib/components/Carousel/v1/Slides'
+import Slide from '../../../../lib/components/Carousel/v1/Slide'
+import Dots from '../../../../lib/components/Carousel/v1/Dots'
+import Controls from '../../../../lib/components/Carousel/v1/Controls'
+import { Next, Play, Previous } from '../../../../lib/components/Carousel/v1/Buttons'
 
 const documentation = `
 ## API
@@ -29,7 +29,7 @@ const documentation = `
 `
 
 export default {
-  title: 'Carousel/v1',
+  title: 'Components/Carousel/v1',
   component: Carousel,
   parameters: {
     componentSource: {

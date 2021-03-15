@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
-import Modal, { Props as ModalProps } from '../../../lib/components/Modal/v2/Modal'
-import ModalContent from '../../../lib/components/Modal/v2/ModalContent'
-import ModalTitle from '../../../lib/components/Modal/v2/ModalTitle'
+import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v2/Modal'
+import ModalContent from '../../../../lib/components/Modal/v2/ModalContent'
+import ModalTitle from '../../../../lib/components/Modal/v2/ModalTitle'
 
 const documentation = `
 ## API
@@ -16,7 +16,7 @@ learn more [here](/story/modal-study--page#version-2)
 `
 
 export default {
-  title: 'Modal/v2',
+  title: 'Components/Modal/v2',
   component: Modal,
   argTypes: {
     isOpen: {

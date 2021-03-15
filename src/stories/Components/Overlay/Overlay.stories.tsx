@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Story } from '@storybook/react'
-import Overlay, { Props as OverlayProps } from '../../lib/components/Overlay/Overlay'
+import Overlay, { Props as OverlayProps } from '../../../lib/components/Overlay/Overlay'
 
 import './style.css'
 
@@ -25,7 +25,7 @@ learn more [here](/story/overlay-study--page)
 `
 
 export default {
-  title: 'Overlay/Overlay',
+  title: 'Components/Overlay/Overlay',
   component: Overlay,
   argTypes: {
     isOpen: {

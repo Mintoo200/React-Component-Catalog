@@ -1,12 +1,12 @@
 import React from 'react'
 import { Story } from '@storybook/react'
-import Tabs, { Props as TabsProps } from '../../lib/components/Tabs/v2/Tabs'
-import TabList from '../../lib/components/Tabs/v2/TabList'
-import TabContent from '../../lib/components/Tabs/v2/TabContent'
-import Tab from '../../lib/components/Tabs/v2/Tab'
+import Tabs, { Props as TabsProps } from '../../../lib/components/Tabs/v2/Tabs'
+import TabList from '../../../lib/components/Tabs/v2/TabList'
+import TabContent from '../../../lib/components/Tabs/v2/TabContent'
+import Tab from '../../../lib/components/Tabs/v2/Tab'
 
-import { ReactComponent as CodeBrackets } from '../assets/code-brackets.svg'
-import { ReactComponent as Comments } from '../assets/comments.svg'
+import { ReactComponent as CodeBrackets } from '../../assets/code-brackets.svg'
+import { ReactComponent as Comments } from '../../assets/comments.svg'
 
 const documentation = `
 ## API
@@ -26,7 +26,7 @@ learn more [here](/story/tabs-study--page#version-2)
 `
 
 export default {
-  title: 'Tabs/v2',
+  title: 'Components/Tabs/v2',
   component: Tabs,
   parameters: {
     componentSource: {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import Carousel, {
   CarouselProps, Next, PlayPause, Previous, Slide, SlideNav, Slides,
-} from '../../../lib/components/Carousel/v0/Carousel'
+} from '../../../../lib/components/Carousel/v0/Carousel'
 
 const documentation = `
 Courtesy of LETO (Camille Toulouse) \n
@@ -27,7 +27,7 @@ Courtesy of LETO (Camille Toulouse) \n
 `
 
 export default {
-  title: 'Carousel/v0',
+  title: 'Components/Carousel/v0',
   component: Carousel,
   argTypes: {
     isPlaying: {

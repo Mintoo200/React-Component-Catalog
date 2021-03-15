@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Story } from '@storybook/react'
 import { AxiosResponse } from 'axios'
-import useAPI from '../../lib/hooks/useAPI/useAPI'
-import APIContext, { Props as APIContextProps } from '../../lib/hooks/useAPI/Context'
-import { APIClassConstructor } from '../../lib/hooks/useAPI/APIClass'
+import useAPI from '../../../lib/hooks/useAPI/useAPI'
+import APIContext, { Props as APIContextProps } from '../../../lib/hooks/useAPI/Context'
+import { APIClassConstructor } from '../../../lib/hooks/useAPI/APIClass'
 import MyAPI from './MyAPI'
 import MySecondAPI from './MySecondAPI'
 
 export default {
-  title: 'useAPI/useAPI',
+  title: 'Hooks/useAPI/useAPI',
 }
 
 type CancelablePromise<ReturnType> = {

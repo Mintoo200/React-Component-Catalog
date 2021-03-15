@@ -1,9 +1,9 @@
 import React from 'react'
 import { Story } from '@storybook/react'
-import Tabs, { Props as TabsProps } from '../../lib/components/Tabs/v0/Tabs'
+import Tabs, { Props as TabsProps } from '../../../lib/components/Tabs/v0/Tabs'
 
-import { ReactComponent as CodeBrackets } from '../assets/code-brackets.svg'
-import { ReactComponent as Comments } from '../assets/comments.svg'
+import { ReactComponent as CodeBrackets } from '../../assets/code-brackets.svg'
+import { ReactComponent as Comments } from '../../assets/comments.svg'
 
 const documentation = `
 ## API
@@ -18,7 +18,7 @@ learn more [here](/story/tabs-study--page#version-0)
 `
 
 export default {
-  title: 'Tabs/v0 [DEPRECATED]',
+  title: 'Components/Tabs/v0 [DEPRECATED]',
   component: Tabs,
   parameters: {
     componentSource: {
