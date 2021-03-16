@@ -60,7 +60,7 @@ class MyAPI extends APIClass {
 `
 
 export default {
-  title: 'Hooks/useAPI/v2 - APIs as components',
+  title: 'Hooks/useAPI/v2 ⭐ - APIs as components',
   parameters: {
     componentSource: {
       url: [
