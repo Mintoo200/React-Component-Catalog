@@ -18,7 +18,7 @@ learn more [here](/story/components-tabs-study--page#version-0---tabs-as-props)
 `
 
 export default {
-  title: 'Components/Tabs/v0 [DEPRECATED] - Tabs as props',
+  title: 'Components/Tabs/v0 🚫 - Tabs as props',
   component: Tabs,
   parameters: {
     componentSource: {

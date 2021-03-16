@@ -16,7 +16,7 @@ learn more [here](/story/components-modal-study--page#version-21---sub-component
 `
 
 export default {
-  title: 'Components/Modal/v2.1 - Sub-components with Context',
+  title: 'Components/Modal/v2.1 ⭐ - Sub-components with Context',
   component: Modal,
   argTypes: {
     isOpen: {
