@@ -22,11 +22,11 @@ const documentation = `
   </TabContent>
 </Tabs>
 \`\`\`
-learn more [here](/story/tabs-study--page#version-2)
+learn more [here](/story/components-tabs-study--page#version-2---sub-components)
 `
 
 export default {
-  title: 'Components/Tabs/v2',
+  title: 'Components/Tabs/v2 - Sub-components',
   component: Tabs,
   parameters: {
     componentSource: {

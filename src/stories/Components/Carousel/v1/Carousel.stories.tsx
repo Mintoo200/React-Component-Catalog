@@ -29,7 +29,7 @@ const documentation = `
 `
 
 export default {
-  title: 'Components/Carousel/v1',
+  title: 'Components/Carousel/v1 - By Gauthier',
   component: Carousel,
   parameters: {
     componentSource: {

@@ -18,11 +18,11 @@ const documentation = `
   </Tab>
 </Tabs>
 \`\`\`
-learn more [here](/story/tabs-study--page#version-1)
+learn more [here](/story/components-tabs-study--page#version-1---labels-as-props)
 `
 
 export default {
-  title: 'Components/Tabs/v1',
+  title: 'Components/Tabs/v1 - Labels as props',
   component: Tabs,
   parameters: {
     componentSource: {

@@ -12,11 +12,11 @@ const documentation = `
   <ModalContent>Try clicking outside of the modal or pressing 'Escape'!</ModalContent>
 </Modal>
 \`\`\`
-learn more [here](/story/modal-study--page#version-2)
+learn more [here](/story/components-modal-study--page#version-2---sub-components)
 `
 
 export default {
-  title: 'Components/Modal/v2',
+  title: 'Components/Modal/v2 - Sub-components',
   component: Modal,
   argTypes: {
     isOpen: {
