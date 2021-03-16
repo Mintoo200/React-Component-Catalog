@@ -9,11 +9,11 @@ const documentation = `
   Try clicking outside of the modal or pressing 'Escape'!
 </Modal>
 \`\`\`
-learn more [here](/story/modal-study--page#version-1)
+learn more [here](/story/components-modal-study--page#version-1---title-as-prop)
 `
 
 export default {
-  title: 'Components/Modal/v1',
+  title: 'Components/Modal/v1 - Title as prop',
   component: Modal,
   argTypes: {
     isOpen: {

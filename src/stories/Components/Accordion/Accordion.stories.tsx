@@ -29,11 +29,10 @@ Courtesy of LETO (Camille Toulouse) \n
   </AccordeonItem>
 </Accordeon>
 \`\`\`
-learn more [here](/story/accordion-study--page#version-2)
 `
 
 export default {
-  title: 'Components/Accordion/Accordion',
+  title: 'Components/Accordion/Accordion - By Camille',
   component: Accordion,
   argTypes: {
     isOpen: {

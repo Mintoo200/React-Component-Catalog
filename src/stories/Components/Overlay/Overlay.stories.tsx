@@ -20,8 +20,6 @@ const childClickHandler = (event: React.MouseEvent) => {
   event.stopPropagation()
 }
 \`\`\`
-
-learn more [here](/story/overlay-study--page)
 `
 
 export default {

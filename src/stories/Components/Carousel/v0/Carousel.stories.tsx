@@ -27,7 +27,7 @@ Courtesy of LETO (Camille Toulouse) \n
 `
 
 export default {
-  title: 'Components/Carousel/v0',
+  title: 'Components/Carousel/v0 - By Camille',
   component: Carousel,
   argTypes: {
     isPlaying: {

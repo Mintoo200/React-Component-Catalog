@@ -11,11 +11,11 @@ Courtesy of LETO (Camille Toulouse) \n
   <div>Try clicking outside of the modal!</div>
 </Modal>
 \`\`\`
-learn more [here](/story/modal-study--page#version-1)
+learn more [here](/story/components-modal-study--page#version-0---by-camille)
 `
 
 export default {
-  title: 'Components/Modal/v0',
+  title: 'Components/Modal/v0 - By Camille',
   component: Modal,
   argTypes: {
     isOpen: {
