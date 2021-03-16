@@ -18,18 +18,24 @@ import '../../style.css'
 # The <code>useAPI</code> Hook
 
 <Tip>
-  We recommand using an `enum` when you have multiple APIs to keep track of their names:
+  I recommand using an object literal or enum when you have multiple APIs to keep track of their names:
 </Tip>
 
 ```tsx
-enum APIs {
-  myFirstAPI="My first API",
-  mySecondAPI="My second API",
+const APIs = {
+  myFirstAPI: {
+    name: 'My first API',
+    class: MyAPIClass,
+  },
+  mySecondAPI: {
+    name: 'My second API',
+    class: MySecondAPIClass,
+  },
 }
 ```
 ```tsx
 const App = () => {
-  const API = useAPI<MyAPIClass>(APIs.myFirstAPI)
+  const API = useAPI<APIs.myFirstAPI.class>(APIs.myFirstAPI.name)
   return (
     ...
   )
