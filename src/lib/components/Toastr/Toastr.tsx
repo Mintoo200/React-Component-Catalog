@@ -7,10 +7,11 @@ export type Props = {
   isOpen?: boolean,
   onClose?: () => void,
   timer?: number,
+  onClick?: () => void,
 }
 
 const Toastr: React.FC<Props> = ({
-  children, isOpen = false, onClose = null, timer = null,
+  children, isOpen = false, onClose = null, timer = null, onClick = null,
 }) => {
   useEffect(() => {
     if (timer != null) {
@@ -22,6 +23,16 @@ const Toastr: React.FC<Props> = ({
     }
     return null
   }, [isOpen])
+  if (onClick != null) {
+    return (
+      <div
+        className={`toastr ${isOpen ? '' : 'hidden'}`}
+        onClick={onClick}
+        role="presentation">
+        {children}
+      </div>
+    )
+  }
   return (
     <div className={`toastr ${isOpen ? '' : 'hidden'}`}>
       {children}
