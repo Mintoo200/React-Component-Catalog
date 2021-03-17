@@ -25,3 +25,22 @@ const TemplateWithButton: Story<ToastrProps> = (args) => {
 export const Default = TemplateWithButton.bind({})
 Default.args = {
 }
+
+const TemplateWithTimer: Story<ToastrProps> = (args) => {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)} type="button">
+        Open toastr
+      </button>
+      <Toastr {...args} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+    </>
+  )
+}
+export const withTimer = TemplateWithTimer.bind({})
+withTimer.args = {
+  children: [
+    <div>Hello</div>,
+  ],
+  timer: 1000,
+}
