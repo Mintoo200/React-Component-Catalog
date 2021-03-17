@@ -26,7 +26,7 @@ export const Default = TemplateWithButton.bind({})
 Default.args = {
 }
 
-const TemplateWithTimer: Story<ToastrProps> = (args) => {
+const Template: Story<ToastrProps> = (args) => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
@@ -37,10 +37,20 @@ const TemplateWithTimer: Story<ToastrProps> = (args) => {
     </>
   )
 }
-export const withTimer = TemplateWithTimer.bind({})
+export const withTimer = Template.bind({})
 withTimer.args = {
   children: [
     <div>Hello</div>,
   ],
   timer: 1000,
+}
+
+export const withClickHandler = Template.bind({})
+withClickHandler.args = {
+  children: [
+    <div>Hello</div>,
+  ],
+  timer: 3000,
+  /* eslint-disable no-alert */
+  onClick: () => alert('You clicked'),
 }
