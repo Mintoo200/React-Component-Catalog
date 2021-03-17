@@ -7,15 +7,14 @@ const Dots: React.FC = () => {
   return (
     <ul className="dots">
       {[...Array(slideCount)].map((_, index) => (
-        <li key={index}>
+        <li key={index} className="dot-item">
           <button
-            className="dot-button"
             type="button"
             onClick={() => dispatch({
               type: ReducerActions.setCurrentSlide,
               slideIndex: index,
             })}>
-            <div className={`dot ${currentSlide === index ? 'dot-active' : ''}`} />
+            <div className={`dot ${currentSlide === index ? 'active' : ''}`} />
           </button>
         </li>
       ))}
