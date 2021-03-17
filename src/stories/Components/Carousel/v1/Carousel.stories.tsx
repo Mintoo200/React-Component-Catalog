@@ -9,7 +9,7 @@ import { Next, Play, Previous } from '../../../../lib/components/Carousel/v1/But
 
 const documentation = `
 ## API
-\`\`\`xml
+\`\`\`tsx
 <Carousel isPlaying={true}>
   <Slides>
     <Slide><img src="https://picsum.photos/id/237/200/200" alt="A good boi" /></Slide>

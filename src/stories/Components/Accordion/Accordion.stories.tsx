@@ -7,7 +7,7 @@ import Accordion, {
 const documentation = `
 Courtesy of LETO (Camille Toulouse) \n
 ## API
-\`\`\`xml
+\`\`\`tsx
 <Accordeon isOpen={-1}>
   <AccordeonItem>
     <AccordeonLabel>My first item</AccordeonLabel>

@@ -7,7 +7,7 @@ import Carousel, {
 const documentation = `
 Courtesy of LETO (Camille Toulouse) \n
 ## API
-\`\`\`xml
+\`\`\`tsx
 <Carousel isPlaying={true}>
   <Slides>
     <Slide><img className="slide" src="https://picsum.photos/id/1002/300" alt="random"/></Slide>

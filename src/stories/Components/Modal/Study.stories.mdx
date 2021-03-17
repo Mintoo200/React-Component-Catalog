@@ -17,8 +17,8 @@ Courtesy on LETO (Camille Toulouse)
 
 <div className="subheading">API</div>
 
-```xml
-<Modal {...args} isOpen={isOpen} onModalClosed={() => setIsOpen(false)}>
+```tsx
+<Modal isOpen={isOpen} onModalClosed={() => setIsOpen(false)}>
   <ModalButtonClose>x</ModalButtonClose>
   <div>Try clicking outside of the modal!</div>
 </Modal>
@@ -32,7 +32,7 @@ Very similar to <a href="/?path=/docs/components-modal-study--page#version-2---s
 
 <div className="subheading">API</div>
 
-```xml
+```tsx
 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Title">
   Try clicking outside of the modal or pressing 'Escape'!
 </Modal>
@@ -56,7 +56,7 @@ Very similar to <a href="/?path=/docs/components-modal-study--page#version-2---s
 
 <div className="subheading">API</div>
 
-```xml
+```tsx
 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
   <ModalTitle>My title</ModalTitle>
   <ModalContent>Try clicking outside of the modal or pressing 'Escape'!</ModalContent>

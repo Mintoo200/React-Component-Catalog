@@ -6,7 +6,7 @@ import ModalTitle from '../../../../lib/components/Modal/v2/ModalTitle'
 
 const documentation = `
 ## API
-\`\`\`xml
+\`\`\`tsx
 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
   <ModalTitle>My title</ModalTitle>
   <ModalContent>Try clicking outside of the modal or pressing 'Escape'!</ModalContent>
