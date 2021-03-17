@@ -21,7 +21,7 @@ const Overlay: React.FC<Props> = ({ children, isOpen = false, onClose }) => {
   return (
     <div
       tabIndex={0}
-      className={`overlay ${isOpen ? '' : 'overlay-hidden'}`}
+      className={`overlay ${isOpen ? '' : 'hidden'}`}
       onClick={onClose}
       onKeyPress={handleEscape}
       role="button">

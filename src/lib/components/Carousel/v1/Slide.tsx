@@ -6,7 +6,7 @@ export type Props = {
 }
 
 const Slide: React.FC<Props> = ({ isActive = false, children }) => (
-  <div className={`slide ${isActive ? '' : 'slide-hidden'}`}>
+  <div className={`slide ${isActive ? '' : 'hidden'}`}>
     {children}
   </div>
 )

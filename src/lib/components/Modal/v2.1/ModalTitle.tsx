@@ -9,16 +9,15 @@ const ModalTitle: React.FC<Props> = ({ children }) => {
   const { onClose } = useContext(Context)
   return (
     <>
-      <div className="modal-title">
-        <h1 className="modal-title-content">{children}</h1>
+      <div className="title">
+        <h1>{children}</h1>
         <button
-          className="modal-quit-button"
+          className="quit"
           type="button"
           onClick={onClose}>
           x
         </button>
       </div>
-      <hr />
     </>
   )
 }

@@ -9,6 +9,6 @@
   display: flex;
 }
 
-.overlay-hidden {
+.overlay.hidden {
   display: none;
 }

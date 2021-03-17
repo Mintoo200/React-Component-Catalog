@@ -11,17 +11,18 @@
   border-radius: 1em;
 }
 
-.modal-title {
+.modal .title {
   display: flex;
+  border-bottom: 1px solid black;
 }
 
-.modal-title-content {
+.modal .title h1 {
   flex-grow: 1;
   font-size: large;
   margin: 0;
 }
 
-.modal-quit-button {
+.modal .quit {
   height: fit-content;
   width: fit-content;
   border: none;
