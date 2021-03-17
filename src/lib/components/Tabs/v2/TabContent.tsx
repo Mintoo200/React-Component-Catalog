@@ -19,7 +19,7 @@ const TabContent: React.FC<Props> = ({ children }) => {
   *     {React.Children.map(children, (child, index) => (
   *       <div
   *         key={index}
-  *         className={`content ${activeIndex === index ? '' : 'content-hidden'}`}>
+  *         className={`content ${activeIndex === index ? '' : 'hidden'}`}>
   *         {child}
   *       </div>
   *     ))}

@@ -11,14 +11,16 @@ type Props = {
 const TabList = ({ children }: Props): React.ReactElement => {
   const { activeIndex, setActiveIndex } = useContext(Context)
   return (
-    <div className="tabs">
+    <ul className="tabs">
       {React.Children.map(children, (child, index) => (
-        React.cloneElement(child, {
-          active: activeIndex === index,
-          onClick: () => setActiveIndex(index),
-        })
+        <li key={index} className="tab">
+          {React.cloneElement(child, {
+            active: activeIndex === index,
+            onClick: () => setActiveIndex(index),
+          })}
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 
