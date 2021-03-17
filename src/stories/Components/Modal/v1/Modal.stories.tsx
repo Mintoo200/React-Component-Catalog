@@ -4,7 +4,7 @@ import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v1/
 
 const documentation = `
 ## API
-\`\`\`xml
+\`\`\`tsx
 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Title">
   Try clicking outside of the modal or pressing 'Escape'!
 </Modal>

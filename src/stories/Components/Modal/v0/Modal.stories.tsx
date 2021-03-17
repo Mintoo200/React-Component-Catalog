@@ -5,8 +5,8 @@ import Modal, { ModalButtonClose, ModalProps } from '../../../../lib/components/
 const documentation = `
 Courtesy of LETO (Camille Toulouse) \n
 ## API
-\`\`\`xml
-<Modal {...args} isOpen={isOpen} onModalClosed={() => setIsOpen(false)}>
+\`\`\`tsx
+<Modal isOpen={isOpen} onModalClosed={() => setIsOpen(false)}>
   <ModalButtonClose>x</ModalButtonClose>
   <div>Try clicking outside of the modal!</div>
 </Modal>

@@ -10,7 +10,7 @@ import { ReactComponent as Comments } from '../../assets/comments.svg'
 
 const documentation = `
 ## API
-\`\`\`xml
+\`\`\`tsx
 <Tabs>
   <TabList>
     <Tab>Tab 1</Tab>
