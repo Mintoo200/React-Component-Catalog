@@ -10,8 +10,12 @@ export type Props = {
 
 const AutoComplete: React.FC<Props> = ({ children, onSubmit }) => {
   const [currentInput, setCurrentInput] = useState('')
+  const [hasFocus, setHasFocus] = useState(false)
   return (
-    <div className="autocomplete">
+    <div
+      className="autocomplete"
+      onFocus={() => setHasFocus(true)}
+      onBlur={() => setHasFocus(false)}>
       <Context.Provider value={{
         currentInput,
         setCurrentInput,
@@ -19,6 +23,8 @@ const AutoComplete: React.FC<Props> = ({ children, onSubmit }) => {
           setCurrentInput(value)
           onSubmit(value)
         },
+        hasFocus,
+        setHasFocus,
       }}>
         {children}
       </Context.Provider>

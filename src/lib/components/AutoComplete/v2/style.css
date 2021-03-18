@@ -8,6 +8,10 @@
   border: 1px solid black;
 }
 
+.options.hidden {
+  display: none;
+}
+
 .option.hidden {
   display: none;
 }

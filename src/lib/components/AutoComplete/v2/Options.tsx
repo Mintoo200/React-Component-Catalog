@@ -25,9 +25,9 @@ const childrenMatch = (node: React.ReactElement, input: string) => (
 )
 
 const Options: React.FC<Props> = ({ children }) => {
-  const { currentInput, onSubmit } = useContext(Context)
+  const { currentInput, onSubmit, hasFocus } = useContext(Context)
   return (
-    <ol className="options">
+    <ol className={`options ${hasFocus ? '' : 'hidden'}`}>
       {React.Children.map(children, (child) => (
         // is an option but does not match the input
         (isOption(child))

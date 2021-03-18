@@ -13,7 +13,8 @@ const Option: React.FC<Props> = ({
   <li className={`option ${hidden ? 'hidden' : ''}`}>
     <button
       type="button"
-      onClick={onClick}>
+      // MouseDown fires before focus loss
+      onMouseDown={onClick}>
       {children ?? value}
     </button>
   </li>
