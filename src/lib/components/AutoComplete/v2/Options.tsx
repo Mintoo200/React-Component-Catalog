@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import Context from './Context'
 import Option from './Option'
+import { ReducerActions } from './Reducer'
 
 export type Props = {
   children: React.ReactNode,
@@ -25,7 +26,7 @@ const childrenMatch = (node: React.ReactElement, input: string) => (
 )
 
 const Options: React.FC<Props> = ({ children }) => {
-  const { currentInput, onSubmit, hasFocus } = useContext(Context)
+  const { currentInput, dispatch, hasFocus } = useContext(Context)
   return (
     <ol className={`options ${hasFocus ? '' : 'hidden'}`}>
       {React.Children.map(children, (child) => (
@@ -34,9 +35,12 @@ const Options: React.FC<Props> = ({ children }) => {
           ? (valueMatch(child, currentInput)
             || childrenMatch(child, currentInput))
             ? React.cloneElement(child, {
-              onClick: () => {
-                onSubmit(child.props.value ?? child.props.children)
-              },
+              onClick: () => (
+                dispatch({
+                  type: ReducerActions.submit,
+                  input: child.props.value ?? child.props.children,
+                })
+              ),
             })
             : React.cloneElement(child, {
               hidden: true,

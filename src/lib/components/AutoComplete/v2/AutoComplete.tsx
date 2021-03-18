@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
+import NoContextError from '../../../errors/NoContextError'
 import Context from './Context'
+import Reducer, { ReducerActions } from './Reducer'
 
 import './style.css'
 
@@ -9,22 +11,20 @@ export type Props = {
 }
 
 const AutoComplete: React.FC<Props> = ({ children, onSubmit }) => {
-  const [currentInput, setCurrentInput] = useState('')
-  const [hasFocus, setHasFocus] = useState(false)
+  const [state, dispatch] = useReducer(Reducer, {
+    currentInput: '',
+    hasFocus: false,
+    onSubmit,
+    dispatch: () => { throw new NoContextError() },
+  })
   return (
     <div
       className="autocomplete"
-      onFocus={() => setHasFocus(true)}
-      onBlur={() => setHasFocus(false)}>
+      onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
+      onBlur={() => dispatch({ type: ReducerActions.lostFocus })}>
       <Context.Provider value={{
-        currentInput,
-        setCurrentInput,
-        onSubmit: (value) => {
-          setCurrentInput(value)
-          onSubmit(value)
-        },
-        hasFocus,
-        setHasFocus,
+        ...state,
+        dispatch,
       }}>
         {children}
       </Context.Provider>
