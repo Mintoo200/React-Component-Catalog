@@ -13,6 +13,7 @@ stages:
   - lint
   - test
   - build
+  - deploy
 
 lint:
   stage: lint
@@ -57,3 +58,16 @@ build-storybook:
     - yarn build-storybook
   only:
     - master
+
+pages:
+  stage: deploy
+  only:
+    - master
+  dependencies:
+    - build-storybook
+  script:
+    - rm -rf public
+    - mv storybook-static public
+  artifacts:
+    paths:
+      - public
