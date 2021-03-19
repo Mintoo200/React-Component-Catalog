@@ -7,11 +7,17 @@ export enum ReducerActions {
   submit,
   gotFocus,
   lostFocus,
+  setOptions,
+  focusNext,
+  focusPrevious,
+  setFocussed,
 }
 
 export type Action = {
   type: ReducerActions
   input?: string,
+  options?: string[],
+  index?: number,
 }
 
 const Reducer: ReducerType<ContextType, Action> = (state, action) => {
@@ -20,14 +26,19 @@ const Reducer: ReducerType<ContextType, Action> = (state, action) => {
       return {
         ...state,
         currentInput: action.input,
+        focussedItem: -1,
       }
 
     case ReducerActions.submit:
-      state.onSubmit(action.input)
-      return {
-        ...state,
-        currentInput: action.input,
+      if (state.focussedItem !== -1) {
+        state.onSubmit(state.options[state.focussedItem])
+        return {
+          ...state,
+          currentInput: state.options[state.focussedItem],
+        }
       }
+      state.onSubmit(state.currentInput)
+      return state
 
     case ReducerActions.gotFocus:
       return {
@@ -39,6 +50,35 @@ const Reducer: ReducerType<ContextType, Action> = (state, action) => {
       return {
         ...state,
         hasFocus: false,
+      }
+
+    case ReducerActions.setOptions:
+      return {
+        ...state,
+        options: action.options,
+        focussedItem: -1,
+      }
+
+    case ReducerActions.focusNext:
+      return {
+        ...state,
+        focussedItem: ((state.focussedItem + 2) % (state.options.length + 1)) - 1,
+      }
+
+    case ReducerActions.focusPrevious:
+      return {
+        ...state,
+        focussedItem: (state.focussedItem === -1)
+          ? state.options.length - 1
+          : state.focussedItem - 1,
+      }
+
+    case ReducerActions.setFocussed:
+      /* eslint-disable */
+      console.log(action.index)
+      return {
+        ...state,
+        focussedItem: action.index,
       }
 
     default:

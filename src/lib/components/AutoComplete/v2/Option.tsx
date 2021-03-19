@@ -5,12 +5,14 @@ export type Props = {
   value?: string,
   onClick?: () => void,
   hidden?: boolean,
+  focussed?: boolean,
+  onHover?: () => void,
 }
 
 const Option: React.FC<Props> = ({
-  children = null, value = null, onClick, hidden = false,
+  children = null, value = null, onClick, hidden = false, focussed = false, onHover,
 }) => (
-  <li className={`option ${hidden ? 'hidden' : ''}`}>
+  <li className={`option ${hidden ? 'hidden' : ''} ${focussed ? 'focussed' : ''}`} onMouseEnter={onHover}>
     <button
       type="button"
       // MouseDown fires before focus loss

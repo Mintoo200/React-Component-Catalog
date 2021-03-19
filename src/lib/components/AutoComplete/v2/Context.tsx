@@ -6,6 +6,8 @@ export type ContextType = {
   currentInput: string,
   onSubmit: (value: string) => void,
   hasFocus?: boolean,
+  options?: string[],
+  focussedItem: number,
   dispatch: React.Dispatch<Action>,
 }
 
@@ -13,6 +15,7 @@ const Context = React.createContext({
   currentInput: '',
   onSubmit: () => { throw new NoContextError() },
   hasFocus: false,
+  focussedItem: -1,
   dispatch: () => { throw new NoContextError() },
 } as ContextType)
 
