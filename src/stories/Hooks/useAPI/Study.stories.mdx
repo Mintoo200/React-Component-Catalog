@@ -2,6 +2,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 import TryBadge from '../../assets/Badges/TryBadge'
 import DeprecatedBadge from '../../assets/Badges/DeprecatedBadge'
 import Tip from '../../assets/Banners/Tip'
+import LinkTo from '@storybook/addon-links/react';
 
 import '../../style.css'
 
@@ -36,9 +37,9 @@ const App = () => {
 
 ## Version 1 — APIs as props
 
-<TryBadge href="?path=/docs/hooks-useapi-v1-apis-as-props--default" />
+<TryBadge kind="hooks-useapi-v1-apis-as-props" story="default" />
 
-<Tip>If your project only uses one API (like most projects that include a custom backend), please consider using <a href="/?path=/docs/hooks-useapi-study--page#version-1--only-single-api">this implementation</a></Tip>
+<Tip>If your project only uses one API (like most projects that include a custom backend), please consider using <a href="#version-1--only-single-api">this implementation</a></Tip>
 
 <div className="subheading">API</div>
 
@@ -106,7 +107,7 @@ const App: React.FC = () => {
 
 ## Version 1 — Only Single API
 
-<TryBadge href="?path=/docs/hooks-useapi-v1-only-single-api--default" />
+<TryBadge kind="hooks-useapi-v1-only-single-api" story="default" />
 
 <div className="subheading">API</div>
 
@@ -133,7 +134,7 @@ class MyAPI extends APIClass {
 
 <div className="subheading">Advantages</div>
 <ul>
-  <li>Same concept as <a href="/?path=/docs/hooks-useapi-study--page#version-1--apis-as-props">Version 1</a> but simpler implementation</li>
+  <li>Same concept as <a href="#version-1--apis-as-props">Version 1</a> but simpler implementation</li>
 </ul>
 
 <div className="subheading">Drawbacks</div>
@@ -143,7 +144,7 @@ class MyAPI extends APIClass {
 
 ## Version 2 — APIs as Components
 
-<TryBadge href="/?path=/docs/hooks-useapi-v2-⭐-apis-as-components--default" />
+<TryBadge kind="hooks-useapi-v2-⭐-apis-as-components" story="default" />
 
 <div className="subheading">API</div>
 

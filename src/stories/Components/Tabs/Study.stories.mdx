@@ -2,6 +2,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 import TryBadge from '../../assets/Badges/TryBadge'
 import DeprecatedBadge from '../../assets/Badges/DeprecatedBadge'
 import Tip from '../../assets/Banners/Tip'
+import LinkTo from '@storybook/addon-links/react';
 
 import '../../style.css'
 
@@ -11,7 +12,7 @@ import '../../style.css'
 
 ## Version 0 - Tabs as props
 
-<TryBadge href="/?path=/docs/components-tabs-v0-🚫-tabs-as-props--default" />
+<TryBadge kind="components-tabs-v0-🚫-tabs-as-props" story="default" />
 <DeprecatedBadge />
 
 <div className="subheading">API</div>
@@ -33,7 +34,7 @@ const content = [
 
 <div className="subheading">Drawbacks</div>
 <ul>
-  <li><code>label</code> is prop (cf. <a href="/?path=/docs/components-tabs-v0-🚫-tabs-as-props--with-icons">icons as labels</a>)</li>
+  <li><code>label</code> is prop (cf. <LinkTo kind="components-tabs-v0-🚫-tabs-as-props" story="with-icons">icons as labels</LinkTo>)</li>
   <li>Not customizable at all</li>
 </ul>
 
@@ -46,7 +47,7 @@ To switch between render methods, check the source code.</p></Tip>
 
 ## Version 1 - Labels as props
 
-<TryBadge href="/?path=/docs/components-tabs-v1-labels-as-props--default" />
+<TryBadge kind="components-tabs-v1-labels-as-props" story="default" />
 
 <div className="subheading">API</div>
 
@@ -69,13 +70,13 @@ To switch between render methods, check the source code.</p></Tip>
 
 <div className="subheading">Drawbacks</div>
 <ul>
-  <li><code>label</code> is prop (cf. <a href="/?path=/docs/components-tabs-v1-labels-as-props--with-icons">icons as labels</a>)</li>
+  <li><code>label</code> is prop (cf. <LinkTo kind="components-tabs-v1-labels-as-props" story="with-icons">icons as labels</LinkTo>)</li>
   <li>Not very customizable</li>
 </ul>
 
 ## Version 2 - Sub-components
 
-<TryBadge href="/?path=/docs/components-tabs-v2-⭐-sub-components--default" />
+<TryBadge kind="components-tabs-v2-⭐-sub-components" story="default" />
 
 <div className="subheading">API</div>
 
@@ -95,7 +96,7 @@ To switch between render methods, check the source code.</p></Tip>
 <div className="subheading">Advantages</div>
 <ul>
   <li>The components follow their natural flow, no need to access the <code>Tabs</code> grand-children to render them separately</li>
-  <li>Customizable (relocate tabs in relation to content, inclusion of other components in the midst, <a href="/?path=/docs/components-tabs-v2-⭐-sub-components--with-icons">label as tabs</a>, ...)</li>
+  <li>Customizable (relocate tabs in relation to content, inclusion of other components in the midst, <LinkTo kind="components-tabs-v2-⭐-sub-components" story="with-icons">label as tabs</a>, ...)</li>
 </ul>
 
 <div className="subheading">Drawbacks</div>
