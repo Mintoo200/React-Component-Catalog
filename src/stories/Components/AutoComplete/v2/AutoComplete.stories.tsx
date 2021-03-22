@@ -16,11 +16,11 @@ const documentation = `
     </Options>
 </AutoComplete>
 \`\`\`
-learn more [here](/story/components-autocomplete-study--page#version-1--options-as-function)
+learn more [here](/story/components-autocomplete-study--page#version-2--option-list-without-datalist)
 `
 
 export default {
-  title: 'Components/AutoComplete/v2 - Option list without datalist',
+  title: 'Components/AutoComplete/v2 ⭐ - Option list without datalist',
   component: AutoComplete,
   parameters: {
     componentSource: {
