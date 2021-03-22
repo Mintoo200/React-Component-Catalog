@@ -1,17 +1,19 @@
 import React from 'react'
+import LinkTo from '@storybook/addon-links/react'
 
 import './style.css'
 
 type Props = {
-  href: string,
+  kind?: string,
+  story?: string
 }
 
-const TryBadge: React.FC<Props> = ({ href }) => (
-  <a href={href}>
+const TryBadge: React.FC<Props> = ({ kind, story }) => (
+  <LinkTo kind={kind} story={story}>
     <button className="badge try-it" type="button">
       Try it
     </button>
-  </a>
+  </LinkTo>
 )
 
 export default TryBadge

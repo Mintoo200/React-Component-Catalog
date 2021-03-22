@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import TryBadge from '../../assets/Badges/TryBadge'
 import DeprecatedBadge from '../../assets/Badges/DeprecatedBadge'
+import LinkTo from '@storybook/addon-links/react';
 
 import '../../style.css'
 
@@ -10,7 +11,7 @@ import '../../style.css'
 
 ## Version 0 - By Camille
 
-<TryBadge href="/?path=/docs/components-modal-v0-by-camille--default" />
+<TryBadge kind="components-modal-v0-by-camille" story="default" />
 <DeprecatedBadge />
 
 Courtesy on LETO (Camille Toulouse)
@@ -24,11 +25,11 @@ Courtesy on LETO (Camille Toulouse)
 </Modal>
 ```
 
-Very similar to <a href="/?path=/docs/components-modal-study--page#version-2---sub-components">version 2</a>
+Very similar to <a href="#version-2---sub-components">version 2</a>
 
 ## Version 1 - Title as prop
 
-<TryBadge href="/?path=/docs/components-modal-v1-title-as-prop--default" />
+<TryBadge kind="components-modal-v1-title-as-prop" story="default" />
 
 <div className="subheading">API</div>
 
@@ -41,18 +42,18 @@ Very similar to <a href="/?path=/docs/components-modal-study--page#version-2---s
 <div className="subheading">Advantages</div>
 <ul>
   <li>Only 1 component</li>
-  <li>Just a wrapper over <a href="/?path=/story/modal-study--page#version-2---sub-components">version 2</a></li>
+  <li>Just a wrapper over <a href="#version-2---sub-components">version 2</a></li>
 </ul>
 
 <div className="subheading">Drawbacks</div>
 <ul>
-  <li>Similar to <a href="/?path=/story/tabs-study--page#version-1---labels-as-props">Tabs v1</a> but without the advantages</li>
+  <li>Similar to <LinkTo kind="components-tabs-v1-labels-as-props" story="default">Tabs v1</LinkTo> but without the advantages</li>
   <li><code>title</code> is prop</li>
 </ul>
 
 ## Version 2 - Sub-components
 
-<TryBadge href="/?path=/docs/components-modal-v2-sub-components--default" />
+<TryBadge kind="components-modal-v2-sub-components" story="default" />
 
 <div className="subheading">API</div>
 
@@ -70,13 +71,13 @@ Very similar to <a href="/?path=/docs/components-modal-study--page#version-2---s
 
 ### Version 2.1 - Sub-components with Context
 
-<TryBadge href="/?path=/docs/components-modal-v2-1-⭐-sub-components-with-context--default" />
+<TryBadge kind="components-modal-v2-1-⭐-sub-components-with-context" story="default" />
 
-Exactly like <a href="/?path=/docs/components-modal-study--page#version-2---sub-components">version 2</a> but using a context
+Exactly like <a href="#version-2---sub-components">version 2</a> but using a context
 
 <div className="subheading">Advantages</div>
 <ul>
-  <li>Can contain &ldquo;non-Modal&rdquo; Elements (e.g. <a href="/?path=/docs/components-modal-v2-1-⭐-sub-components-with-context--with-non-modal">With Non Modal</a>)</li>
+  <li>Can contain &ldquo;non-Modal&rdquo; Elements (e.g. <LinkTo kind="components-modal-v2-1-⭐-sub-components-with-context" story="with-non-modal">With Non Modal</LinkTo>)</li>
 </ul>
 
 <div className="subheading">Drawbacks</div>
