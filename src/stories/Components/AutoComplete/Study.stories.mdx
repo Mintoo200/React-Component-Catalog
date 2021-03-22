@@ -1,0 +1,92 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import TryBadge from '../../assets/Badges/TryBadge'
+import DeprecatedBadge from '../../assets/Badges/DeprecatedBadge'
+import Tip from '../../assets/Banners/Tip'
+
+import '../../style.css'
+
+<Meta title="Components/AutoComplete/Study" />
+
+# The <code>AutoComplete</code> Component
+
+## Version 0 - Option list with datalist
+
+<TryBadge kind="components-autocomplete-v0-option-list-with-datalist" story="default" />
+
+<div className="subheading">API</div>
+
+```tsx
+<AutoComplete options={[
+    { value: 'My First Value', label: 'This is the label for the first value' },
+    { value: 'My Second Value', label: 'Also with a label' },
+    { value: 'My Third Value' },
+    { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
+]} />
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Options are automatically styled by the navigator</li>
+  <li>API that matches API calls</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>Options are not customizable</li>
+  <li>Big props</li>
+</ul>
+
+## Version 1 — Options as function
+
+<TryBadge kind="components-autocomplete-v1-options-as-function" story="default" />
+
+<div className="subheading">API</div>
+
+```tsx
+<AutoComplete getOptions={async () => [
+    { value: 'My First Value', label: 'This is the label for the first value' },
+    { value: 'My Second Value', label: 'Also with a label' },
+    { value: 'My Third Value' },
+    { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
+]} />
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Options are automatically styled by the navigator</li>
+  <li>API that matches paginated API calls</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>Options are not customizable</li>
+  <li>More complex implementation than <a href="#version-0---option-list-with-datalist">Version 0</a></li>
+</ul>
+
+## Version 2 — Option list without datalist
+
+<TryBadge kind="components-autocomplete-v2-option-list-with-datalist" story="default" />
+
+<div className="subheading">API</div>
+
+```tsx
+<AutoComplete onSubmit={(input: string) => null}>
+    <Input />
+    <Options>
+      <Option>Test</Option>
+      <Option value="Test 2">Also a test</Option>
+    </Options>
+</AutoComplete>
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Few props</li>
+  <li>Can contain non AutoComplete components</li>
+  <li>Fully customizable</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>Complex implementation to have the same accessibility features</li>
+</ul>
