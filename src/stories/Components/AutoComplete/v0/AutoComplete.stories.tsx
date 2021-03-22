@@ -3,7 +3,7 @@ import { Story } from '@storybook/react'
 import AutoComplete, { Props as AutoCompleteProps } from '../../../../lib/components/AutoComplete/v0/AutoComplete'
 
 export default {
-  title: 'Components/AutoComplete/v0 - Option list',
+  title: 'Components/AutoComplete/v0 - Option list with datalist',
   component: AutoComplete,
 }
 
