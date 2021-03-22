@@ -1,0 +1,29 @@
+.autocomplete {
+  width: fit-content;
+}
+
+.options {
+  margin-top: 0;
+  padding: 0;
+  border: 1px solid black;
+}
+
+.options.hidden {
+  display: none;
+}
+
+.option.hidden {
+  display: none;
+}
+
+.option button {
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: start;
+}
+
+.option button:hover, .option.focussed {
+  border: none;
+  background: rgb(192, 192, 192);
+}
