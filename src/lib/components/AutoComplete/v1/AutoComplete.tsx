@@ -10,9 +10,10 @@ export type Option = {
 
 export type Props = {
   getOptions: (input: string) => Promise<Option[]>,
+  onSubmit: (input: string) => void,
 }
 
-const AutoComplete: React.FC<Props> = ({ getOptions }) => {
+const AutoComplete: React.FC<Props> = ({ getOptions, onSubmit }) => {
   const salt = useSalt()
   const [inputValue, setInputValue] = useState('')
   const [options, setOptions] = useState([] as Option[])
@@ -38,7 +39,12 @@ const AutoComplete: React.FC<Props> = ({ getOptions }) => {
         value={inputValue}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
           setInputValue(event.currentTarget.value)
-        )} />
+        )}
+        onKeyPress={(event: React.KeyboardEvent<HTMLInputElement>) => {
+          if (event.key === 'Enter') {
+            onSubmit(event.currentTarget.value)
+          }
+        }} />
     </>
   )
 }

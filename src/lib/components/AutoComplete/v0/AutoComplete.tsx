@@ -8,18 +8,28 @@ export type Option = {
 
 export type Props = {
   options: Option[],
+  onSubmit: (input: string) => void,
 }
 
-const AutoComplete: React.FC<Props> = ({ options }) => {
+const AutoComplete: React.FC<Props> = ({ options, onSubmit }) => {
   const salt = useSalt()
   return (
     <>
       <datalist id={`data-${salt}`}>
         {options.map(({ value, label }: Option, index:number) => (
-          <option value={value} label={label} key={index} />
+          <option
+            value={value}
+            label={label}
+            key={index} />
         ))}
       </datalist>
-      <input list={`data-${salt}`} />
+      <input
+        list={`data-${salt}`}
+        onKeyPress={(event: React.KeyboardEvent<HTMLInputElement>) => {
+          if (event.key === 'Enter') {
+            onSubmit(event.currentTarget.value)
+          }
+        }} />
     </>
   )
 }
