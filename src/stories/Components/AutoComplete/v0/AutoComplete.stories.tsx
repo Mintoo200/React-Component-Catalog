@@ -19,4 +19,6 @@ Default.args = {
     { value: 'My Third Value' },
     { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
   ],
+  /* eslint-disable-next-line */
+  onSubmit: (input) => alert(input),
 }

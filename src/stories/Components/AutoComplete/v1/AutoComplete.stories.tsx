@@ -19,6 +19,8 @@ Default.args = {
     { value: 'My Third Value' },
     { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
   ].filter(({ value }) => value.toLowerCase().includes((input ?? '').toLowerCase())),
+  /* eslint-disable-next-line */
+  onSubmit: (input) => alert(input),
 }
 
 export const UnorderedResolution = Template.bind({})
@@ -35,4 +37,6 @@ UnorderedResolution.args = {
     console.log(input)
     return result
   },
+  /* eslint-disable-next-line */
+  onSubmit: (input) => alert(input),
 }
