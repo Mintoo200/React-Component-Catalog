@@ -16,12 +16,14 @@ import '../../style.css'
 <div className="subheading">API</div>
 
 ```tsx
-<AutoComplete options={[
+<AutoComplete
+  options={[
     { value: 'My First Value', label: 'This is the label for the first value' },
     { value: 'My Second Value', label: 'Also with a label' },
     { value: 'My Third Value' },
     { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
-]} />
+  ]}
+  onSubmit={(input: string) => null} />
 ```
 
 <div className="subheading">Advantages</div>
@@ -34,6 +36,7 @@ import '../../style.css'
 <ul>
   <li>Options are not customizable</li>
   <li>Big props</li>
+  <li>Does not really support submit on list item click</li>
 </ul>
 
 ## Version 1 — Options as function
@@ -43,12 +46,14 @@ import '../../style.css'
 <div className="subheading">API</div>
 
 ```tsx
-<AutoComplete getOptions={async () => [
+<AutoComplete 
+  getOptions={async () => [
     { value: 'My First Value', label: 'This is the label for the first value' },
     { value: 'My Second Value', label: 'Also with a label' },
     { value: 'My Third Value' },
     { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
-]} />
+  ]}
+  onSubmit={(input: string) => null} />
 ```
 
 <div className="subheading">Advantages</div>
@@ -61,6 +66,7 @@ import '../../style.css'
 <ul>
   <li>Options are not customizable</li>
   <li>More complex implementation than <a href="#version-0---option-list-with-datalist">Version 0</a></li>
+  <li>Does not really support submit on list item click</li>
 </ul>
 
 ## Version 2 — Option list without datalist
