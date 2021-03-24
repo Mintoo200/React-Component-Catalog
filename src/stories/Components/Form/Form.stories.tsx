@@ -12,7 +12,7 @@ const Template: Story<FormProps> = () => {
   return (
     <Form onChange={setForm}>
       <input id="id-1" type="email" required minLength={10} />
-      { form && !form.content['id-1'].validity.valid && <span>Email is not valid!</span> }
+      { form && !form.content['id-1'].pristine && !form.content['id-1'].validity.valid && <span>Email is not valid!</span> }
       { form && form.content['id-1'].validity.valid && <span>Yay! Nice email</span> }
       <button type="submit" disabled={!form || !form.valid}>Submit</button>
     </Form>
