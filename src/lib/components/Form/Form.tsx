@@ -13,7 +13,8 @@ export type FormState = {
 
 export type Props = {
   children: React.ReactNode,
-  onChange?: (state: FormState) => void
+  onChange?: (state: FormState) => void,
+  onSubmit?: (state: FormState) => void,
 }
 
 // FIXME: ?
@@ -38,7 +39,7 @@ const isInputField = (node: React.ReactElement): node is React.ReactElement => (
   || node.type === 'select'
 )
 
-const Form: React.FC<Props> = ({ children, onChange }) => {
+const Form: React.FC<Props> = ({ children, onChange, onSubmit }) => {
   const defaultState = {} as Record<string, FieldValue<unknown>>
   const setDefault = (node: React.ReactNode) => {
     React.Children.forEach(node, (child) => {
@@ -101,6 +102,19 @@ const Form: React.FC<Props> = ({ children, onChange }) => {
               value: formContent[child.props.id].value,
             })
             return child.props.onBlur && child.props.onBlur(event)
+          }
+        }
+        if (child.props.type === 'submit') {
+          props.onClick = (event: React.MouseEvent) => {
+            event.preventDefault()
+            const result = child.props.onClick && child.props.onClick(event)
+            if (onSubmit) {
+              onSubmit({
+                valid: Object.values(formContent).every((input) => input.validity.valid),
+                content: formContent,
+              })
+            }
+            return result
           }
         }
         if (child.props.children) {
