@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 export type FieldValue<T> = {
   validity: ValidityState,
+  pristine: boolean,
   value: T,
 }
 
@@ -50,6 +51,7 @@ const Form: React.FC<Props> = ({ children, onChange }) => {
               valid,
               valueMissing: !valid,
             },
+            pristine: true,
             value: child.props.defaultValue,
           }
         }
@@ -59,7 +61,9 @@ const Form: React.FC<Props> = ({ children, onChange }) => {
       }
     })
   }
-  setDefault(children)
+  useEffect(() => {
+    setDefault(children)
+  }, [])
   const [formContent, setFormContent] = useState(defaultState)
   useEffect(() => {
     // FIXME: triggers on initial render, fix or feature?
@@ -85,7 +89,15 @@ const Form: React.FC<Props> = ({ children, onChange }) => {
           props.onChange = (event: React.ChangeEvent<HTMLInputElement>) => (
             onFieldChange(child.props.id, {
               validity: event.currentTarget.validity,
+              pristine: formContent[child.props.id].pristine,
               value: event.currentTarget.value,
+            })
+          )
+          props.onBlur = () => (
+            onFieldChange(child.props.id, {
+              validity: formContent[child.props.id].validity,
+              pristine: false,
+              value: formContent[child.props.id].value,
             })
           )
         }
