@@ -86,20 +86,22 @@ const Form: React.FC<Props> = ({ children, onChange }) => {
         const props = {} as React.HTMLAttributes<HTMLElement>
         let processedChildren = null as React.ReactNode
         if (isInputField(child)) {
-          props.onChange = (event: React.ChangeEvent<HTMLInputElement>) => (
+          props.onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             onFieldChange(child.props.id, {
               validity: event.currentTarget.validity,
               pristine: formContent[child.props.id].pristine,
               value: event.currentTarget.value,
             })
-          )
-          props.onBlur = () => (
+            return child.props.onChange && child.props.onChange(event)
+          }
+          props.onBlur = (event: React.FocusEvent) => {
             onFieldChange(child.props.id, {
               validity: formContent[child.props.id].validity,
               pristine: false,
               value: formContent[child.props.id].value,
             })
-          )
+            return child.props.onBlur && child.props.onBlur(event)
+          }
         }
         if (child.props.children) {
           processedChildren = addProps(child.props.children)
