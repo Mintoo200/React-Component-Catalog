@@ -106,9 +106,9 @@ const Form: React.FC<Props> = ({ children, onChange, onSubmit }) => {
         }
         if (child.props.type === 'submit') {
           props.onClick = (event: React.MouseEvent) => {
-            event.preventDefault()
             const result = child.props.onClick && child.props.onClick(event)
-            if (onSubmit) {
+            if (onSubmit != null) {
+              event.preventDefault()
               onSubmit({
                 valid: Object.values(formContent).every((input) => input.validity.valid),
                 content: formContent,
