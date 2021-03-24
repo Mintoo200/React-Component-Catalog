@@ -67,7 +67,6 @@ const Form: React.FC<Props> = ({ children, onChange, onSubmit }) => {
   }, [])
   const [formContent, setFormContent] = useState(defaultState)
   useEffect(() => {
-    // FIXME: triggers on initial render, fix or feature?
     if (onChange != null) {
       onChange({
         valid: Object.values(formContent).every((input) => input.validity.valid),
