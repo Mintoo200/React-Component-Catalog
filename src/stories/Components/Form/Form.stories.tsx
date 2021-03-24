@@ -59,3 +59,13 @@ otherFieldTypes.args = {
     </select>,
   ],
 }
+
+export const withEventHandlers = GenericTemplate.bind({})
+withEventHandlers.args = {
+  children: [
+    /* eslint-disable-next-line */
+    <input id="input" placeholder="logs on change" onChange={() => console.log('input changed')} />,
+    /* eslint-disable-next-line */
+    <input id="input" placeholder="logs on blur" onBlur={() => console.log('input blur')} />,
+  ],
+}
