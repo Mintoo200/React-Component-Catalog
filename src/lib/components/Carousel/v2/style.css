@@ -1,0 +1,39 @@
+.slides {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+}
+
+.slide {
+}
+
+.slide.hidden {
+  display: none;
+}
+
+.dots {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dot-item button {
+  background: none;
+  border: none;
+}
+
+.dot-item .dot {
+  background: rgb(189, 187, 187);
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+.dot-item .dot.active {
+  background: grey;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-evenly;
+}
