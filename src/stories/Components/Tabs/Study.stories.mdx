@@ -10,9 +10,9 @@ import '../../style.css'
 
 # The <code>Tabs</code> Component
 
-## Version 0 - Tabs as props
+## Version 1 - Tabs as props
 
-<TryBadge kind="components-tabs-v0-🚫-tabs-as-props" story="default" />
+<TryBadge kind="components-tabs-v1-🚫-tabs-as-props" story="default" />
 <DeprecatedBadge />
 
 <div className="subheading">API</div>
@@ -34,7 +34,7 @@ const content = [
 
 <div className="subheading">Drawbacks</div>
 <ul>
-  <li><code>label</code> is prop (cf. <LinkTo kind="components-tabs-v0-🚫-tabs-as-props" story="with-icons">icons as labels</LinkTo>)</li>
+  <li><code>label</code> is prop (cf. <LinkTo kind="components-tabs-v1-🚫-tabs-as-props" story="with-icons">icons as labels</LinkTo>)</li>
   <li>Not customizable at all</li>
 </ul>
 
@@ -45,9 +45,9 @@ const content = [
 <Tip><p>The following versions have two render methods possible for the content of the tab: conditionally render the content <em>or</em> render all tabs hidden except the current one.
 To switch between render methods, check the source code.</p></Tip>
 
-## Version 1 - Labels as props
+## Version 2 - Labels as props
 
-<TryBadge kind="components-tabs-v1-labels-as-props" story="default" />
+<TryBadge kind="components-tabs-v2-labels-as-props" story="default" />
 
 <div className="subheading">API</div>
 
@@ -70,13 +70,13 @@ To switch between render methods, check the source code.</p></Tip>
 
 <div className="subheading">Drawbacks</div>
 <ul>
-  <li><code>label</code> is prop (cf. <LinkTo kind="components-tabs-v1-labels-as-props" story="with-icons">icons as labels</LinkTo>)</li>
+  <li><code>label</code> is prop (cf. <LinkTo kind="components-tabs-v2-labels-as-props" story="with-icons">icons as labels</LinkTo>)</li>
   <li>Not very customizable</li>
 </ul>
 
-## Version 2 - Sub-components
+## Version 3 - Sub-components
 
-<TryBadge kind="components-tabs-v2-⭐-sub-components" story="default" />
+<TryBadge kind="components-tabs-v3-⭐-sub-components" story="default" />
 
 <div className="subheading">API</div>
 
@@ -96,7 +96,7 @@ To switch between render methods, check the source code.</p></Tip>
 <div className="subheading">Advantages</div>
 <ul>
   <li>The components follow their natural flow, no need to access the <code>Tabs</code> grand-children to render them separately</li>
-  <li>Customizable (relocate tabs in relation to content, inclusion of other components in the midst, <LinkTo kind="components-tabs-v2-⭐-sub-components" story="with-icons">label as tabs</LinkTo>, ...)</li>
+  <li>Customizable (relocate tabs in relation to content, inclusion of other components in the midst, <LinkTo kind="components-tabs-v3-⭐-sub-components" story="with-icons">label as tabs</LinkTo>, ...)</li>
 </ul>
 
 <div className="subheading">Drawbacks</div>
