@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
-import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v2.1/Modal'
-import ModalContent from '../../../../lib/components/Modal/v2.1/ModalContent'
-import ModalTitle from '../../../../lib/components/Modal/v2.1/ModalTitle'
+import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v4/Modal'
+import ModalContent from '../../../../lib/components/Modal/v4/ModalContent'
+import ModalTitle from '../../../../lib/components/Modal/v4/ModalTitle'
 
 const documentation = `
 ## API
@@ -12,11 +12,11 @@ const documentation = `
   <ModalContent>Try clicking outside of the modal or pressing 'Escape'!</ModalContent>
 </Modal>
 \`\`\`
-learn more [here](/story/components-modal-study--page#version-21---sub-components-with-context)
+learn more [here](/story/components-modal-study--page#version-4---sub-components-with-context)
 `
 
 export default {
-  title: 'Components/Modal/v2.1 ⭐ - Sub-components with Context',
+  title: 'Components/Modal/v4 ⭐ - Sub-components with Context',
   component: Modal,
   argTypes: {
     isOpen: {
@@ -27,9 +27,9 @@ export default {
     controls: { hideNoControlsWarning: true },
     componentSource: {
       url: [
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv2%2E1%2FModal%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv2%2E1%2FModalTitle%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv2%2E1%2FModalContent%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv4%2E1%2FModal%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv4%2E1%2FModalTitle%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv4%2E1%2FModalContent%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },

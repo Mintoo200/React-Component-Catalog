@@ -1,39 +1,67 @@
-.slides {
+/******* CAROUSEL *******/
+.carousel {
+  width: max-content;
+  height: max-content;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.Slide{
+  z-index: -1;
+}
+
+.SlideNav{
   display: flex;
-  flex-direction: column;
-  width: fit-content;
-  height: fit-content;
+  margin-top: -4rem;
+  justify-content: space-around;
 }
 
-.slide {
-}
-
-.slide.hidden {
-  display: none;
-}
-
-.dots {
+.SlideControls{
+  width: 100%;
+  margin-top: 1rem;
   display: flex;
-  justify-content: space-evenly;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
 }
 
-.dot-item button {
-  background: none;
+.btn{
+  padding: 1rem;
+  cursor: pointer;
+  background: transparent;
   border: none;
 }
 
-.dot-item .dot {
-  background: rgb(189, 187, 187);
-  border-radius: 50%;
+.bullet{
   width: 10px;
   height: 10px;
+  background: rgb(226, 225, 225);
+  border-radius: 100px;
 }
 
-.dot-item .dot.active {
-  background: grey;
+.bulletActive{
+  width: 10px;
+  height: 10px;
+  background: darkturquoise;
+  border-radius: 100px;
 }
 
-.controls {
-  display: flex;
-  justify-content: space-evenly;
+.btnControls{
+  width: 25px;
+  height: 25px;
+}
+
+.imgCarousel{
+  margin-left: -4px;
+}
+
+.slide{
+  width: auto;
 }

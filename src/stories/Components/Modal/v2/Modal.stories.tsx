@@ -1,22 +1,19 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
 import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v2/Modal'
-import ModalContent from '../../../../lib/components/Modal/v2/ModalContent'
-import ModalTitle from '../../../../lib/components/Modal/v2/ModalTitle'
 
 const documentation = `
 ## API
 \`\`\`tsx
-<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-  <ModalTitle>My title</ModalTitle>
-  <ModalContent>Try clicking outside of the modal or pressing 'Escape'!</ModalContent>
+<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Title">
+  Try clicking outside of the modal or pressing 'Escape'!
 </Modal>
 \`\`\`
-learn more [here](/story/components-modal-study--page#version-2---sub-components)
+learn more [here](/story/components-modal-study--page#version-2---title-as-prop)
 `
 
 export default {
-  title: 'Components/Modal/v2 - Sub-components',
+  title: 'Components/Modal/v2 - Title as prop',
   component: Modal,
   argTypes: {
     isOpen: {
@@ -28,8 +25,6 @@ export default {
     componentSource: {
       url: [
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv2%2FModal%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv2%2FModalTitle%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FModal%2Fv2%2FModalContent%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },
@@ -53,10 +48,8 @@ const Template: Story<ModalProps> = (args) => {
 
 export const Default = Template.bind({})
 Default.args = {
+  title: 'This is my modal!',
   children: [
-    <ModalTitle>This is my modal</ModalTitle>,
-    <ModalContent>
-      Try clicking outside of the modal or pressing &lsquo;Escape&rsquo;!
-    </ModalContent>,
+    'Try clicking outside of the modal or pressing \'Escape\'!',
   ],
 }

@@ -6,22 +6,19 @@ const documentation = `
 ## API
 \`\`\`tsx
 <AutoComplete
-  getOptions={async () => {
-    // API calls
-    return [
-      { value: 'My First Value', label: 'This is the label for the first value' },
-      { value: 'My Second Value', label: 'Also with a label' },
-      { value: 'My Third Value' },
-      { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
-    ]
-  }}
+  options={[
+    { value: 'My First Value', label: 'This is the label for the first value' },
+    { value: 'My Second Value', label: 'Also with a label' },
+    { value: 'My Third Value' },
+    { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
+  ]}
   onSubmit={(input: string) => null} />
 \`\`\`
-learn more [here](/story/components-autocomplete-study--page#version-1--options-as-function)
+learn more [here](/story/components-autocomplete-study--page#version-1---option-list-with-datalist)
 `
 
 export default {
-  title: 'Components/AutoComplete/v1 - Options as function',
+  title: 'Components/AutoComplete/v1 - Option list with datalist',
   component: AutoComplete,
   parameters: {
     componentSource: {
@@ -42,30 +39,12 @@ const Template: Story<AutoCompleteProps> = (args) => (
 
 export const Default = Template.bind({})
 Default.args = {
-  getOptions: async (input) => [
+  options: [
     { value: 'My First Value', label: 'This is the label for the first value' },
     { value: 'My Second Value', label: 'Also with a label' },
     { value: 'My Third Value' },
     { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
-  ].filter(({ value }) => value.toLowerCase().includes((input ?? '').toLowerCase())),
-  /* eslint-disable-next-line */
-  onSubmit: (input) => alert(input),
-}
-
-export const UnorderedResolution = Template.bind({})
-UnorderedResolution.args = {
-  getOptions: async (input) => {
-    const result = [
-      { value: 'My First Value', label: 'This is the label for the first value' },
-      { value: 'My Second Value', label: 'Also with a label' },
-      { value: 'My Third Value' },
-      { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
-    ].filter(({ value }) => value.toLowerCase().includes((input ?? '').toLowerCase()))
-    await new Promise((resolve) => setTimeout(resolve, result.length * 1000))
-    /* eslint-disable */
-    console.log(input)
-    return result
-  },
+  ],
   /* eslint-disable-next-line */
   onSubmit: (input) => alert(input),
 }

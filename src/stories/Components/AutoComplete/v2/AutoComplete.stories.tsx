@@ -1,37 +1,31 @@
 import React from 'react'
 import { Story } from '@storybook/react'
 import AutoComplete, { Props as AutoCompleteProps } from '../../../../lib/components/AutoComplete/v2/AutoComplete'
-import Input from '../../../../lib/components/AutoComplete/v2/Input'
-import Options from '../../../../lib/components/AutoComplete/v2/Options'
-import Option from '../../../../lib/components/AutoComplete/v2/Option'
 
 const documentation = `
 ## API
 \`\`\`tsx
-<AutoComplete onSubmit={(input: string) => null}>
-    <Input />
-    <Options>
-      <Option>Test</Option>
-      <Option value="Test 2">Also a test</Option>
-    </Options>
-</AutoComplete>
+<AutoComplete
+  getOptions={async () => {
+    // API calls
+    return [
+      { value: 'My First Value', label: 'This is the label for the first value' },
+      { value: 'My Second Value', label: 'Also with a label' },
+      { value: 'My Third Value' },
+      { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
+    ]
+  }}
+  onSubmit={(input: string) => null} />
 \`\`\`
-learn more [here](/story/components-autocomplete-study--page#version-2--option-list-without-datalist)
+learn more [here](/story/components-autocomplete-study--page#version-2--options-as-function)
 `
 
 export default {
-  title: 'Components/AutoComplete/v2 ⭐ - Option list without datalist',
+  title: 'Components/AutoComplete/v2 - Options as function',
   component: AutoComplete,
   parameters: {
     componentSource: {
-      url: [
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FAutoComplete%2Fv2%2FAutoComplete%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FAutoComplete%2Fv2%2FContext%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FAutoComplete%2Fv2%2FInput%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FAutoComplete%2Fv2%2FOption%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FAutoComplete%2Fv2%2FOptions%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FAutoComplete%2Fv2%2FReducer%2Etsx/raw?ref=master',
-      ],
+      url: 'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FAutoComplete%2Fv2%2FAutoComplete%2Etsx/raw?ref=master',
       language: 'javascript',
     },
     docs: {
@@ -48,13 +42,30 @@ const Template: Story<AutoCompleteProps> = (args) => (
 
 export const Default = Template.bind({})
 Default.args = {
-  children: [
-    <Input />,
-    <Options>
-      <Option>Test</Option>
-      <Option value="Test 2">Also a test</Option>
-    </Options>,
-  ],
+  getOptions: async (input) => [
+    { value: 'My First Value', label: 'This is the label for the first value' },
+    { value: 'My Second Value', label: 'Also with a label' },
+    { value: 'My Third Value' },
+    { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
+  ].filter(({ value }) => value.toLowerCase().includes((input ?? '').toLowerCase())),
   /* eslint-disable-next-line */
-  onSubmit: (input) => alert(input)
+  onSubmit: (input) => alert(input),
+}
+
+export const UnorderedResolution = Template.bind({})
+UnorderedResolution.args = {
+  getOptions: async (input) => {
+    const result = [
+      { value: 'My First Value', label: 'This is the label for the first value' },
+      { value: 'My Second Value', label: 'Also with a label' },
+      { value: 'My Third Value' },
+      { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
+    ].filter(({ value }) => value.toLowerCase().includes((input ?? '').toLowerCase()))
+    await new Promise((resolve) => setTimeout(resolve, result.length * 1000))
+    /* eslint-disable */
+    console.log(input)
+    return result
+  },
+  /* eslint-disable-next-line */
+  onSubmit: (input) => alert(input),
 }
