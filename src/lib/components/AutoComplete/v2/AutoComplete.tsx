@@ -1,51 +1,51 @@
-import React, { useReducer } from 'react'
-import NoContextError from '../../../errors/NoContextError'
-import Context from './Context'
-import Reducer, { ReducerActions } from './Reducer'
+import React, { useEffect, useState } from 'react'
+import makeCancelable from '../../../CancelablePromise'
+import CanceledError from '../../../errors/CanceledError'
+import useSalt from '../useSalt'
 
-import './style.css'
-
-export type Props = {
-  children: React.ReactNode,
-  onSubmit: (value: string) => void,
+export type Option = {
+  value: string,
+  label?: string,
 }
 
-const AutoComplete: React.FC<Props> = ({ children, onSubmit }) => {
-  const [state, dispatch] = useReducer(Reducer, {
-    currentInput: '',
-    hasFocus: false,
-    onSubmit,
-    focussedItem: -1,
-    dispatch: () => { throw new NoContextError() },
-  })
-  return (
-    <div
-      className="autocomplete"
-      onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
-      onBlur={() => dispatch({ type: ReducerActions.lostFocus })}
-      onKeyDown={(event: React.KeyboardEvent) => {
-        if (event.key === 'ArrowDown') {
-          dispatch({
-            type: ReducerActions.focusNext,
-          })
-        } else if (event.key === 'ArrowUp') {
-          dispatch({
-            type: ReducerActions.focusPrevious,
-          })
-        } else if (event.key === 'Enter') {
-          dispatch({
-            type: ReducerActions.submit,
-          })
+export type Props = {
+  getOptions: (input: string) => Promise<Option[]>,
+  onSubmit: (input: string) => void,
+}
+
+const AutoComplete: React.FC<Props> = ({ getOptions, onSubmit }) => {
+  const salt = useSalt()
+  const [inputValue, setInputValue] = useState('')
+  const [options, setOptions] = useState([] as Option[])
+  useEffect(() => {
+    const cancelable = makeCancelable(getOptions(inputValue))
+    cancelable.promise.then(setOptions)
+      .catch((error: Error) => {
+        if (!(error instanceof CanceledError)) {
+          throw error
         }
-      }}
-      role="presentation">
-      <Context.Provider value={{
-        ...state,
-        dispatch,
-      }}>
-        {children}
-      </Context.Provider>
-    </div>
+      })
+    return () => cancelable.cancel()
+  }, [inputValue])
+  return (
+    <>
+      <datalist id={`data-${salt}`}>
+        {options.map(({ value, label }: Option, index:number) => (
+          <option value={value} label={label} key={index} />
+        ))}
+      </datalist>
+      <input
+        list={`data-${salt}`}
+        value={inputValue}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
+          setInputValue(event.currentTarget.value)
+        )}
+        onKeyPress={(event: React.KeyboardEvent<HTMLInputElement>) => {
+          if (event.key === 'Enter') {
+            onSubmit(event.currentTarget.value)
+          }
+        }} />
+    </>
   )
 }
 
