@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
-import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v1/Modal'
+import Modal, { ModalButtonClose, ModalProps } from '../../../../lib/components/Modal/v1/Modal'
 
 const documentation = `
+Courtesy of LETO (Camille Toulouse) \n
 ## API
 \`\`\`tsx
-<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Title">
-  Try clicking outside of the modal or pressing 'Escape'!
+<Modal isOpen={isOpen} onModalClosed={() => setIsOpen(false)}>
+  <ModalButtonClose>x</ModalButtonClose>
+  <div>Try clicking outside of the modal!</div>
 </Modal>
 \`\`\`
-learn more [here](/story/components-modal-study--page#version-1---title-as-prop)
+learn more [here](/story/components-modal-study--page#version-1---by-camille)
 `
 
 export default {
-  title: 'Components/Modal/v1 - Title as prop',
+  title: 'Components/Modal/v1 - By Camille',
   component: Modal,
   argTypes: {
     isOpen: {
@@ -41,15 +43,13 @@ const Template: Story<ModalProps> = (args) => {
   return (
     <>
       <button type="button" onClick={() => setIsOpen(true)}>Click Me!</button>
-      <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <Modal {...args} isOpen={isOpen} onModalClosed={() => setIsOpen(false)}>
+        <ModalButtonClose>x</ModalButtonClose>
+        <div>Try clicking outside of the modal!</div>
+      </Modal>
     </>
   )
 }
 
 export const Default = Template.bind({})
-Default.args = {
-  title: 'This is my modal!',
-  children: [
-    'Try clicking outside of the modal or pressing \'Escape\'!',
-  ],
-}
+Default.args = {}

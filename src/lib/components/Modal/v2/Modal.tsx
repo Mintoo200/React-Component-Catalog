@@ -1,33 +1,24 @@
 import React from 'react'
-import Overlay from '../../Overlay/Overlay'
-import ModalTitle from './ModalTitle'
+import ModalContent from '../v3/ModalContent'
+import ModalTitle from '../v3/ModalTitle'
 
 import '../style.css'
+import Modal from '../v3/Modal'
 
 export type Props = {
-  children: React.ReactElement|React.ReactElement[],
+  children: React.ReactNode,
+  title: string,
   isOpen?: boolean,
   onClose: () => void,
 }
 
-const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement => (
-  <Overlay isOpen={isOpen} onClose={onClose}>
-    <div className="overlay-wrapper">
-      <div
-        className="modal"
-        onClick={(event: React.MouseEvent) => event.stopPropagation()}
-        role="presentation">
-        {React.Children.map(children, (child) => {
-          if (child.type === ModalTitle) {
-            return React.cloneElement(child, {
-              onClose,
-            })
-          }
-          return child
-        })}
-      </div>
-    </div>
-  </Overlay>
+const ModalWrapper: React.FC<Props> = ({
+  children, title, isOpen = false, onClose,
+}) => (
+  <Modal isOpen={isOpen} onClose={onClose}>
+    <ModalTitle onClose={onClose}>{title}</ModalTitle>
+    <ModalContent>{children}</ModalContent>
+  </Modal>
 )
 
-export default Modal
+export default ModalWrapper

@@ -1,24 +1,60 @@
+// Courtesy of LETO (Camille Toulouse) (modified)
 import React from 'react'
-import ModalContent from '../v2/ModalContent'
-import ModalTitle from '../v2/ModalTitle'
 
-import '../style.css'
-import Modal from '../v2/Modal'
+import './style.css'
 
-export type Props = {
-  children: React.ReactNode,
-  title: string,
-  isOpen?: boolean,
-  onClose: () => void,
+type OverlayProps = {
+  onClick: () => void
 }
 
-const ModalWrapper: React.FC<Props> = ({
-  children, title, isOpen = false, onClose,
-}) => (
-  <Modal isOpen={isOpen} onClose={onClose}>
-    <ModalTitle onClose={onClose}>{title}</ModalTitle>
-    <ModalContent>{children}</ModalContent>
-  </Modal>
+export const Overlay: React.FC<OverlayProps> = ({ onClick }) => (
+  <div
+    className="overlay"
+    onClick={onClick}
+    onKeyPress={(event: React.KeyboardEvent) => (event.key === 'Escape' && onClick())}
+    role="presentation" />
 )
 
-export default ModalWrapper
+type ContentProps = {
+  children: React.ReactNode,
+}
+
+export const Content: React.FC<ContentProps> = ({ children }) => <div className="modal">{children}</div>
+
+export type ModalProps = {
+  children: React.ReactElement|React.ReactElement[],
+  isOpen: boolean,
+  onModalClosed: (_: boolean) => void,
+}
+
+export const Modal = ({ children, isOpen, onModalClosed }: ModalProps): React.ReactElement => {
+  const [isModalOpen, setIsModalOpen] = React.useState(true)
+  const modalChildren = React.Children.map(children, (child) => React.cloneElement(child, {
+    isModalOpen,
+    onModalClosed: (value: boolean) => { setIsModalOpen(value); return onModalClosed(value) },
+  }))
+
+  return isOpen ? (
+    <>
+      <Overlay onClick={() => onModalClosed(false)} />
+      <Content>
+        {modalChildren}
+      </Content>
+    </>
+  )
+    : null
+}
+
+type ModalButtonCloseProps = {
+  children: React.ReactNode,
+  onModalClosed?: (_: boolean) => void
+}
+
+export const ModalButtonClose: React.FC<ModalButtonCloseProps> = ({ children, onModalClosed }) => (
+  <div
+    className="btnClose">
+    <button onClick={() => onModalClosed(false)} type="button">{children}</button>
+  </div>
+)
+
+export default Modal
