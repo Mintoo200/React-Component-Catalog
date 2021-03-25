@@ -21,6 +21,9 @@ lint:
     - yarn lint
   only:
     - merge_requests
+  except:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "feedback"
 
 test:
   stage: test
@@ -28,6 +31,10 @@ test:
     - yarn test
   only:
     - merge_requests
+  except:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "feedback"
+
 
 build-lib:
   stage: build
