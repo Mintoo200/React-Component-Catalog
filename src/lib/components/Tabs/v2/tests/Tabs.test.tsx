@@ -44,7 +44,7 @@ describe('Tabs tests', (): void => {
         </Tab>
       </Tabs>,
     )
-    expect(wrapper).toContainExactlyOneMatchingElement('.content-hidden')
+    expect(wrapper).toContainExactlyOneMatchingElement('.hidden')
   })
   it('should switch shown tab on click', (): void => {
     const wrapper = shallow(
@@ -59,6 +59,6 @@ describe('Tabs tests', (): void => {
     )
     wrapper.find(Tab).last().simulate('click')
     const firstTab = wrapper.find('.content').first()
-    expect(firstTab).toHaveClassName('content-hidden')
+    expect(firstTab).toHaveClassName('hidden')
   })
 })
