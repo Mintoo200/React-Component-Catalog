@@ -7,105 +7,61 @@ import Flow from './assets/flow.svg';
 import Plugin from './assets/plugin.svg';
 import Repo from './assets/repo.svg';
 import StackAlt from './assets/stackalt.svg';
+import Tip from './assets/Banners/Tip'
 
 import './style.css'
 
 <Meta title="Introduction" />
 
-This is a sample documentation
+# Welcome to This Storybook
 
-# Welcome to Storybook
+The objective of this storybook is to provide developers with a complete library of reusable components.
 
-Storybook helps you build UI components in isolation from your app's business logic, data, and context.
-That makes it easy to develop hard-to-reach states. Save these UI states as **stories** to revisit during development, testing, or QA.
+<div className="subheading">How to use</div>
 
-Browse example stories now by navigating to them in the sidebar.
-View their code in the `src/stories` directory to learn how they work.
-We recommend building UIs with a [**component-driven**](https://componentdriven.org) process starting with atomic components and ending with pages.
+<h4>1. Find your component</h4>
+<p>
+  In the menu on the left, select the component you need.
+  <Tip><p>If you don't have a sidebar on the left, press <kbd>S</kbd> once.</p></Tip>
+</p>
 
-<div className="subheading">Configure</div>
+<h4>2. Select a version</h4>
+<p>
+  Some components only have one version, some have multiple, here's how to pick the right one for your use case:
+  First read the general documentation for your component. You can find it on the <em>Study</em> page.
+  On this page, you can read about the API, advantages and drawbacks for each version.
+</p>
+<p>
+  Some versions have a ⭐ or 🚫 symbol next to them. These are respectively recommended and deprecated versions.
+</p>
 
-<div className="link-list">
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/addons/addon-types"
-    target="_blank"
-  >
-    <img src={Plugin} alt="plugin" />
-    <span>
-      <strong>Presets for popular tools</strong>
-      Easy setup for TypeScript, SCSS and more.
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/configure/webpack"
-    target="_blank"
-  >
-    <img src={StackAlt} alt="Build" />
-    <span>
-      <strong>Build configuration</strong>
-      How to customize webpack and Babel
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/configure/styling-and-css"
-    target="_blank"
-  >
-    <img src={Colors} alt="colors" />
-    <span>
-      <strong>Styling</strong>
-      How to load and configure CSS libraries
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/get-started/setup#configure-storybook-for-your-stack"
-    target="_blank"
-  >
-    <img src={Flow} alt="flow" />
-    <span>
-      <strong>Data</strong>
-      Providers and mocking for data libraries
-    </span>
-  </a>
-</div>
+<h4>3. Play with it</h4>
+<p>
+  From there, you can play with the component from the canvas tab at the top.
+  <Tip><p>If you don't have the toolbar at the top, press <kbd>T</kbd> once.</p></Tip>
+  You can edit some of the props from the addons menu either on the bottom or on the right.
+  <Tip><p>If you don't have the addons menu, press <kbd>A</kbd> once.</p></Tip>
+</p>
 
-<div className="subheading">Learn</div>
+<h4>4. Get the source code for your project</h4>
+<p>
+  You can get the source code of each component either on <a href="https://gitlab.com/Mintoo200/test-lib">GitLab</a> or directly from the addons menu of the component canvas window.
+  Simply select the <em>Source Code</em> tab.
+</p>
 
-<div className="link-list">
-  <a className="link-item" href="https://storybook.js.org/docs" target="_blank">
-    <img src={Repo} alt="repo" />
-    <span>
-      <strong>Storybook documentation</strong>
-      Configure, customize, and extend
-    </span>
-  </a>
-  <a className="link-item" href="https://www.learnstorybook.com" target="_blank">
-    <img src={Direction} alt="direction" />
-    <span>
-      <strong>In-depth guides</strong>
-      Best practices from leading teams
-    </span>
-  </a>
-  <a className="link-item" href="https://github.com/storybookjs/storybook" target="_blank">
-    <img src={Code} alt="code" />
-    <span>
-      <strong>GitHub project</strong>
-      View the source and add issues
-    </span>
-  </a>
-  <a className="link-item" href="https://discord.gg/storybook" target="_blank">
-    <img src={Comments} alt="comments" />
-    <span>
-      <strong>Discord chat</strong>
-      Chat with maintainers and the community
-    </span>
-  </a>
-</div>
+<Tip><p>You can find a list of all shortcuts by pressing <kbd>&#8984;</kbd><kbd>&#8679;</kbd><kbd>,</kbd> only on MacOS.</p></Tip>
 
-<div className="tip-wrapper">
-  <span className="tip">Tip</span>Edit the Markdown in{' '}
-  <code>src/stories/Introduction.stories.mdx</code>
-</div>
+<div className="subheading">FAQ</div>
+
+Q: Can I modify the code I get from here?
+
+A: Absolutely, The whole idea of not having a npm package is for you to be able to modify everything you get to better fit your use case.
+
+Q: Can I make suggestions?
+
+A: I would be grateful if you did, you can suggest new components by <a href="https://gitlab.com/Mintoo200/test-lib/-/issues/new?issuable_template=component_suggestion">creating an issue on Gitlab</a> or simply comment my code on <a href="https://gitlab.com/Mintoo200/test-lib/-/merge_requests/41">this merge request</a>.
+For any request that does not match these templates, feel free to open a new issue!
+
+Q: Will this storybook keep growing?
+
+A: Yes, new components will arrive as soon as they are ready, and to make sure you get the components you need, do not hesitate to makee suggestions!
