@@ -37,7 +37,7 @@ const Tabs = ({ children }: Props): React.ReactElement => {
       {content.map((child, index) => (
         <div
           key={index}
-          className={`content ${currentTab === index ? '' : 'content-hidden'}`}>
+          className={`content ${currentTab === index ? '' : 'hidden'}`}>
           {child}
         </div>
       ))}

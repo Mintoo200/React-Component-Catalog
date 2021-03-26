@@ -17,7 +17,7 @@ const Tab: React.FC<Props> = ({
   <>
     <button
       tabIndex={0}
-      className={`tab ${active ? 'tab-active' : ''}`}
+      className={`tab ${active ? 'active' : ''}`}
       onClick={onClick}
       onKeyPress={onKeyPress}
       type="button">
