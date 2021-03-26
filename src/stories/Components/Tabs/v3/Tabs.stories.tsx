@@ -1,12 +1,12 @@
 import React from 'react'
 import { Story } from '@storybook/react'
-import Tabs, { Props as TabsProps } from '../../../lib/components/Tabs/v3/Tabs'
-import TabList from '../../../lib/components/Tabs/v3/TabList'
-import TabContent from '../../../lib/components/Tabs/v3/TabContent'
-import Tab from '../../../lib/components/Tabs/v3/Tab'
+import Tabs, { Props as TabsProps } from '../../../../lib/components/Tabs/v3/Tabs'
+import TabList from '../../../../lib/components/Tabs/v3/TabList'
+import TabContent from '../../../../lib/components/Tabs/v3/TabContent'
+import Tab from '../../../../lib/components/Tabs/v3/Tab'
 
-import { ReactComponent as CodeBrackets } from '../../assets/code-brackets.svg'
-import { ReactComponent as Comments } from '../../assets/comments.svg'
+import { ReactComponent as CodeBrackets } from '../../../assets/code-brackets.svg'
+import { ReactComponent as Comments } from '../../../assets/comments.svg'
 
 const documentation = `
 ## API
