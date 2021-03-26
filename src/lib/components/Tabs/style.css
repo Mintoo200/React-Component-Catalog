@@ -8,12 +8,12 @@
   flex-basis: 0;
 }
 
-.tab > button {
+.tab {
   width: 100%;
   border: 1px solid gray;
 }
 
-.tab > button.active {
+.tab.active {
   background-color: gray;
 }
 

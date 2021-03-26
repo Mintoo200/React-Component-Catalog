@@ -14,7 +14,7 @@ const Tabs: React.FC<Props> = ({ tabs }) => {
         {tabs.map((tab, index) => (
           <button
             tabIndex={0}
-            className={`tab ${currentTab === index ? 'tab-active' : ''}`}
+            className={`tab ${currentTab === index ? 'active' : ''}`}
             onClick={() => setCurrentTab(index)}
             type="button">
             {tab.label}
@@ -24,7 +24,7 @@ const Tabs: React.FC<Props> = ({ tabs }) => {
       {tabs.map((tab, index) => (
         <div
           key={index}
-          className={`content ${currentTab === index ? '' : 'content-hidden'}`}>
+          className={`content ${currentTab === index ? '' : 'hidden'}`}>
           {tab.content}
         </div>
       ))}
