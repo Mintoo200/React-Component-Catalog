@@ -48,7 +48,7 @@ Default.args = {
     { value: 'My Third Value' },
     { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
   ].filter(({ value }) => value.toLowerCase().includes((input ?? '').toLowerCase())),
-  /* eslint-disable-next-line */
+  /* eslint-disable-next-line no-alert */
   onSubmit: (input) => alert(input),
 }
 
@@ -62,10 +62,8 @@ UnorderedResolution.args = {
       { value: 'My Fourth Value', label: 'Notice how the third value had no label' },
     ].filter(({ value }) => value.toLowerCase().includes((input ?? '').toLowerCase()))
     await new Promise((resolve) => setTimeout(resolve, result.length * 1000))
-    /* eslint-disable */
-    console.log(input)
     return result
   },
-  /* eslint-disable-next-line */
+  /* eslint-disable-next-line no-alert */
   onSubmit: (input) => alert(input),
 }

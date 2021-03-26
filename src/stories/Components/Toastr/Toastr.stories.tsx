@@ -51,6 +51,6 @@ withClickHandler.args = {
     <div>Hello</div>,
   ],
   timer: 3000,
-  /* eslint-disable no-alert */
+  /* eslint-disable-next-line no-alert */
   onClick: () => alert('You clicked'),
 }

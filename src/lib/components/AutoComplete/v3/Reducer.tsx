@@ -74,8 +74,6 @@ const Reducer: ReducerType<ContextType, Action> = (state, action) => {
       }
 
     case ReducerActions.setFocussed:
-      /* eslint-disable */
-      console.log(action.index)
       return {
         ...state,
         focussedItem: action.index,

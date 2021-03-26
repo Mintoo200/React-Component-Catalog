@@ -55,6 +55,6 @@ Default.args = {
       <Option value="Test 2">Also a test</Option>
     </Options>,
   ],
-  /* eslint-disable-next-line */
-  onSubmit: (input) => alert(input)
+  /* eslint-disable-next-line no-alert */
+  onSubmit: (input) => alert(input),
 }

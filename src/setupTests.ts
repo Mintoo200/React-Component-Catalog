@@ -4,9 +4,10 @@ import 'jest-enzyme'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-/* eslint-disable */
+/* eslint-disable no-console */
 const previousConsole = console.error
-console.error = (message) => {
+console.error = (message: string) => {
   previousConsole(message)
   throw new Error(message)
 }
+/* eslint-enable no-console */
