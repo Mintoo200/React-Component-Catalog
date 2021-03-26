@@ -8,9 +8,9 @@ import { Context } from './Context'
 // but not ensure that it actually is an instance of it.
 // If you get a 'is not a function' error, you probably
 // don't have the right class stored in the context
-function useAPI<T extends BaseAPIClass>(name:string = null): T {
-  const { APIs } = useContext(Context)
-  return APIs[(name != null) ? name : 'default'] as T
+function useAPI<T extends BaseAPIClass>(): T {
+  const APIInstance = useContext(Context)
+  return APIInstance as T
 }
 
 export default useAPI

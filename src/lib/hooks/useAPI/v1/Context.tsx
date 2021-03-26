@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import BaseAPIClass, { BaseAPIClassConstructor } from '../../APIClass'
+import BaseAPIClass, { BaseAPIClassConstructor } from '../APIClass'
 
 export const Context = React.createContext({} as Record<string, BaseAPIClass>)
 

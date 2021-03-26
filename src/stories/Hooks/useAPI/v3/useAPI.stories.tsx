@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Story } from '@storybook/react'
 import { AxiosResponse } from 'axios'
-import useAPI from '../../../../lib/hooks/useAPI/v1/Multi/useAPI'
-import APIContext, { Props as APIContextProps } from '../../../../lib/hooks/useAPI/v1/Multi/Context'
-import { APIClassConstructor } from '../../../../lib/hooks/useAPI/APIClass'
+import useAPI from '../../../../lib/hooks/useAPI/v3/useAPI'
+import APIContext, { ContextProps as APIContextProps, API } from '../../../../lib/hooks/useAPI/v3/Context'
 import MyAPI from '../MyAPI'
 import MySecondAPI from '../MySecondAPI'
 import makeCancelable from '../../../../lib/CancelablePromise'
@@ -14,7 +13,8 @@ const documentation = `
 
 ### single API
 \`\`\`tsx
-<APIProvider url="root.of.your/api" APIClass={MyAPI}>
+<APIProvider>
+  <API url="root.of.your/api" APIClass={MyAPI} />
   <App />
 </APIProvider>
 \`\`\`
@@ -36,18 +36,9 @@ class MyAPI extends APIClass {
 
 ### multiple APIs
 \`\`\`tsx
-<APIProvider APIs={[
-    {
-      name: 'My First API'
-      url: 'root.of.your/api',
-      APIClass: MyAPI,
-    },
-    {
-      name: 'My Second API'
-      url: 'root.of.your/second/api',
-      APIClass: MySecondAPI,
-    },
-  ]}>
+<APIProvider>
+  <API name="My First API" url="root.of.your/api" APIClass={MyAPI} />
+  <API name="My Second API" url="root.of.your/second/api" APIClass={MySecondAPI} />
   <App />
 </APIProvider>
 \`\`\`
@@ -66,16 +57,17 @@ class MyAPI extends APIClass {
   }
 }
 \`\`\`
+learn more [here](/story/hooks-useapi-study--page#version-3---apis-as-components)
 `
 
 export default {
-  title: 'Hooks/useAPI/v1 - APIs as props',
+  title: 'Hooks/useAPI/v3 ⭐ - APIs as components',
   parameters: {
     componentSource: {
       url: [
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv1%2FMulti%2FContext%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv3%2FContext%2Etsx/raw?ref=master',
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2FAPIClass%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv1%2FMulti%2FuseAPI%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv3%2FuseAPI%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },
@@ -89,21 +81,24 @@ export default {
 
 const SingleAPIComponent: React.FC<{timeout?: boolean}> = ({ timeout = false }) => {
   const [file, setFile] = useState(null as string)
-  const API = useAPI<MyAPI>()
+  const MyAPIInstance = useAPI<MyAPI>()
   useEffect(() => {
-    const cancelablePromise = makeCancelable<AxiosResponse>(
-      (timeout) ? API.getFileWithTimeout() : API.getFile(),
-    )
-    cancelablePromise.promise.then((response) => setFile(response.data))
-      .catch((error) => {
-        if (error instanceof CanceledError || (error.response && error.response.status === 401)) {
-          // Muting CanceledError and Unauthorized since it is the expected behavior
-          return null
-        }
-        throw error
-      })
-    return () => cancelablePromise.cancel()
-  }, [])
+    if (MyAPIInstance) {
+      const cancelablePromise = makeCancelable<AxiosResponse>(
+        (timeout) ? MyAPIInstance.getFileWithTimeout() : MyAPIInstance.getFile(),
+      )
+      cancelablePromise.promise.then((response) => setFile(response.data))
+        .catch((error) => {
+          if (error instanceof CanceledError || (error.response && error.response.status === 401)) {
+            // Muting CanceledError and Unauthorized since it is the expected behavior
+            return null
+          }
+          throw error
+        })
+      return () => cancelablePromise.cancel()
+    }
+    return null
+  }, [MyAPIInstance])
   return (
     <div style={{ whiteSpace: 'pre' }}>
       {(file != null) ? file : 'waiting...'}
@@ -111,20 +106,19 @@ const SingleAPIComponent: React.FC<{timeout?: boolean}> = ({ timeout = false }) 
   )
 }
 
-const Template: Story<APIContextProps<APIClassConstructor<MyAPI>>> = (args) => (
+const Template: Story<APIContextProps> = (args) => (
   <APIContext {...args} />
 )
 
 export const Default = Template.bind({})
 Default.args = {
-  url: 'https://gitlab.com/api/v4',
-  APIClass: MyAPI,
   children: [
+    <API url="https://gitlab.com/api/v4" APIClass={MyAPI} />,
     <SingleAPIComponent />,
   ],
 }
 
-const Template2: Story<APIContextProps<APIClassConstructor<MyAPI>>> = (args) => {
+const Template2: Story<APIContextProps> = (args) => {
   const [content, setContent] = useState(
     <SingleAPIComponent timeout />,
   )
@@ -143,19 +137,23 @@ const Template2: Story<APIContextProps<APIClassConstructor<MyAPI>>> = (args) => 
 
 export const Unmount = Template2.bind({})
 Unmount.args = {
-  url: 'https://gitlab.com/api/v4',
-  APIClass: MyAPI,
+  children: [
+    <API url="https://gitlab.com/api/v4" APIClass={MyAPI} />,
+  ],
 }
 
 const MultiAPIComponent1: React.FC = () => {
   const [file, setFile] = useState(null as string)
-  const API = useAPI<MyAPI>('gitlab')
+  const APIInstance = useAPI<MyAPI>('gitlab')
   useEffect(() => {
-    const promise = makeCancelable<AxiosResponse>(API.getFile())
-    promise.promise.then((response) => setFile(response.data))
-    promise.promise.catch()
-    return () => promise.cancel()
-  }, [])
+    if (APIInstance) {
+      const promise = makeCancelable<AxiosResponse>(APIInstance.getFile())
+      promise.promise.then((response) => setFile(response.data))
+      promise.promise.catch()
+      return () => promise.cancel()
+    }
+    return null
+  }, [APIInstance])
   return (
     <div style={{ whiteSpace: 'pre' }}>
       {(file != null) ? file : 'waiting...'}
@@ -165,13 +163,16 @@ const MultiAPIComponent1: React.FC = () => {
 
 const MultiAPIComponent2: React.FC = () => {
   const [file, setFile] = useState(null as string)
-  const API = useAPI<MySecondAPI>('also gitlab')
+  const APIInstance = useAPI<MySecondAPI>('also gitlab')
   useEffect(() => {
-    const promise = makeCancelable<AxiosResponse>(API.getFile())
-    promise.promise.then((response) => setFile(response.data))
-    promise.promise.catch()
-    return () => promise.cancel()
-  }, [])
+    if (APIInstance) {
+      const promise = makeCancelable<AxiosResponse>(APIInstance.getFile())
+      promise.promise.then((response) => setFile(response.data))
+      promise.promise.catch()
+      return () => promise.cancel()
+    }
+    return null
+  }, [APIInstance])
   return (
     <div style={{ whiteSpace: 'pre' }}>
       {(file != null) ? file : 'waiting...'}
@@ -181,19 +182,9 @@ const MultiAPIComponent2: React.FC = () => {
 
 export const MultipleAPI = Template.bind({})
 MultipleAPI.args = {
-  APIs: [
-    {
-      name: 'gitlab',
-      url: 'https://gitlab.com/api/v4',
-      APIClass: MyAPI,
-    },
-    {
-      name: 'also gitlab',
-      url: 'https://gitlab.com/api/v4',
-      APIClass: MySecondAPI,
-    },
-  ],
   children: [
+    <API name="gitlab" url="https://gitlab.com/api/v4" APIClass={MyAPI} />,
+    <API name="also gitlab" url="https://gitlab.com/api/v4" APIClass={MySecondAPI} />,
     <MultiAPIComponent1 />,
     <MultiAPIComponent2 />,
   ],
@@ -201,10 +192,8 @@ MultipleAPI.args = {
 
 export const withToken = Template.bind({})
 withToken.args = {
-  url: 'https://gitlab.com/api/v4',
-  APIClass: MyAPI,
-  token: 'your token goes here',
   children: [
+    <API url="https://gitlab.com/api/v4" APIClass={MyAPI} token="your token goes here" />,
     <div>
       By checking the Network tab of the dev tools,
       you can see that the header &ldquo;Authorization&rdquo; was added
