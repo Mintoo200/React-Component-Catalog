@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This is a library of generic React components and the result of my intership @OCTO. It also is very much a work in progress.
+This is a library of generic React components and the result of my intership @ OCTO. It also is very much a work in progress.
 The idea behind this project is to have components that are fully customizable to better match their context and real world use. To that end, this is not really a library as much as it is a repository of code snippets designed to be copy-pasted in your project.
 
 ## How can I access your work?
