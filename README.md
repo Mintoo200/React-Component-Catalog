@@ -1,40 +1,23 @@
-# Deprecated (cf #9)
+# Welcome to test-lib (working title)
 
-This project was bootstrapped with [Create React Library](https://github.com/dimimikadze/create-react-library).
+## What is this?
 
-All library files are located inside **src/lib** folder.
+This is a library of generic React components and the result of my intership @OCTO. It also is very much a work in progress.
+The idea behind this project is to have components that are fully customizable to better match their context and real world use. To that end, this is not really a library as much as it is a repository of code snippets designed to be copy-pasted in your project.
 
-Inside **src/demo** folder, you can test your library while developing.
+## How can I access your work?
 
-## Available Scripts
+You can access the storybook from [the GitLab page associated to this project](https://mintoo200.gitlab.io/test-lib/) or, and especially if you want to access anything I'm activelly working on, by cloning this repository.
 
-In the project directory, you can run:
+You then have access to the following commands:
+- `yarn storybook`: run the storybook (defaults to `localhost:6006`)
+- `yarn build-storybook`: build the storybook (defaults to `./storybook-static/`)
+- `yarn test`: run the test suite
+- `yarn lint`: run the linter
+- `yarn clean`: cleans the build directories
 
-### `npm start` or `yarn start`
+## How do I contribute?
 
-Runs the library in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `npm run test` or `yarn run test`
-
-Runs the test watcher in an interactive mode.
-
-### `npm run build` or `yarn build`
-
-Builds the library for production to the `build` folder.
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-### `npm publish`
-
-Publishes the library to NPM.
-
-## Typescript
-
-[Adding Typescript support](https://gist.github.com/DimiMikadze/f25e1c5c70fa003953afd40fa9042517)
-
-## Troubleshooting
-
-### Usage of other libraries within your library
-
-- Add the library as a peer dependency in package.json (effectively requiring the calling project to provide this dependency)
-- Add the library as a dev dependency in package.json (effectively allowing this library to successfully build without complaining about not having this dependency)
-- Add the library to the externals config in your webpack.config file(s). By default, only react and react-dom are there, meaning that those are the only two libraries that you can use within your new shared library.
+You can suggest new components by [creating an issue](https://gitlab.com/Mintoo200/test-lib/-/issues/new?issuable_template=component_suggestion).
+You can also make general suggestions by [creating issues](https://gitlab.com/Mintoo200/test-lib/-/issues/new?issuable_template=general_suggestion).
+If you want to comment the code, you can do so in [this merge request](https://gitlab.com/Mintoo200/test-lib/-/merge_requests/41).
