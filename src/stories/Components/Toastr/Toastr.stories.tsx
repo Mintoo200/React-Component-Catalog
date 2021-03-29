@@ -2,9 +2,33 @@ import React, { useState } from 'react'
 import { Story } from '@storybook/react'
 import Toastr, { Props as ToastrProps } from '../../../lib/components/Toastr/Toastr'
 
+const documentation = `
+## API
+\`\`\`tsx
+<Toastr isOpen onClose={() => null}>
+  Content
+</Toastr>
+\`\`\`
+
+## Optional props
+- \`timer\`: timer before the toastr automatically closes in ms (defaults to 1000ms)
+- \`onClick\`: callback when toastr is clicked
+`
+
 export default {
   title: 'Components/Toastr/Toastr',
   component: Toastr,
+  parameters: {
+    componentSource: {
+      url: 'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FToastr%2FToastr%2Etsx/raw?ref=master',
+      language: 'javascript',
+    },
+    docs: {
+      description: {
+        component: documentation,
+      },
+    },
+  },
 }
 
 const TemplateWithButton: Story<ToastrProps> = (args) => {
