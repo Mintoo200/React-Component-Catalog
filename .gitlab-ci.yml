@@ -10,13 +10,12 @@ before_script:
   - yarn
 
 stages:
-  - lint
   - test
   - build
   - deploy
 
 lint:
-  stage: lint
+  stage: test
   script:
     - yarn lint
   only:
