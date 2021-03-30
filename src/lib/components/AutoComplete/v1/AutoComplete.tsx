@@ -11,7 +11,7 @@ export type Props = {
   onSubmit: (input: string) => void,
 }
 
-const AutoComplete: React.FC<Props> = ({ options, onSubmit }) => {
+const AutoComplete = ({ options, onSubmit }: Props): React.ReactElement => {
   const salt = useSalt()
   return (
     <>

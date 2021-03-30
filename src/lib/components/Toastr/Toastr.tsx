@@ -10,9 +10,9 @@ export type Props = {
   onClick?: () => void,
 }
 
-const Toastr: React.FC<Props> = ({
+const Toastr = ({
   children, isOpen = false, onClose = null, timer = null, onClick = null,
-}) => {
+}: Props): React.ReactElement => {
   useEffect(() => {
     if (timer != null) {
       if (onClose == null) {

@@ -5,7 +5,7 @@ export type Props = {
   children: React.ReactNode,
 }
 
-const Slide: React.FC<Props> = ({ isActive = false, children }) => (
+const Slide = ({ isActive = false, children }: Props): React.ReactElement => (
   <div className={`slide ${isActive ? '' : 'hidden'}`}>
     {children}
   </div>

@@ -7,7 +7,7 @@ export type Props = {
   children: React.ReactNode,
 }
 
-const Slides: React.FC<Props> = ({ children }) => {
+const Slides = ({ children }: Props): React.ReactElement => {
   const {
     currentSlide, isPlaying, timer, dispatch,
   } = useContext(Context)

@@ -12,9 +12,9 @@ export type Props = {
   onClose: () => void,
 }
 
-const ModalWrapper: React.FC<Props> = ({
+const ModalWrapper = ({
   children, title, isOpen = false, onClose,
-}) => (
+}: Props): React.ReactElement => (
   <Modal isOpen={isOpen} onClose={onClose}>
     <ModalTitle onClose={onClose}>{title}</ModalTitle>
     <ModalContent>{children}</ModalContent>

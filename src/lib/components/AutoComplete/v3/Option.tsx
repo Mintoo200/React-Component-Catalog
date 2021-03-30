@@ -9,9 +9,9 @@ export type Props = {
   onHover?: () => void,
 }
 
-const Option: React.FC<Props> = ({
+const Option = ({
   children = null, value = null, onClick, hidden = false, focussed = false, onHover,
-}) => (
+}: Props): React.ReactElement => (
   <li className={`option ${hidden ? 'hidden' : ''} ${focussed ? 'focussed' : ''}`} onMouseEnter={onHover}>
     <button
       type="button"

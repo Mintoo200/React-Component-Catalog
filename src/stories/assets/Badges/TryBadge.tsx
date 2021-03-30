@@ -8,7 +8,7 @@ type Props = {
   story?: string
 }
 
-const TryBadge: React.FC<Props> = ({ kind, story }) => (
+const TryBadge = ({ kind, story }: Props): React.ReactElement => (
   <LinkTo kind={kind} story={story}>
     <button className="badge try-it" type="button">
       Try it

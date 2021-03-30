@@ -25,7 +25,7 @@ const childrenMatch = (node: React.ReactElement, input: string) => (
     && match(node.props.children as string, input))
 )
 
-const Options: React.FC<Props> = ({ children }) => {
+const Options = ({ children }: Props): React.ReactElement => {
   const {
     currentInput, dispatch, hasFocus, focussedItem,
   } = useContext(Context)

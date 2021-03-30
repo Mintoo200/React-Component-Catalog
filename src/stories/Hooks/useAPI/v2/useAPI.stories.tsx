@@ -17,7 +17,7 @@ const documentation = `
 </APIProvider>
 \`\`\`
 \`\`\`tsx
-const App: React.FC = () => {
+const App = (): React.ReactElement => {
   const API = useAPI<MyAPI>()
   return (
     ...
@@ -53,7 +53,7 @@ export default {
   },
 }
 
-const SingleAPIComponent: React.FC<{timeout?: boolean}> = ({ timeout = false }) => {
+const SingleAPIComponent = ({ timeout = false }: {timeout?: boolean}): React.ReactElement => {
   const [file, setFile] = useState(null as string)
   const API = useAPI<MyAPI>()
   useEffect(() => {

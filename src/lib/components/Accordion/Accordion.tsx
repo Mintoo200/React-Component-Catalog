@@ -46,11 +46,11 @@ export type AccordeonLabelProps = {
   onActivate?: () => void,
 }
 
-export const AccordeonLabel: React.FC<AccordeonLabelProps> = ({
+export const AccordeonLabel = ({
   children,
   isActive,
   onActivate,
-}) => (
+}: AccordeonLabelProps): React.ReactElement => (
   <button
     type="button"
     onClick={() => onActivate()}
@@ -64,6 +64,8 @@ export type AccordeonPanelProps = {
   isActive?: boolean,
 }
 
-export const AccordeonPanel: React.FC<AccordeonPanelProps> = ({ children, isActive }) => isActive && <div className="accordeon__panel">{children}</div>
+export const AccordeonPanel = ({ children, isActive }: AccordeonPanelProps): React.ReactElement => (
+  isActive && <div className="accordeon__panel">{children}</div>
+)
 
 export default Accordeon

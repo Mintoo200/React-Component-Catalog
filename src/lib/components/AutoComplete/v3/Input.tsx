@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import Context from './Context'
 import { ReducerActions } from './Reducer'
 
-const Input: React.FC = () => {
+const Input = (): React.ReactElement => {
   const { currentInput, dispatch } = useContext(Context)
   return (
     <input

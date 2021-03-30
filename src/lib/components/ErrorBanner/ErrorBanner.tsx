@@ -7,7 +7,7 @@ export type Props = {
   children?: React.ReactNode,
 }
 
-const ErrorBanner: React.FC<Props> = ({ message = '', children = [] }) => (
+const ErrorBanner = ({ message = '', children = [] }: Props): React.ReactElement => (
   <div className="error-banner">
     {`❌ ${message} `}
     {children}

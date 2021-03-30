@@ -19,7 +19,7 @@ const documentation = `
 </APIProvider>
 \`\`\`
 \`\`\`tsx
-const App: React.FC = () => {
+const App = (): React.ReactElement => {
   const API = useAPI<MyAPI>()
   return (
     ...
@@ -52,7 +52,7 @@ class MyAPI extends APIClass {
 </APIProvider>
 \`\`\`
 \`\`\`tsx
-const App: React.FC = () => {
+const App = (): React.ReactElement => {
   const API = useAPI<MyAPI>('My First API')
   return (
     ...
@@ -88,7 +88,7 @@ export default {
   },
 }
 
-const SingleAPIComponent: React.FC<{timeout?: boolean}> = ({ timeout = false }) => {
+const SingleAPIComponent = ({ timeout = false }: {timeout?: boolean}): React.ReactElement => {
   const [file, setFile] = useState(null as string)
   const API = useAPI<MyAPI>()
   useEffect(() => {
@@ -148,7 +148,7 @@ Unmount.args = {
   APIClass: MyAPI,
 }
 
-const MultiAPIComponent1: React.FC = () => {
+const MultiAPIComponent1 = (): React.ReactElement => {
   const [file, setFile] = useState(null as string)
   const API = useAPI<MyAPI>('gitlab')
   useEffect(() => {
@@ -164,7 +164,7 @@ const MultiAPIComponent1: React.FC = () => {
   )
 }
 
-const MultiAPIComponent2: React.FC = () => {
+const MultiAPIComponent2 = (): React.ReactElement => {
   const [file, setFile] = useState(null as string)
   const API = useAPI<MySecondAPI>('also gitlab')
   useEffect(() => {

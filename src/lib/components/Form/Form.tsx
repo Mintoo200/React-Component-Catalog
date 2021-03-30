@@ -37,7 +37,7 @@ const isInputField = (node: React.ReactElement): node is React.ReactElement => (
   || node.type === 'select'
 )
 
-const Form: React.FC<Props> = ({ children, onChange = () => null, onSubmit }) => {
+const Form = ({ children, onChange = () => null, onSubmit }: Props): React.ReactElement => {
   const defaultState = {} as Record<string, FieldValue<unknown>>
   const setDefault = (node: React.ReactNode) => {
     React.Children.forEach(node, (child) => {
