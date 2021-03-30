@@ -1,0 +1,14 @@
+body[data-theme="light"] {
+  --primary: black;
+  --secondary: white;
+}
+
+body[data-theme="dark"] {
+  --primary: white;
+  --secondary: black;
+}
+
+.theme-button {
+  color: var(--primary);
+  background: var(--secondary);
+}
