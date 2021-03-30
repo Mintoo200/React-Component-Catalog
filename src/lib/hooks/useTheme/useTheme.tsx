@@ -15,10 +15,11 @@ const Context = React.createContext<ContextType | undefined>(undefined)
 
 export type Props = {
   children: React.ReactNode,
+  defaultTheme: Themes,
 }
 
-export const ThemeProvider: React.FC<Props> = ({ children }) => {
-  const [theme, setTheme] = useState(Themes.light)
+export const ThemeProvider: React.FC<Props> = ({ children, defaultTheme = Themes.light }) => {
+  const [theme, setTheme] = useState(defaultTheme)
   useEffect(() => {
     document.body.dataset.theme = theme
   }, [theme])
