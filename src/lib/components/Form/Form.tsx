@@ -37,7 +37,7 @@ const isInputField = (node: React.ReactElement): node is React.ReactElement => (
   || node.type === 'select'
 )
 
-const Form: React.FC<Props> = ({ children, onChange, onSubmit }) => {
+const Form: React.FC<Props> = ({ children, onChange = () => null, onSubmit }) => {
   const defaultState = {} as Record<string, FieldValue<unknown>>
   const setDefault = (node: React.ReactNode) => {
     React.Children.forEach(node, (child) => {
@@ -65,12 +65,10 @@ const Form: React.FC<Props> = ({ children, onChange, onSubmit }) => {
   }, [])
   const [formContent, setFormContent] = useState(defaultState)
   useEffect(() => {
-    if (onChange != null) {
-      onChange({
-        valid: Object.values(formContent).every((input) => input.validity.valid),
-        content: formContent,
-      })
-    }
+    onChange({
+      valid: Object.values(formContent).every((input) => input.validity.valid),
+      content: formContent,
+    })
   }, [formContent])
   const onFieldChange = (id: string, newValue: FieldValue<unknown>) => {
     setFormContent((previousState) => ({
