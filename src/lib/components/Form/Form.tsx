@@ -33,7 +33,6 @@ const defaultValidityState: ValidityState = {
 }
 
 const isInputField = (node: React.ReactElement): node is React.ReactElement => (
-  // FIXME:
   node.type === 'input'
   || node.type === 'textarea'
   || node.type === 'select'
