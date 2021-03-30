@@ -17,7 +17,6 @@ export type Props = {
   onSubmit?: (state: FormState) => void,
 }
 
-// FIXME: ?
 const defaultValidityState: ValidityState = {
   badInput: false,
   customError: false,
