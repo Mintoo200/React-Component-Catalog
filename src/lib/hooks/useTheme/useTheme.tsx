@@ -18,7 +18,9 @@ export type Props = {
   defaultTheme: Themes,
 }
 
-export const ThemeProvider: React.FC<Props> = ({ children, defaultTheme = Themes.light }) => {
+export const ThemeProvider = ({
+  children, defaultTheme = Themes.light,
+}: Props): React.ReactElement => {
   const [theme, setTheme] = useState(defaultTheme)
   useEffect(() => {
     document.body.dataset.theme = theme

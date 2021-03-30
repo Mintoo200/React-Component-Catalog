@@ -2,7 +2,7 @@ import React from 'react'
 
 import './style.css'
 
-const DeprecatedBadge: React.FC = () => (
+const DeprecatedBadge = (): React.ReactElement => (
   <button className="badge deprecated" type="button" disabled>
     Deprecated
   </button>

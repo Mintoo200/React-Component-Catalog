@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const Tip: React.FC<Props> = ({ children }) => (
+const Tip = ({ children }: Props): React.ReactElement => (
   <div className="tip-box">
     <div className="tip">Tip</div>
     <div className="tip-content">{children}</div>

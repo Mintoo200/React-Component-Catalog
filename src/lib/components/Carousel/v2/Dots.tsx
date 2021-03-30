@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import Context from './Context'
 import { ReducerActions } from './Reducer'
 
-const Dots: React.FC = () => {
+const Dots = (): React.ReactElement => {
   const { currentSlide, slideCount, dispatch } = useContext(Context)
   return (
     <ul className="dots">

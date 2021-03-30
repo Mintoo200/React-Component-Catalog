@@ -10,7 +10,7 @@ export type Props = {
   onSubmit: (value: string) => void,
 }
 
-const AutoComplete: React.FC<Props> = ({ children, onSubmit }) => {
+const AutoComplete = ({ children, onSubmit }: Props): React.ReactElement => {
   const [state, dispatch] = useReducer(Reducer, {
     currentInput: '',
     hasFocus: false,

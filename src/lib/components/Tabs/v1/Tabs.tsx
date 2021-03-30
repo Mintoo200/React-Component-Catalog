@@ -6,7 +6,7 @@ export type Props = {
   tabs: {label: React.ReactNode, content: React.ReactNode}[]
 }
 
-const Tabs: React.FC<Props> = ({ tabs }) => {
+const Tabs = ({ tabs }: Props): React.ReactElement => {
   const [currentTab, setCurrentTab] = useState(0)
   return (
     <div>

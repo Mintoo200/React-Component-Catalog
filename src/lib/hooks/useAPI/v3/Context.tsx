@@ -18,7 +18,7 @@ export type ContextProps = {
   children: React.ReactNode,
 }
 
-export const APIContext: React.FC<ContextProps> = ({ children }) => {
+export const APIContext = ({ children }: ContextProps): React.ReactElement => {
   const [APIs, setAPIs] = useState({} as Record<string, BaseAPIClass>)
   const addAPI = useCallback((name, APIInstance) => {
     // setAPIs with callback because if you call addAPI multiple times

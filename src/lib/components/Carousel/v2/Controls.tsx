@@ -4,7 +4,7 @@ export type Props = {
   children: React.ReactNode,
 }
 
-const Controls: React.FC<Props> = ({ children }) => (
+const Controls = ({ children }: Props): React.ReactElement => (
   <div className="controls">
     {children}
   </div>

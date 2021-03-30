@@ -6,10 +6,10 @@ export type Props = {
   children?: React.ReactNode,
 }
 
-export const Play: React.FC<Props> = ({ children = null }) => {
+export const Play = ({ children = null }: Props): React.ReactElement => {
   const { isPlaying, dispatch } = useContext(Context)
 
-  const Button: React.FC = () => {
+  const Button = (): React.ReactElement => {
     if (!children) {
       return <>{isPlaying ? 'Pause' : 'Play'}</>
     }
@@ -32,7 +32,7 @@ export const Play: React.FC<Props> = ({ children = null }) => {
   )
 }
 
-export const Next: React.FC<Props> = ({ children = null }) => {
+export const Next = ({ children = null }: Props): React.ReactElement => {
   const { dispatch } = useContext(Context)
   return (
     <button
@@ -45,7 +45,7 @@ export const Next: React.FC<Props> = ({ children = null }) => {
   )
 }
 
-export const Previous: React.FC<Props> = ({ children = null }) => {
+export const Previous = ({ children = null }: Props): React.ReactElement => {
   const { dispatch } = useContext(Context)
   return (
     <button

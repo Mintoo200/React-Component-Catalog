@@ -4,7 +4,7 @@ export type Props = {
   children: React.ReactNode,
 }
 
-const ModalContent: React.FC<Props> = ({ children }) => (
+const ModalContent = ({ children }: Props): React.ReactElement => (
   <>{children}</>
 )
 

@@ -8,7 +8,7 @@ export type Props = {
   onClose: () => void
 }
 
-const Overlay: React.FC<Props> = ({ children, isOpen = false, onClose }) => {
+const Overlay = ({ children, isOpen = false, onClose }: Props): React.ReactElement => {
   const handleEscape = useCallback((event: React.KeyboardEvent|KeyboardEvent) => {
     if (event.key === 'Escape') { onClose() }
   }, [])

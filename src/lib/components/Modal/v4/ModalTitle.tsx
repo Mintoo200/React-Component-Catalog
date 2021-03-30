@@ -5,7 +5,7 @@ export type Props = {
   children: React.ReactNode,
 }
 
-const ModalTitle: React.FC<Props> = ({ children }) => {
+const ModalTitle = ({ children }: Props): React.ReactElement => {
   const { onClose } = useContext(Context)
   return (
     <>

@@ -75,13 +75,13 @@ export type SlideProps = {
   children: React.ReactNode,
 }
 
-export const Slide: React.FC<SlideProps> = ({ children }) => <><li>{children}</li></>
+export const Slide = ({ children }: SlideProps): React.ReactElement => <><li>{children}</li></>
 
 export type SlideNavItemsProps = {
   navType?: string,
 }
 
-export const SlideNavItems: React.FC<SlideNavItemsProps> = ({ navType = 'bullet' }) => {
+export const SlideNavItems = ({ navType = 'bullet' }: SlideNavItemsProps): React.ReactElement => {
   const {
     currentIndex, setCurrentIndex, slideComponent, setIsPlaying,
   } = useContext(CarouselContext)
@@ -109,7 +109,7 @@ export type SlideNavProps = {
   navType?: string,
 }
 
-export const SlideNav: React.FC<SlideNavProps> = ({ className, navType }) => (
+export const SlideNav = ({ className, navType }: SlideNavProps): React.ReactElement => (
   <><ul className={className}><SlideNavItems navType={navType} /></ul></>
 )
 
@@ -136,7 +136,7 @@ export type PreviousProps = {
   children: React.ReactNode,
 }
 
-export const Previous: React.FC<PreviousProps> = ({ children }) => {
+export const Previous = ({ children }: PreviousProps): React.ReactElement => {
   const { currentIndex, setCurrentIndex, slideComponent } = useContext(CarouselContext)
 
   return (
@@ -161,7 +161,7 @@ export type NextProps = {
   children: React.ReactNode,
 }
 
-export const Next: React.FC<NextProps> = ({ children }) => {
+export const Next = ({ children }: NextProps): React.ReactElement => {
   const { currentIndex, setCurrentIndex, slideComponent } = useContext(CarouselContext)
 
   return (

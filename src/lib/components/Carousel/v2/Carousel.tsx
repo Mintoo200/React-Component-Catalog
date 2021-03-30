@@ -11,7 +11,7 @@ export type Props = {
   isPlaying?: boolean,
 }
 
-const Carousel: React.FC<Props> = ({ children, timer = 1000, isPlaying = false }) => {
+const Carousel = ({ children, timer = 1000, isPlaying = false }: Props): React.ReactElement => {
   const [state, dispatch] = useReducer(Reducer, {
     slideCount: 0,
     currentSlide: 0,

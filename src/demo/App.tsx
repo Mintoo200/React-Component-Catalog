@@ -3,7 +3,7 @@ import ErrorBanner from '../lib/components/ErrorBanner/ErrorBanner'
 import Tabs from '../lib/components/Tabs/v2/Tabs'
 import Tab from '../lib/components/Tabs/v2/Tab'
 
-const App: React.FC = () => {
+const App = (): React.ReactElement => {
   const [error, setError] = useState(null)
   // capture Console.error to add error banner
   /* eslint-disable no-console */

@@ -12,7 +12,7 @@ export type Props = {
   children: React.ReactNode,
 }
 
-const Tabs: React.FC<Props> = ({ children }) => {
+const Tabs = ({ children }: Props): React.ReactElement => {
   const [activeIndex, setActiveIndex] = useState(0)
   return (
     <Context.Provider value={{ activeIndex, setActiveIndex }}>

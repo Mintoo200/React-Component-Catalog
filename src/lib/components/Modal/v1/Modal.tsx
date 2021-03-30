@@ -7,7 +7,7 @@ type OverlayProps = {
   onClick: () => void
 }
 
-export const Overlay: React.FC<OverlayProps> = ({ onClick }) => (
+export const Overlay = ({ onClick }: OverlayProps): React.ReactElement => (
   <div
     className="overlay"
     onClick={onClick}
@@ -19,7 +19,7 @@ type ContentProps = {
   children: React.ReactNode,
 }
 
-export const Content: React.FC<ContentProps> = ({ children }) => <div className="modal">{children}</div>
+export const Content = ({ children }: ContentProps): React.ReactElement => <div className="modal">{children}</div>
 
 export type ModalProps = {
   children: React.ReactElement|React.ReactElement[],
@@ -50,7 +50,9 @@ type ModalButtonCloseProps = {
   onModalClosed?: (_: boolean) => void
 }
 
-export const ModalButtonClose: React.FC<ModalButtonCloseProps> = ({ children, onModalClosed }) => (
+export const ModalButtonClose = ({
+  children, onModalClosed,
+}: ModalButtonCloseProps): React.ReactElement => (
   <div
     className="btnClose">
     <button onClick={() => onModalClosed(false)} type="button">{children}</button>

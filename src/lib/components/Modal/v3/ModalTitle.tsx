@@ -5,7 +5,7 @@ export type Props = {
   onClose?: () => void,
 }
 
-const ModalTitle: React.FC<Props> = ({ children, onClose }) => (
+const ModalTitle = ({ children, onClose }: Props): React.ReactElement => (
   <>
     <div className="title">
       <h1>{children}</h1>
