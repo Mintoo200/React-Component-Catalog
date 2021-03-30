@@ -39,9 +39,9 @@ export default {
   parameters: {
     componentSource: {
       url: [
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv2%2FSingle%2FContext%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv2%2FContext%2Etsx/raw?ref=master',
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2FAPIClass%2Etsx/raw?ref=master',
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv2%2FSingle%2FuseAPI%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseAPI%2Fv2%2FuseAPI%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },
