@@ -1,20 +1,17 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 import Banner from '../ErrorBanner'
 
 describe('Error Banner tests', (): void => {
-  it('should render', (): void => {
-    const wrapper = shallow(<Banner />)
-    expect(wrapper).toExist()
-  })
   it('should render the message when provided', (): void => {
     const message = 'This is a message'
-    const wrapper = shallow(<Banner message={message} />)
-    expect(wrapper).toIncludeText(message)
+    render(<Banner message={message} />)
+    expect(screen.getByRole('dialog')).toHaveTextContent(message)
   })
   it('should render the children when provided', (): void => {
-    const child = <div id="child" />
-    const wrapper = shallow(<Banner>{child}</Banner>)
-    expect(wrapper).toContainReact(child)
+    render(<Banner><div data-testid="child" /></Banner>)
+    const dialog = screen.getByRole('dialog')
+    const child = screen.getByTestId('child')
+    expect(dialog).toContainElement(child)
   })
 })

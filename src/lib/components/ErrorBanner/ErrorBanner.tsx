@@ -8,7 +8,7 @@ export type Props = {
 }
 
 const ErrorBanner = ({ message = '', children = [] }: Props): React.ReactElement => (
-  <div className="error-banner">
+  <div className="error-banner" role="dialog">
     {`❌ ${message} `}
     {children}
   </div>
