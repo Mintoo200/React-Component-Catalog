@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Story } from '@storybook/react'
-import Tabs, { Props as TabsProps } from '../../../../lib/components/Tabs/v3/Tabs'
+import Tabs, { Context as TabsContext, Props as TabsProps } from '../../../../lib/components/Tabs/v3/Tabs'
 import TabList from '../../../../lib/components/Tabs/v3/TabList'
 import TabContent from '../../../../lib/components/Tabs/v3/TabContent'
 import Tab from '../../../../lib/components/Tabs/v3/Tab'
@@ -94,4 +94,46 @@ BottomTabs.args = {
       <Tab>Tab2</Tab>
     </TabList>,
   ],
+}
+
+export const InterceptContext = Template.bind({})
+const Component = () => {
+  const { activeIndex, setActiveIndex } = useContext(TabsContext)
+  return (
+    <div>
+      <div>{`The current index is ${activeIndex}`}</div>
+      <button onClick={() => setActiveIndex(1)} type="button">set the current index to 1</button>
+    </div>
+  )
+}
+InterceptContext.args = {
+  children: [
+    <Component />,
+    <TabList key="TabList">
+      <Tab>Tab1</Tab>
+      <Tab>Tab2</Tab>
+    </TabList>,
+    <TabContent key="TabContent">
+      <div>Content 1</div>
+      <div>Content 2</div>
+    </TabContent>,
+  ],
+}
+const code = `
+const Component = () => {
+  const { activeIndex, setActiveIndex } = useContext(TabsContext)
+  return (
+    <div>
+      <div>{\`The current index is \${activeIndex}\`}</div>
+      <button onClick={() => setActiveIndex(1)} type="button">set the current index to 1</button>
+    </div>
+  )
+}
+`
+InterceptContext.parameters = {
+  docs: {
+    source: {
+      code,
+    },
+  },
 }
