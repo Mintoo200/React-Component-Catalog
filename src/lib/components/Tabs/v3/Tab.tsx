@@ -9,7 +9,7 @@ type Props = {
 const Tab = ({ children, active = false, onClick }: Props): React.ReactElement => (
   <button
     type="button"
-    className={`${active ? 'active' : ''}`}
+    className={`tab ${active ? 'active' : ''}`}
     onClick={onClick}>
     {children}
   </button>
