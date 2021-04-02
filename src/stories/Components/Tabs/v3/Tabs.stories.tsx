@@ -35,6 +35,7 @@ export default {
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FTabs%2Fv3%2FTabList%2Etsx/raw?ref=master',
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2flib%2fcomponents%2fTabs%2fv3%2fTab%2Etsx/raw?ref=master',
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2flib%2fcomponents%2fTabs%2fv3%2fTabContent%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FTabs%2Fstyle%2Ecss/raw?ref=master',
       ],
       language: 'javascript',
     },
