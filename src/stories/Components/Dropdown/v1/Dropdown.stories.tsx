@@ -3,9 +3,40 @@ import { Story } from '@storybook/react'
 import Dropdown, { Props as DropdownProps } from '../../../../lib/components/Dropdown/v1/Dropdown'
 import Menu from '../../../../lib/components/Dropdown/v1/Menu'
 
+const documentation = `
+## API
+\`\`\`tsx
+<Dropdown>
+  <button type="button">Link 1</button>
+  <Menu label={<button type="button">Submenu 1</button>}>
+    <button type="button">Link 2</button>
+    <Menu label={<button type="button">Submenu 2</button>}>
+      <button type="button">Link 3</button>
+    </Menu>
+    <button type="button">Link 4</button>
+  </Menu>
+</Dropdown>
+\`\`\`
+`
+
 export default {
   title: 'Components/Dropdown/v1 ⭐ - Label as prop',
   component: Dropdown,
+  parameters: {
+    componentSource: {
+      url: [
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FDropdown%2Fv1%2FDropdown%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FDropdown%2Fv1%2FMenu%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FDropdown%2Fstyle%2Ecss/raw?ref=master',
+      ],
+      language: 'javascript',
+    },
+    docs: {
+      description: {
+        component: documentation,
+      },
+    },
+  },
 }
 
 const Template: Story<DropdownProps> = (args) => (
