@@ -30,9 +30,13 @@ const Menu: React.FC<Props> = ({ children, label }) => {
       onBlur={closeMenu}
       className="label">
       {label}
-      <div className={`submenu ${hasFocus ? 'open' : 'closed'}`}>
-        {children}
-      </div>
+      <ul className={`submenu ${hasFocus ? 'open' : 'closed'}`}>
+        {React.Children.map(children, (child, index) => (
+          <li key={index}>
+            {child}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
