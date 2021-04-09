@@ -4,7 +4,7 @@ import Dropdown, { Props as DropdownProps } from '../../../../lib/components/Dro
 import Menu from '../../../../lib/components/Dropdown/v1/Menu'
 
 export default {
-  title: 'Components/Dropdown/v1',
+  title: 'Components/Dropdown/v1 ⭐ - Label as prop',
   component: Dropdown,
 }
 

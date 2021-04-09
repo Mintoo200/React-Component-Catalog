@@ -6,7 +6,7 @@ import Label from '../../../../lib/components/Dropdown/v2/Label'
 import Content from '../../../../lib/components/Dropdown/v2/Content'
 
 export default {
-  title: 'Components/Dropdown/v2',
+  title: 'Components/Dropdown/v2 - Label as component',
   component: Dropdown,
 }
 
