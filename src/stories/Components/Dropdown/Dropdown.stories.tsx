@@ -20,17 +20,17 @@ const Template: Story<DropdownProps> = (args) => (
 export const Default = Template.bind({})
 Default.args = {
   children: [
-    <button type="button">Link 1</button>,
-    <Menu label={<button type="button">Menu 1</button>}>
-      <button type="button">Link 2</button>
-      <Menu label={<button type="button">Submenu 1</button>}>
-        <button type="button">Link 3</button>
-        <Menu label={<button type="button">Submenu 2</button>}>
-          <button type="button">Link 4</button>
+    <button type="button" tabIndex={0}>Link 1</button>,
+    <Menu label={<button type="button" tabIndex={0}>Menu 1</button>}>
+      <button type="button" tabIndex={0}>Link 2</button>
+      <Menu label={<button type="button" tabIndex={0}>Submenu 1</button>}>
+        <button type="button" tabIndex={0}>Link 3</button>
+        <Menu label={<button type="button" tabIndex={0}>Submenu 2</button>}>
+          <button type="button" tabIndex={0}>Link 4</button>
         </Menu>
-        <button type="button">Link 5</button>
+        <button type="button" tabIndex={0}>Link 5</button>
       </Menu>
-      <button type="button">Link 6</button>
+      <button type="button" tabIndex={0}>Link 6</button>
     </Menu>,
   ],
 }

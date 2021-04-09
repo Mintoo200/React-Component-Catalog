@@ -3,16 +3,26 @@
   position: sticky;
 }
 
-.submenu {
-  position: absolute;
+.dropdown ul, ul.dropdown {
+  list-style-type: none;
 }
-.submenu .submenu {
+
+.dropdown .label {
   position: relative;
 }
 
+.submenu {
+  position: absolute;
+}
 .submenu.open {
 }
 
 .submenu.closed {
   display: none;
+}
+
+.dropdown .submenu .submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
 }

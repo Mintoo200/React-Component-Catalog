@@ -12,7 +12,8 @@ const Menu: React.FC<Props> = ({ children, label }) => {
       onMouseEnter={() => setFocus(true)}
       onFocus={() => setFocus(true)}
       onMouseLeave={() => setFocus(false)}
-      onBlur={() => setFocus(false)}>
+      onBlur={() => setFocus(false)}
+      className="label">
       {label}
       <div className={`submenu ${hasFocus ? 'open' : 'closed'}`}>
         {children}
