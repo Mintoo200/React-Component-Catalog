@@ -8,8 +8,8 @@ export type Props = {
 
 const Dropdown: React.FC<Props> = ({ children }) => (
   <ul className="dropdown">
-    {React.Children.map(children, (child) => (
-      <li>
+    {React.Children.map(children, (child, index) => (
+      <li key={index}>
         {child}
       </li>
     ))}
