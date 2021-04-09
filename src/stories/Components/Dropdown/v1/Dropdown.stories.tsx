@@ -1,12 +1,10 @@
 import React from 'react'
 import { Story } from '@storybook/react'
-import Dropdown, { Props as DropdownProps } from '../../../lib/components/Dropdown/Dropdown'
-import Menu from '../../../lib/components/Dropdown/Menu'
-
-import './style.css'
+import Dropdown, { Props as DropdownProps } from '../../../../lib/components/Dropdown/v1/Dropdown'
+import Menu from '../../../../lib/components/Dropdown/v1/Menu'
 
 export default {
-  title: 'Components/Dropdown/Dropdown',
+  title: 'Components/Dropdown/v1',
   component: Dropdown,
 }
 
