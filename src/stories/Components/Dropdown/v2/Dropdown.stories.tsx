@@ -41,3 +41,24 @@ Default.args = {
     </Menu>,
   ],
 }
+
+export const WithoutContent = Template.bind({})
+WithoutContent.args = {
+  children: [
+    <button type="button" tabIndex={0}>Link 1</button>,
+    <Menu>
+      <Label><button type="button" tabIndex={0}>Menu 1</button></Label>
+      <button type="button" tabIndex={0}>Link 2</button>
+      <Menu>
+        <Label><button type="button" tabIndex={0}>Submenu 1</button></Label>
+        <button type="button" tabIndex={0}>Link 3</button>
+        <Menu>
+          <Label><button type="button" tabIndex={0}>Submenu 2</button></Label>
+          <button type="button" tabIndex={0}>Link 4</button>
+        </Menu>
+        <button type="button" tabIndex={0}>Link 5</button>
+      </Menu>
+      <button type="button" tabIndex={0}>Link 6</button>
+    </Menu>,
+  ],
+}
