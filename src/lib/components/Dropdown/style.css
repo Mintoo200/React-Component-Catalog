@@ -1,0 +1,18 @@
+.dropdown {
+  display: flex;
+  position: sticky;
+}
+
+.submenu {
+  position: absolute;
+}
+.submenu .submenu {
+  position: relative;
+}
+
+.submenu.open {
+}
+
+.submenu.closed {
+  display: none;
+}
