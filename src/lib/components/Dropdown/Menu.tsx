@@ -7,12 +7,27 @@ export type Props = {
 
 const Menu: React.FC<Props> = ({ children, label }) => {
   const [hasFocus, setFocus] = useState(false)
+  const [timeoutId, setTimeoutId] = useState(null)
+  // The timeout is needed here because without it,
+  // React looses focus of the label before grabbing focus on the submenu
+  // causing the submenu loosing display and loosing "focussability" before grabbing it
+  // TL;DR: need to delay focus lost to keep focus when accessing submenu (for a11y)
+  const closeMenu = () => {
+    const newTimeout = setTimeout(() => setFocus(false), 0)
+    setTimeoutId(newTimeout)
+  }
+  const openMenu = () => {
+    if (timeoutId != null) {
+      clearTimeout(timeoutId)
+    }
+    setFocus(true)
+  }
   return (
     <div
-      onMouseEnter={() => setFocus(true)}
-      onFocus={() => setFocus(true)}
-      onMouseLeave={() => setFocus(false)}
-      onBlur={() => setFocus(false)}
+      onMouseEnter={openMenu}
+      onFocus={openMenu}
+      onMouseLeave={closeMenu}
+      onBlur={closeMenu}
       className="label">
       {label}
       <div className={`submenu ${hasFocus ? 'open' : 'closed'}`}>
