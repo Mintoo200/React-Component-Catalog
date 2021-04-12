@@ -29,12 +29,12 @@ const documentation = `
   <button type="button">Link 1</button>
   <Menu>
     <Label><button type="button">Submenu 1</button></Label>
-      <button type="button">Link 2</button>
-      <Menu>
-        <Label><button type="button">Submenu 2</button></Label>
-        <button type="button">Link 3</button>
-      </Menu>
-      <button type="button">Link 4</button>
+    <button type="button">Link 2</button>
+    <Menu>
+      <Label><button type="button">Submenu 2</button></Label>
+      <button type="button">Link 3</button>
+    </Menu>
+    <button type="button">Link 4</button>
   </Menu>
 </Dropdown>
 \`\`\`
