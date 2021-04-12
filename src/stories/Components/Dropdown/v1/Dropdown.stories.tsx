@@ -17,6 +17,7 @@ const documentation = `
   </Menu>
 </Dropdown>
 \`\`\`
+learn more [here](/story/components-dropdown-study--page#version-1---label-as-prop)
 `
 
 export default {

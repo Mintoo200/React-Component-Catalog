@@ -39,6 +39,7 @@ const documentation = `
 </Dropdown>
 \`\`\`
 For this implementation, the \`Content\` component is only used to clarify that everything that is not a \`Label\` is the content. It is therefore not mendatory.
+learn more [here](/story/components-dropdown-study--page#version-2---label-as-component)
 `
 
 export default {
