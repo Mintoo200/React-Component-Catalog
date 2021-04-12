@@ -1,0 +1,92 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import TryBadge from '../../assets/Badges/TryBadge'
+import DeprecatedBadge from '../../assets/Badges/DeprecatedBadge'
+import Tip from '../../assets/Banners/Tip'
+
+import '../../style.css'
+
+<Meta title="Components/Dropdown/Study" />
+
+# The <code>Dropdown</code> Component
+
+## Version 1 - Label as prop
+
+<TryBadge kind="components-dropdown-v1-⭐-label-as-prop" story="default" />
+
+<div className="subheading">API</div>
+
+```tsx
+<Dropdown>
+  <button type="button">Link 1</button>
+  <Menu label="Submenu 1">
+    <button type="button">Link 2</button>
+    <Menu label={<button type="button">Submenu 2</button>}>
+      <button type="button">Link 3</button>
+    </Menu>
+    <button type="button">Link 4</button>
+  </Menu>
+</Dropdown>
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Simple implementation</li>
+  <li>Affordant API</li>
+  <li>Allows nested menus</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>Labels as props makes reading the render less clear</li>
+</ul>
+
+## Version 2 - Label as component
+
+<TryBadge kind="components-dropdown-v2-label-as-component" story="default" />
+
+<div className="subheading">API</div>
+
+```tsx
+<Dropdown>
+  <button type="button">Link 1</button>
+  <Menu>
+    <Label><button type="button">Submenu 1</button></Label>
+    <Content>
+      <button type="button">Link 2</button>
+      <Menu>
+        <Label><button type="button">Submenu 2</button></Label>
+        <Content><button type="button">Link 3</button></Content>
+      </Menu>
+      <button type="button">Link 4</button>
+    </Content>
+  </Menu>
+</Dropdown>
+```
+or
+```tsx
+<Dropdown>
+  <button type="button">Link 1</button>
+  <Menu>
+    <Label><button type="button">Submenu 1</button></Label>
+    <button type="button">Link 2</button>
+    <Menu>
+      <Label><button type="button">Submenu 2</button></Label>
+      <button type="button">Link 3</button>
+    </Menu>
+    <button type="button">Link 4</button>
+  </Menu>
+</Dropdown>
+```
+
+<div className="subheading">Advantages</div>
+<ul>
+  <li>Label as component makes it easier to read as rendered</li>
+  <li>Allows nested menus</li>
+  <li>Content is optional and only aids readability</li>
+</ul>
+
+<div className="subheading">Drawbacks</div>
+<ul>
+  <li>More complex implementation with typings</li>
+  <li>Less affordant</li>
+</ul>
