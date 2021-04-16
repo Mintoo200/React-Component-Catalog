@@ -28,7 +28,7 @@ const Slides = ({ children }: Props): React.ReactElement => {
   useEffect(() => {
     dispatch({
       type: ReducerActions.setSlideCount,
-      slideCount,
+      count: slideCount,
     })
   }, [JSON.stringify(children)])
   useEffect(() => {

@@ -12,7 +12,7 @@ const Dots = (): React.ReactElement => {
             type="button"
             onClick={() => dispatch({
               type: ReducerActions.setCurrentSlide,
-              slideIndex: index,
+              index,
             })}>
             <div className={`dot ${currentSlide === index ? 'active' : ''}`} />
           </button>
