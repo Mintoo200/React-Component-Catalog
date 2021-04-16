@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import Context from './Context'
+import React from 'react'
+import useAutoComplete from './Context'
 import { ReducerActions } from './Reducer'
 
 const Input = (): React.ReactElement => {
-  const { currentInput, dispatch } = useContext(Context)
+  const { currentInput, dispatch } = useAutoComplete()
   return (
     <input
       name="find"

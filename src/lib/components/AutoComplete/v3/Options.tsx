@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react'
-import Context from './Context'
+import React, { useEffect } from 'react'
+import useAutoComplete from './Context'
 import Option from './Option'
 import { ReducerActions } from './Reducer'
 
@@ -28,7 +28,7 @@ const childrenMatch = (node: React.ReactElement, input: string) => (
 const Options = ({ children }: Props): React.ReactElement => {
   const {
     currentInput, dispatch, hasFocus, focussedItem,
-  } = useContext(Context)
+  } = useAutoComplete()
   useEffect(() => {
     const options = [] as string[]
     React.Children.forEach(children, (child) => {
