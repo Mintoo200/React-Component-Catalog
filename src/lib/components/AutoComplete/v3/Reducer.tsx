@@ -14,10 +14,23 @@ export enum ReducerActions {
 }
 
 export type Action = {
-  type: ReducerActions
-  input?: string,
-  options?: string[],
-  index?: number,
+  type: ReducerActions.setCurrentInput,
+  input: string | undefined,
+} | {
+  type: ReducerActions.setOptions,
+  options: string[],
+} | {
+  type: ReducerActions.setFocussed,
+  index: number,
+} | {
+  type: ReducerActions.submit
+    | ReducerActions.gotFocus
+    | ReducerActions.lostFocus
+    | ReducerActions.focusNext
+    | ReducerActions.focusPrevious
+  input?: never,
+  options?: never,
+  index?: never,
 }
 
 const Reducer: ReducerType<ContextType, Action> = (state, action) => {
