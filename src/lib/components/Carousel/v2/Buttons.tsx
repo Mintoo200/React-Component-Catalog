@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import Context from './Context'
+import React from 'react'
+import useCarousel from './Context'
 import { ReducerActions } from './Reducer'
 
 export type Props = {
@@ -7,7 +7,7 @@ export type Props = {
 }
 
 export const Play = ({ children = null }: Props): React.ReactElement => {
-  const { isPlaying, dispatch } = useContext(Context)
+  const { isPlaying, dispatch } = useCarousel()
 
   const Button = (): React.ReactElement => {
     if (!children) {
@@ -33,7 +33,7 @@ export const Play = ({ children = null }: Props): React.ReactElement => {
 }
 
 export const Next = ({ children = null }: Props): React.ReactElement => {
-  const { dispatch } = useContext(Context)
+  const { dispatch } = useCarousel()
   return (
     <button
       onClick={() => dispatch({
@@ -46,7 +46,7 @@ export const Next = ({ children = null }: Props): React.ReactElement => {
 }
 
 export const Previous = ({ children = null }: Props): React.ReactElement => {
-  const { dispatch } = useContext(Context)
+  const { dispatch } = useCarousel()
   return (
     <button
       onClick={() => dispatch({

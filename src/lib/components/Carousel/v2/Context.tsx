@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react'
+import React, { Dispatch, useContext } from 'react'
 import NoContextError from '../../../errors/NoContextError'
 import { Action } from './Reducer'
 
@@ -18,4 +18,12 @@ export const Context = React.createContext({
   dispatch: () => { throw new NoContextError() },
 } as ContextType)
 
-export default Context
+export default function useCarousel(): ContextType {
+  const context = useContext(Context)
+
+  if (context == null) {
+    throw new NoContextError()
+  }
+
+  return context
+}

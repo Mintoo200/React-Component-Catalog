@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react'
-import Context from './Context'
+import React, { useEffect } from 'react'
+import useCarousel from './Context'
 import { ReducerActions } from './Reducer'
 import Slide from './Slide'
 
@@ -10,7 +10,7 @@ export type Props = {
 const Slides = ({ children }: Props): React.ReactElement => {
   const {
     currentSlide, isPlaying, timer, dispatch,
-  } = useContext(Context)
+  } = useCarousel()
   let slideCount = 0
   const processedChildren = React.Children.map(children, (child) => {
     if (React.isValidElement(child)

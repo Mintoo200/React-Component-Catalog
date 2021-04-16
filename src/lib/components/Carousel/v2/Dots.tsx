@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import Context from './Context'
+import React from 'react'
+import useCarousel from './Context'
 import { ReducerActions } from './Reducer'
 
 const Dots = (): React.ReactElement => {
-  const { currentSlide, slideCount, dispatch } = useContext(Context)
+  const { currentSlide, slideCount, dispatch } = useCarousel()
   return (
     <ul className="dots">
       {[...Array(slideCount)].map((_, index) => (
