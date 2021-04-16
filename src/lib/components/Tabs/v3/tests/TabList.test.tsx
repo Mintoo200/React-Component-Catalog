@@ -5,13 +5,11 @@ import Tab from '../Tab'
 import NoContextError from '../../../../errors/NoContextError'
 
 describe('Tab tests', (): void => {
-  it('should throw when click on tab with no context', () => {
-    const wrapper = shallow(
+  it('should throw when rendering with no context', () => {
+    expect(() => shallow(
       <TabList>
         <Tab>Tab</Tab>
       </TabList>,
-    )
-    const tab = wrapper.find(Tab)
-    expect(() => tab.simulate('click')).toThrow(NoContextError)
+    )).toThrow(NoContextError)
   })
 })
