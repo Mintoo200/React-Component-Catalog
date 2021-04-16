@@ -1,24 +1,17 @@
 import React, { Dispatch, useContext } from 'react'
 import NoContextError from '../../../errors/NoContextError'
-import { Action } from './Reducer'
 
 export type ContextType = {
-  slideCount: number,
-  currentSlide: number,
-  isPlaying: boolean,
-  timer: number,
-  dispatch: Dispatch<Action>,
+  activeIndex: number,
+  setActiveIndex: Dispatch<number>,
 }
 
 export const Context = React.createContext({
-  slideCount: 0,
-  currentSlide: 0,
-  isPlaying: false,
-  timer: 1000,
-  dispatch: () => { throw new NoContextError() },
+  activeIndex: 0,
+  setActiveIndex: (() => { throw new NoContextError() }),
 } as ContextType)
 
-export default function useCarousel(): ContextType {
+export default function useTabs(): ContextType {
   const context = useContext(Context)
 
   if (context == null) {

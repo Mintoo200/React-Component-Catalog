@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import NoContextError from '../../../errors/NoContextError'
 import { Action } from './Reducer'
 
@@ -11,7 +11,7 @@ export type ContextType = {
   dispatch: React.Dispatch<Action>,
 }
 
-const Context = React.createContext({
+export const Context = React.createContext({
   currentInput: '',
   onSubmit: () => { throw new NoContextError() },
   hasFocus: false,
@@ -19,4 +19,12 @@ const Context = React.createContext({
   dispatch: () => { throw new NoContextError() },
 } as ContextType)
 
-export default Context
+export default function useAutoComplete(): ContextType {
+  const context = useContext(Context)
+
+  if (context == null) {
+    throw new NoContextError()
+  }
+
+  return context
+}

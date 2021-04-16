@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import NoContextError from '../../../errors/NoContextError'
 import Overlay from '../../Overlay/Overlay'
 
 import '../style.css'
 
-export const Context = React.createContext({
+const Context = React.createContext({
   onClose: () => null,
 })
+
+export function useModal(): {onClose: () => void} {
+  const context = useContext(Context)
+
+  if (context == null) {
+    throw new NoContextError()
+  }
+
+  return context
+}
 
 export type Props = {
   children: React.ReactNode,

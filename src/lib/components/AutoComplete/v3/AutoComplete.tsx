@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import NoContextError from '../../../errors/NoContextError'
-import Context from './Context'
+import { Context } from './Context'
 import Reducer, { ReducerActions } from './Reducer'
 
 import './style.css'
