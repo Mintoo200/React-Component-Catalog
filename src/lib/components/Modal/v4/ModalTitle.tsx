@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-import { Context } from './Modal'
+import React from 'react'
+import { useModal } from './Modal'
 
 export type Props = {
   children: React.ReactNode,
 }
 
 const ModalTitle = ({ children }: Props): React.ReactElement => {
-  const { onClose } = useContext(Context)
+  const { onClose } = useModal()
   return (
     <>
       <div className="title">
