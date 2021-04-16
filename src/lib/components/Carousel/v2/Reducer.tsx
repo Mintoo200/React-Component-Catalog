@@ -71,7 +71,7 @@ export const Reducer: ReducerType<ContextType, Action> = (state, action) => {
       }
 
     default:
-      throw new InvalidActionError(`Invalid action with ID ${action.type}`)
+      throw new InvalidActionError()
   }
 }
 
