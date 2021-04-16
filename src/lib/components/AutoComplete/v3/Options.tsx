@@ -53,10 +53,7 @@ const Options = ({ children }: Props): React.ReactElement => {
           || childrenMatch(child, currentInput)) {
             itemIndex += 1
             // action needs to be set here for closure
-            const action = {
-              type: ReducerActions.setFocussed,
-              index: itemIndex,
-            }
+            const indexCopy = itemIndex
             return React.cloneElement(child, {
               focussed: focussedItem === itemIndex,
               onClick: () => (
@@ -65,7 +62,10 @@ const Options = ({ children }: Props): React.ReactElement => {
                 })
               ),
               onHover: () => (
-                dispatch(action)
+                dispatch({
+                  type: ReducerActions.setFocussed,
+                  index: indexCopy,
+                })
               ),
             })
           }
