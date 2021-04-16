@@ -27,7 +27,7 @@ export type Action = {
     | ReducerActions.gotFocus
     | ReducerActions.lostFocus
     | ReducerActions.focusNext
-    | ReducerActions.focusPrevious
+    | ReducerActions.focusPrevious,
   input?: never,
   options?: never,
   index?: never,
@@ -93,7 +93,7 @@ const Reducer: ReducerType<ContextType, Action> = (state, action) => {
       }
 
     default:
-      throw new InvalidActionError(`Invalid action with ID ${action.type}`)
+      throw new InvalidActionError()
   }
 }
 
