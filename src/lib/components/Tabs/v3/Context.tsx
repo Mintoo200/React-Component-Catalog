@@ -6,10 +6,7 @@ export type ContextType = {
   setActiveIndex: Dispatch<number>,
 }
 
-export const Context = React.createContext({
-  activeIndex: 0,
-  setActiveIndex: (() => { throw new NoContextError() }),
-} as ContextType)
+export const Context = React.createContext<ContextType | undefined>(undefined)
 
 export default function useTabs(): ContextType {
   const context = useContext(Context)

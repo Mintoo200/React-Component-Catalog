@@ -11,13 +11,7 @@ export type ContextType = {
   dispatch: React.Dispatch<Action>,
 }
 
-export const Context = React.createContext({
-  currentInput: '',
-  onSubmit: () => { throw new NoContextError() },
-  hasFocus: false,
-  focussedItem: -1,
-  dispatch: () => { throw new NoContextError() },
-} as ContextType)
+export const Context = React.createContext<ContextType | undefined>(undefined)
 
 export default function useAutoComplete(): ContextType {
   const context = useContext(Context)
