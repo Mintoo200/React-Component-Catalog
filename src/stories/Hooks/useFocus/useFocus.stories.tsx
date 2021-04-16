@@ -4,8 +4,34 @@ import useFocus from '../../../lib/hooks/useFocus/useFocus'
 
 import './style.css'
 
+const documentation = `
+## API
+
+\`\`\`tsx
+const MyComponent = ({ hasFocus: boolean }) => {
+  const ref = useFocus<HTMLButtonElement>(hasFocus)
+  return (
+    <button ref={ref} />
+  )
+}
+\`\`\`
+`
+
 export default {
   title: 'Hooks/useFocus/useFocus',
+  parameters: {
+    componentSource: {
+      url: [
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseFocus%2FuseFocus%2Etsx/raw?ref=master',
+      ],
+      language: 'javascript',
+    },
+    docs: {
+      description: {
+        component: documentation,
+      },
+    },
+  },
 }
 
 const Template: Story = () => {
