@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-import { Context } from './Tabs'
+import React from 'react'
+import useTabs from './Context'
 
 type Props = {
   children: React.ReactNodeArray,
 }
 
 const TabContent = ({ children }: Props): React.ReactElement => {
-  const { activeIndex } = useContext(Context)
+  const { activeIndex } = useTabs()
   /* Renders only the current tab */
   return (
     <div className="content">

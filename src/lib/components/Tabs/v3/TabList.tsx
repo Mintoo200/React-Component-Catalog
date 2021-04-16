@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-import { Context } from './Tabs'
+import React from 'react'
+import useTabs from './Context'
 
 type Props = {
   children: React.ReactElement|React.ReactElement[],
 }
 
 const TabList = ({ children }: Props): React.ReactElement => {
-  const { activeIndex, setActiveIndex } = useContext(Context)
+  const { activeIndex, setActiveIndex } = useTabs()
   return (
     <ul className="tabs">
       {React.Children.map(children, (child, index) => (

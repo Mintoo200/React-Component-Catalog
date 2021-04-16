@@ -1,12 +1,7 @@
-import React, { useState, Dispatch } from 'react'
-import NoContextError from '../../../errors/NoContextError'
+import React, { useState } from 'react'
+import { Context } from './Context'
 
 import '../style.css'
-
-export const Context = React.createContext({
-  activeIndex: 0,
-  setActiveIndex: (() => { throw new NoContextError() }) as Dispatch<number>,
-})
 
 export type Props = {
   children: React.ReactNode,
