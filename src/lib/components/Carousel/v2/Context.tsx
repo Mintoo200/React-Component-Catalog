@@ -10,13 +10,7 @@ export type ContextType = {
   dispatch: Dispatch<Action>,
 }
 
-export const Context = React.createContext({
-  slideCount: 0,
-  currentSlide: 0,
-  isPlaying: false,
-  timer: 1000,
-  dispatch: () => { throw new NoContextError() },
-} as ContextType)
+export const Context = React.createContext<ContextType | undefined>(undefined)
 
 export default function useCarousel(): ContextType {
   const context = useContext(Context)
