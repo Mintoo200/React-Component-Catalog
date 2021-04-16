@@ -4,9 +4,7 @@ import Overlay from '../../Overlay/Overlay'
 
 import '../style.css'
 
-const Context = React.createContext({
-  onClose: () => null,
-})
+const Context = React.createContext(undefined)
 
 export function useModal(): {onClose: () => void} {
   const context = useContext(Context)
