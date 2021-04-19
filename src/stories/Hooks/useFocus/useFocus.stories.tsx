@@ -40,8 +40,8 @@ const Template: Story = () => {
   const ref2 = useFocus<HTMLButtonElement>(!hasFocus)
   return (
     <div>
-      <button className="focus-button" ref={ref2} onClick={() => setFocus(true)} type="button">Focus button 2</button>
-      <button className="focus-button" ref={ref1} onClick={() => setFocus(false)} type="button">Focus button 1</button>
+      <button onBlur={() => setFocus(true)} className="focus-button" ref={ref2} onClick={() => setFocus(true)} type="button">Focus button 2</button>
+      <button onBlur={() => setFocus(false)} className="focus-button" ref={ref1} onClick={() => setFocus(false)} type="button">Focus button 1</button>
     </div>
   )
 }
