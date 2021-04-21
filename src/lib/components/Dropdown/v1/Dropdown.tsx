@@ -52,7 +52,11 @@ const Dropdown: React.FC<Props> = ({ children }) => {
   return (
     <ul className="dropdown" onKeyDown={handleKey} role="menubar">
       {React.Children.map(children, (child, index) => (
-        <Item key={index} hasFocus={focussedItem === index} ref={refs[index]}>
+        <Item
+          key={index}
+          hasFocus={focussedItem === index}
+          ref={refs[index]}
+          onClick={() => setFocussedItem(index)}>
           {React.isValidElement(child)
             ? child
             : <button type="button">{child}</button>}
