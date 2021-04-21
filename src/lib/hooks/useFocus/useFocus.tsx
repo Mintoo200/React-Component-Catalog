@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from 'react'
 
 export default function useFocus<T extends HTMLElement>(
   hasFocus: boolean,
-  ref: React.ForwardedRef<T> = useRef<T>(),
+  ref: React.MutableRefObject<T> = useRef<T>(),
 )
-: React.ForwardedRef<T> {
+: React.MutableRefObject<T> {
   useEffect(() => {
-    if (hasFocus && typeof ref !== 'function') {
+    if (hasFocus) {
       ref?.current?.focus()
     }
   }, [ref, hasFocus])

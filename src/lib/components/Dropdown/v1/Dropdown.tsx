@@ -45,9 +45,6 @@ const Dropdown: React.FC<Props> = ({ children }) => {
           break
         }
         setFocussedItem(newIndex)
-
-        // FIXME: focus next item starting with character
-        // do not change focus if none found
         break
       }
     }
