@@ -5,7 +5,7 @@ export type Props = {
   label: React.ReactNode,
 }
 
-const Menu: React.FC<Props> = ({ children, label }) => {
+const Menu = React.forwardRef<HTMLElement, Props>(({ children, label }, ref) => {
   const [hasFocus, setFocus] = useState(false)
   const [timeoutId, setTimeoutId] = useState(null)
   // The timeout is needed here because without it,
@@ -29,7 +29,9 @@ const Menu: React.FC<Props> = ({ children, label }) => {
       onMouseLeave={closeMenu}
       onBlur={closeMenu}
       className="label">
-      {label}
+      {(React.isValidElement(label))
+        ? React.cloneElement(label, { ref })
+        : <button type="button">{label}</button>}
       <ul className={`submenu ${hasFocus ? 'open' : 'closed'}`}>
         {React.Children.map(children, (child, index) => (
           <li key={index}>
@@ -39,6 +41,6 @@ const Menu: React.FC<Props> = ({ children, label }) => {
       </ul>
     </div>
   )
-}
+})
 
 export default Menu

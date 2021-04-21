@@ -9,6 +9,7 @@ export type Props = {
 
 const Dropdown: React.FC<Props> = ({ children }) => {
   const [focussedItem, setFocussedItem] = useState(0)
+  const refs = React.Children.map(children, () => React.createRef<HTMLElement>())
   const handleKey = (event: React.KeyboardEvent) => {
     const itemCount = React.Children.count(children)
     switch (event.key) {
@@ -32,16 +33,29 @@ const Dropdown: React.FC<Props> = ({ children }) => {
       case 'End':
         setFocussedItem(itemCount - 1)
         break
-      default:
+      default: {
+        const predicate = (item: React.RefObject<HTMLElement>) => (
+          item?.current?.textContent.substring(0, 1).toLowerCase() === event.key
+        )
+        let newIndex = refs.slice(focussedItem).findIndex(predicate)
+        if (newIndex === -1) {
+          newIndex = refs.slice(0, focussedItem).findIndex(predicate)
+        }
+        if (newIndex === -1) {
+          break
+        }
+        setFocussedItem(newIndex)
+
         // FIXME: focus next item starting with character
         // do not change focus if none found
         break
+      }
     }
   }
   return (
     <ul className="dropdown" onKeyDown={handleKey} role="menubar">
       {React.Children.map(children, (child, index) => (
-        <Item key={index} hasFocus={focussedItem === index}>
+        <Item key={index} hasFocus={focussedItem === index} ref={refs[index]}>
           {React.isValidElement(child)
             ? child
             : <button type="button">{child}</button>}

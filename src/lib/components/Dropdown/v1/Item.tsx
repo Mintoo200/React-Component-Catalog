@@ -6,13 +6,13 @@ export type Props = {
   hasFocus: boolean
 }
 
-const Item: React.FC<Props> = ({ children, hasFocus }) => {
-  const ref = useFocus<HTMLElement>(hasFocus)
+const Item = React.forwardRef<HTMLElement, Props>(({ children, hasFocus }, ref) => {
+  useFocus<HTMLElement>(hasFocus, ref)
   return (
     <li>
       {React.cloneElement(children, { ref })}
     </li>
   )
-}
+})
 
 export default Item
