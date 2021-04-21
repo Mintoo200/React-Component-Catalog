@@ -10,7 +10,7 @@ const Item = React.forwardRef<HTMLElement, Props>(({ children, hasFocus }, ref) 
   useFocus<HTMLElement>(hasFocus, ref)
   return (
     <li>
-      {React.cloneElement(children, { ref })}
+      {React.cloneElement(children, { ref, tabIndex: hasFocus ? 0 : -1 })}
     </li>
   )
 })

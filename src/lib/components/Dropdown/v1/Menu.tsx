@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 export type Props = {
   children: React.ReactNode,
   label: React.ReactNode,
+  tabIndex?: number,
 }
 
-const Menu = React.forwardRef<HTMLElement, Props>(({ children, label }, ref) => {
+const Menu = React.forwardRef<HTMLElement, Props>(({ children, label, tabIndex = -1 }, ref) => {
   const [hasFocus, setFocus] = useState(false)
   const [timeoutId, setTimeoutId] = useState(null)
   // The timeout is needed here because without it,
@@ -30,8 +31,8 @@ const Menu = React.forwardRef<HTMLElement, Props>(({ children, label }, ref) => 
       onBlur={closeMenu}
       className="label">
       {(React.isValidElement(label))
-        ? React.cloneElement(label, { ref })
-        : <button type="button">{label}</button>}
+        ? React.cloneElement(label, { ref, tabIndex })
+        : <button type="button" tabIndex={tabIndex}>{label}</button>}
       <ul className={`submenu ${hasFocus ? 'open' : 'closed'}`}>
         {React.Children.map(children, (child, index) => (
           <li key={index}>
