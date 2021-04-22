@@ -17,14 +17,6 @@ const Dropdown: React.FC<Props> = ({ children }) => {
   const handleKey = (event: React.KeyboardEvent) => {
     const itemCount = React.Children.count(children)
     switch (event.key) {
-      case ' ':
-      case 'Enter':
-      case 'ArrowDown':
-        // FIXME: open submenu and focus first element
-        break
-      case 'ArrowUp':
-        // FIXME: open submenu and focus last element
-        break
       case 'ArrowRight':
         setFocussedItem((focussedItem + 1) % itemCount)
         break

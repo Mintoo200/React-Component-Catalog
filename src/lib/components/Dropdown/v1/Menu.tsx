@@ -43,6 +43,12 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
           // FIXME: else => close submenu and move focus to next main menubar item and open it
           break
         case 'ArrowLeft':
+          if (!opensDownward) {
+            setIsOpen(false)
+            setFocussedItem(-1)
+          }
+          break
+
           // FIXME: Close submenu and move focus to parent
           // FIXME: If parent is main menubar => also move focus to previous and open it
           break
@@ -92,6 +98,12 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
           if (opensDownward) {
             setIsOpen(true)
             setFocussedItem(itemCount - 1)
+          }
+          break
+        case 'ArrowRight':
+          if (!opensDownward) {
+            setIsOpen(true)
+            setFocussedItem(0)
           }
           break
         default:
