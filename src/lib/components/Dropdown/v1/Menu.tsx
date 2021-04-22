@@ -6,10 +6,11 @@ export type Props = {
   label: React.ReactNode,
   tabIndex?: number,
   onClose?: () => void,
+  opensDownward?: boolean,
 }
 
 const Menu = React.forwardRef<HTMLElement, Props>(({
-  children, label, tabIndex = -1, onClose = () => null,
+  children, label, tabIndex = -1, onClose = () => null, opensDownward = false,
 }, ref) => {
   const [focussedItem, setFocussedItem] = useState(-1)
   const [isOpen, setIsOpen] = useState(false)
@@ -27,8 +28,8 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     if (isOpen) {
       event.stopPropagation()
     }
+    const itemCount = React.Children.count(children)
     if (isOpen) {
-      const itemCount = React.Children.count(children)
       switch (event.key) {
         case ' ':
         case 'Enter':
@@ -80,6 +81,18 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
         case ' ':
           setIsOpen(true)
           setFocussedItem(0)
+          break
+        case 'ArrowDown':
+          if (opensDownward) {
+            setIsOpen(true)
+            setFocussedItem(0)
+          }
+          break
+        case 'ArrowUp':
+          if (opensDownward) {
+            setIsOpen(true)
+            setFocussedItem(itemCount - 1)
+          }
           break
         default:
           break

@@ -66,7 +66,7 @@ const Dropdown: React.FC<Props> = ({ children }) => {
           {React.isValidElement(child)
             ? (child.type === Menu)
               ? React.cloneElement(child, {
-                onClose: () => { refs[focussedItem]?.current?.focus() },
+                onClose: () => { refs[focussedItem]?.current?.focus() }, opensDownward: true,
               })
               : child
             : <button type="button">{child}</button>}
