@@ -185,11 +185,8 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
           if (!opensDownward) {
             dispatch({ type: Actions.closeMenu })
           } else {
-            const child = React.Children.toArray(children)[focussedItem]
-            if (!React.isValidElement(child) || child.type !== Menu) {
-              dispatch({ type: Actions.closeMenu })
-              openPreviousSibling()
-            }
+            dispatch({ type: Actions.closeMenu })
+            openPreviousSibling()
           }
           break
         case 'ArrowDown':
