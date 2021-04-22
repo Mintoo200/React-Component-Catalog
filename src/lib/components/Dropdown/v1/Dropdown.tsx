@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import '../style.css'
 import Item from './Item'
@@ -9,7 +9,10 @@ export type Props = {
 
 const Dropdown: React.FC<Props> = ({ children }) => {
   const [focussedItem, setFocussedItem] = useState(0)
-  const refs = React.Children.map(children, () => React.createRef<HTMLElement>())
+  const [refs, setRefs] = useState([])
+  useEffect(() => {
+    setRefs(React.Children.map(children, () => React.createRef<HTMLElement>()))
+  }, [children])
   const handleKey = (event: React.KeyboardEvent) => {
     const itemCount = React.Children.count(children)
     switch (event.key) {
