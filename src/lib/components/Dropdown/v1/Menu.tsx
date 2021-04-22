@@ -59,6 +59,7 @@ function Reducer(state: State, action: Action) {
       return {
         ...state,
         isOpen: action.isOpen,
+        focussedItem: (action.isOpen) ? state.focussedItem : -1,
       }
     case Actions.closeMenu:
       return {
