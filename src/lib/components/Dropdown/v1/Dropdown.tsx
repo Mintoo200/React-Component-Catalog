@@ -11,17 +11,29 @@ export type Props = {
 const Dropdown: React.FC<Props> = ({ children }) => {
   const [focussedItem, setFocussedItem] = useState(0)
   const [refs, setRefs] = useState([])
+  const [openMenu, setOpenMenu] = useState(false)
   useEffect(() => {
     setRefs(React.Children.map(children, () => React.createRef<HTMLElement>()))
   }, [children])
+  function focusNext() {
+    const count = React.Children.count(children)
+    setFocussedItem((focussedItem + 1) % count)
+  }
+  function focusPrevious() {
+    const count = React.Children.count(children)
+    setFocussedItem((focussedItem - 1 + count) % count)
+  }
   const handleKey = (event: React.KeyboardEvent) => {
     const itemCount = React.Children.count(children)
     switch (event.key) {
+      case 'Escape':
+        setOpenMenu(false)
+        break
       case 'ArrowRight':
-        setFocussedItem((focussedItem + 1) % itemCount)
+        focusNext()
         break
       case 'ArrowLeft':
-        setFocussedItem((focussedItem - 1 + itemCount) % itemCount)
+        focusPrevious()
         break
       case 'Home':
         setFocussedItem(0)
@@ -58,7 +70,11 @@ const Dropdown: React.FC<Props> = ({ children }) => {
           {React.isValidElement(child)
             ? (child.type === Menu)
               ? React.cloneElement(child, {
-                onClose: () => { refs[focussedItem]?.current?.focus() }, opensDownward: true,
+                onClose: () => { refs[focussedItem]?.current?.focus() },
+                opensDownward: true,
+                openNextSibling: () => { focusNext(); setOpenMenu(true) },
+                openPreviousSibling: () => { focusPrevious(); setOpenMenu(true) },
+                open: focussedItem === index && openMenu,
               })
               : child
             : <button type="button">{child}</button>}

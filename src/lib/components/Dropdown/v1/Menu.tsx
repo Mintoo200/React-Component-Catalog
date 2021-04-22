@@ -7,14 +7,27 @@ export type Props = {
   tabIndex?: number,
   onClose?: () => void,
   opensDownward?: boolean,
+  openNextSibling?: () => void,
+  openPreviousSibling?: () => void,
+  open?: boolean
 }
 
 const Menu = React.forwardRef<HTMLElement, Props>(({
-  children, label, tabIndex = -1, onClose = () => null, opensDownward = false,
+  children,
+  label,
+  tabIndex = -1,
+  onClose = () => null,
+  opensDownward = false,
+  openNextSibling = () => null,
+  openPreviousSibling = () => null,
+  open = false,
 }, ref) => {
   const [focussedItem, setFocussedItem] = useState(-1)
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(open)
   const [refs, setRefs] = useState([])
+  useEffect(() => {
+    setIsOpen(open)
+  }, [open])
   useEffect(() => {
     setRefs(React.Children.map(children, () => React.createRef<HTMLElement>()))
   }, [children])
@@ -36,18 +49,27 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
           setFocussedItem(-1)
           break
         case 'ArrowRight':
-          // FIXME: If on submenu => open submenu and focus first
-          // FIXME: else => close submenu and move focus to next main menubar item and open it
+          if (opensDownward) {
+            const child = React.Children.toArray(children)[focussedItem]
+            if (!React.isValidElement(child) || child.type !== Menu) {
+              setIsOpen(false)
+              setFocussedItem(-1)
+              openNextSibling()
+            }
+          }
           break
         case 'ArrowLeft':
           if (!opensDownward) {
             setIsOpen(false)
             setFocussedItem(-1)
+          } else {
+            const child = React.Children.toArray(children)[focussedItem]
+            if (!React.isValidElement(child) || child.type !== Menu) {
+              setIsOpen(false)
+              setFocussedItem(-1)
+              openPreviousSibling()
+            }
           }
-          break
-
-          // FIXME: Close submenu and move focus to parent
-          // FIXME: If parent is main menubar => also move focus to previous and open it
           break
         case 'ArrowDown':
           setFocussedItem((focussedItem + 1) % itemCount)
