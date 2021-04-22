@@ -164,7 +164,7 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     }
   }, [isOpen])
   const handleKey = (event: React.KeyboardEvent) => {
-    if (isOpen) {
+    if (isOpen && !(event.key === 'Escape' && opensDownward)) {
       event.stopPropagation()
     }
     if (isOpen) {
