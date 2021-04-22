@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import '../style.css'
 import Item from './Item'
+import Menu from './Menu'
 
 export type Props = {
   children: React.ReactNode,
@@ -16,7 +17,7 @@ const Dropdown: React.FC<Props> = ({ children }) => {
   const handleKey = (event: React.KeyboardEvent) => {
     const itemCount = React.Children.count(children)
     switch (event.key) {
-      case 'Space':
+      case ' ':
       case 'Enter':
       case 'ArrowDown':
         // FIXME: open submenu and focus first element
@@ -63,7 +64,11 @@ const Dropdown: React.FC<Props> = ({ children }) => {
           ref={refs[index]}
           onClick={() => setFocussedItem(index)}>
           {React.isValidElement(child)
-            ? child
+            ? (child.type === Menu)
+              ? React.cloneElement(child, {
+                onClose: () => { refs[focussedItem]?.current?.focus() },
+              })
+              : child
             : <button type="button">{child}</button>}
         </Item>
       ))}

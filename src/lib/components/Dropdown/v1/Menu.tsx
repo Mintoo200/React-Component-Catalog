@@ -1,43 +1,118 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Item from './Item'
 
 export type Props = {
   children: React.ReactNode,
   label: React.ReactNode,
   tabIndex?: number,
+  onClose?: () => void,
 }
 
-const Menu = React.forwardRef<HTMLElement, Props>(({ children, label, tabIndex = -1 }, ref) => {
-  const [hasFocus, setFocus] = useState(false)
-  const [timeoutId, setTimeoutId] = useState(null)
-  // The timeout is needed here because without it,
-  // React looses focus of the label before grabbing focus on the submenu
-  // causing the submenu loosing display and loosing "focussability" before grabbing it
-  // TL;DR: need to delay focus lost to keep focus when accessing submenu (for a11y)
-  const closeMenu = () => {
-    const newTimeout = setTimeout(() => setFocus(false), 0)
-    setTimeoutId(newTimeout)
-  }
-  const openMenu = () => {
-    if (timeoutId != null) {
-      clearTimeout(timeoutId)
+const Menu = React.forwardRef<HTMLElement, Props>(({
+  children, label, tabIndex = -1, onClose = () => null,
+}, ref) => {
+  const [focussedItem, setFocussedItem] = useState(-1)
+  const [isOpen, setIsOpen] = useState(false)
+  const [refs, setRefs] = useState([])
+  useEffect(() => {
+    setRefs(React.Children.map(children, () => React.createRef<HTMLElement>()))
+  }, [children])
+  useEffect(() => {
+    if (!isOpen) {
+      // call onClose when closing
+      onClose()
     }
-    setFocus(true)
+  }, [isOpen])
+  const handleKey = (event: React.KeyboardEvent) => {
+    if (isOpen) {
+      event.stopPropagation()
+    }
+    if (isOpen) {
+      const itemCount = React.Children.count(children)
+      switch (event.key) {
+        case ' ':
+        case 'Enter':
+          // FIXME: activate link or open submenu
+          break
+        case 'Escape':
+          setIsOpen(false)
+          break
+        case 'ArrowRight':
+          // FIXME: If on submenu => open submenu and focus first
+          // FIXME: else => close submenu and move focus to next main menubar item and open it
+          break
+        case 'ArrowLeft':
+          // FIXME: Close submenu and move focus to parent
+          // FIXME: If parent is main menubar => also move focus to previous and open it
+          break
+        case 'ArrowDown':
+          setFocussedItem((focussedItem + 1) % itemCount)
+          break
+        case 'ArrowUp':
+          setFocussedItem((focussedItem - 1 + itemCount) % itemCount)
+          break
+        case 'Home':
+          setFocussedItem(0)
+          break
+        case 'End':
+          setFocussedItem(itemCount - 1)
+          break
+        default: {
+          const predicate = (item: React.RefObject<HTMLElement>) => (
+            item?.current?.textContent.substring(0, 1).toLowerCase() === event.key.toLowerCase()
+          )
+          let newIndex = refs.slice(focussedItem + 1).findIndex(predicate)
+          if (newIndex === -1) {
+            newIndex = refs.slice(0, focussedItem).findIndex(predicate)
+            if (newIndex === -1) {
+              break
+            }
+          } else {
+            newIndex += focussedItem + 1
+          }
+          setFocussedItem(newIndex)
+          break
+        }
+      }
+    } else {
+      switch (event.key) {
+        case 'Enter':
+        case ' ':
+          setIsOpen(true)
+          setFocussedItem(0)
+          break
+        default:
+          break
+      }
+    }
   }
+
   return (
     <div
-      onMouseEnter={openMenu}
-      onFocus={openMenu}
-      onMouseLeave={closeMenu}
-      onBlur={closeMenu}
-      className="label">
+      onKeyDown={handleKey}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+      className="label"
+      role="menu"
+      tabIndex={-1}>
       {(React.isValidElement(label))
         ? React.cloneElement(label, { ref, tabIndex })
         : <button type="button" tabIndex={tabIndex}>{label}</button>}
-      <ul className={`submenu ${hasFocus ? 'open' : 'closed'}`}>
+      <ul className={`submenu ${isOpen ? 'open' : 'closed'}`}>
         {React.Children.map(children, (child, index) => (
-          <li key={index}>
-            {child}
-          </li>
+          <Item
+            key={index}
+            hasFocus={focussedItem === index && isOpen}
+            ref={refs[index]}
+            onClick={() => setFocussedItem(index)}>
+            {React.isValidElement(child)
+              ? (child.type === Menu)
+                ? React.cloneElement(child, {
+                  onClose: () => { refs[focussedItem]?.current?.focus() },
+                })
+                : child
+              : <button type="button">{child}</button>}
+          </Item>
         ))}
       </ul>
     </div>
