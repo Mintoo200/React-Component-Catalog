@@ -104,7 +104,7 @@ function Reducer(state: State, action: Action) {
       if (newIndex === -1) {
         newIndex = state.refs.slice(0, state.focussedItem).findIndex(predicate)
         if (newIndex === -1) {
-          break
+          return state
         }
       } else {
         newIndex += state.focussedItem + 1
