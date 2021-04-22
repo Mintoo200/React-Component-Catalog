@@ -38,7 +38,7 @@ const Dropdown: React.FC<Props> = ({ children }) => {
         break
       default: {
         const predicate = (item: React.RefObject<HTMLElement>) => (
-          item?.current?.textContent.substring(0, 1).toLowerCase() === event.key
+          item?.current?.textContent.substring(0, 1).toLowerCase() === event.key.toLowerCase()
         )
         let newIndex = refs.slice(focussedItem + 1).findIndex(predicate)
         if (newIndex === -1) {
