@@ -31,12 +31,9 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     const itemCount = React.Children.count(children)
     if (isOpen) {
       switch (event.key) {
-        case ' ':
-        case 'Enter':
-          // FIXME: activate link or open submenu
-          break
         case 'Escape':
           setIsOpen(false)
+          setFocussedItem(-1)
           break
         case 'ArrowRight':
           // FIXME: If on submenu => open submenu and focus first
@@ -116,7 +113,7 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     <div
       onKeyDown={handleKey}
       onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseLeave={() => { setIsOpen(false); setFocussedItem(-1) }}
       className="label"
       role="menu"
       tabIndex={-1}>
