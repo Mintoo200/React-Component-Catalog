@@ -1,5 +1,123 @@
-import React, { useEffect, useState } from 'react'
+import React, {
+  RefObject, useEffect, useReducer,
+} from 'react'
+import InvalidActionError from '../../../errors/InvalidActionError'
 import Item from './Item'
+
+enum Actions {
+  setRefs,
+  setIsOpen,
+  closeMenu,
+  openMenu,
+  setFocussedItem,
+  focusFirst,
+  focusLast,
+  focusNext,
+  focusPrevious,
+  focusMatching,
+}
+
+type Action = {
+  type: Actions.setRefs,
+  refs: RefObject<HTMLElement>[],
+} | {
+  type: Actions.setIsOpen,
+  isOpen: boolean,
+} | {
+  type: Actions.setFocussedItem,
+  index: number,
+} | {
+  type: Actions.focusMatching,
+  match: string
+} | {
+  type: Actions.closeMenu
+  | Actions.openMenu
+  | Actions.focusFirst
+  | Actions.focusLast
+  | Actions.focusNext
+  | Actions.focusPrevious,
+  isOpen?: never,
+  index?: never,
+  refs?: never,
+  match?: never
+}
+
+type State = {
+  isOpen: boolean,
+  focussedItem: number,
+  refs: RefObject<HTMLElement>[],
+}
+
+function Reducer(state: State, action: Action) {
+  switch (action.type) {
+    case Actions.setRefs:
+      return {
+        ...state,
+        refs: action.refs,
+      }
+    case Actions.setIsOpen:
+      return {
+        ...state,
+        isOpen: action.isOpen,
+      }
+    case Actions.closeMenu:
+      return {
+        ...state,
+        isOpen: false,
+        focussedItem: -1,
+      }
+    case Actions.openMenu:
+      return {
+        ...state,
+        isOpen: true,
+      }
+    case Actions.setFocussedItem:
+      return {
+        ...state,
+        focussedItem: action.index,
+      }
+    case Actions.focusFirst:
+      return {
+        ...state,
+        focussedItem: 0,
+      }
+    case Actions.focusLast:
+      return {
+        ...state,
+        focussedItem: state.refs.length - 1,
+      }
+    case Actions.focusNext:
+      return {
+        ...state,
+        focussedItem: (state.focussedItem + 1) % state.refs.length,
+      }
+    case Actions.focusPrevious:
+      return {
+        ...state,
+        focussedItem: (state.focussedItem - 1 + state.refs.length) % state.refs.length,
+      }
+    case Actions.focusMatching: {
+      const predicate = (item: React.RefObject<HTMLElement>) => (
+        item?.current?.textContent.substring(0, 1).toLowerCase() === action.match.toLowerCase()
+      )
+      let newIndex = state.refs.slice(state.focussedItem + 1).findIndex(predicate)
+      if (newIndex === -1) {
+        newIndex = state.refs.slice(0, state.focussedItem).findIndex(predicate)
+        if (newIndex === -1) {
+          break
+        }
+      } else {
+        newIndex += state.focussedItem + 1
+      }
+      return {
+        ...state,
+        focussedItem: newIndex,
+      }
+    }
+    default:
+      throw new InvalidActionError()
+  }
+}
 
 export type Props = {
   children: React.ReactNode,
@@ -22,14 +140,22 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
   openPreviousSibling = () => null,
   open = false,
 }, ref) => {
-  const [focussedItem, setFocussedItem] = useState(-1)
-  const [isOpen, setIsOpen] = useState(open)
-  const [refs, setRefs] = useState([])
+  const [{ isOpen, focussedItem, refs }, dispatch] = useReducer(Reducer, {
+    isOpen: open,
+    focussedItem: -1,
+    refs: [],
+  })
   useEffect(() => {
-    setIsOpen(open)
+    dispatch({
+      type: Actions.setIsOpen,
+      isOpen: open,
+    })
   }, [open])
   useEffect(() => {
-    setRefs(React.Children.map(children, () => React.createRef<HTMLElement>()))
+    dispatch({
+      type: Actions.setRefs,
+      refs: React.Children.map(children, () => React.createRef<HTMLElement>()),
+    })
   }, [children])
   useEffect(() => {
     if (!isOpen) {
@@ -41,62 +167,45 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     if (isOpen) {
       event.stopPropagation()
     }
-    const itemCount = React.Children.count(children)
     if (isOpen) {
       switch (event.key) {
         case 'Escape':
-          setIsOpen(false)
-          setFocussedItem(-1)
+          dispatch({ type: Actions.closeMenu })
           break
         case 'ArrowRight':
           if (opensDownward) {
             const child = React.Children.toArray(children)[focussedItem]
             if (!React.isValidElement(child) || child.type !== Menu) {
-              setIsOpen(false)
-              setFocussedItem(-1)
+              dispatch({ type: Actions.closeMenu })
               openNextSibling()
             }
           }
           break
         case 'ArrowLeft':
           if (!opensDownward) {
-            setIsOpen(false)
-            setFocussedItem(-1)
+            dispatch({ type: Actions.closeMenu })
           } else {
             const child = React.Children.toArray(children)[focussedItem]
             if (!React.isValidElement(child) || child.type !== Menu) {
-              setIsOpen(false)
-              setFocussedItem(-1)
+              dispatch({ type: Actions.closeMenu })
               openPreviousSibling()
             }
           }
           break
         case 'ArrowDown':
-          setFocussedItem((focussedItem + 1) % itemCount)
+          dispatch({ type: Actions.focusNext })
           break
         case 'ArrowUp':
-          setFocussedItem((focussedItem - 1 + itemCount) % itemCount)
+          dispatch({ type: Actions.focusPrevious })
           break
         case 'Home':
-          setFocussedItem(0)
+          dispatch({ type: Actions.focusFirst })
           break
         case 'End':
-          setFocussedItem(itemCount - 1)
+          dispatch({ type: Actions.focusLast })
           break
         default: {
-          const predicate = (item: React.RefObject<HTMLElement>) => (
-            item?.current?.textContent.substring(0, 1).toLowerCase() === event.key.toLowerCase()
-          )
-          let newIndex = refs.slice(focussedItem + 1).findIndex(predicate)
-          if (newIndex === -1) {
-            newIndex = refs.slice(0, focussedItem).findIndex(predicate)
-            if (newIndex === -1) {
-              break
-            }
-          } else {
-            newIndex += focussedItem + 1
-          }
-          setFocussedItem(newIndex)
+          dispatch({ type: Actions.focusMatching, match: event.key })
           break
         }
       }
@@ -104,25 +213,25 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
       switch (event.key) {
         case 'Enter':
         case ' ':
-          setIsOpen(true)
-          setFocussedItem(0)
+          dispatch({ type: Actions.openMenu })
+          dispatch({ type: Actions.focusFirst })
           break
         case 'ArrowDown':
           if (opensDownward) {
-            setIsOpen(true)
-            setFocussedItem(0)
+            dispatch({ type: Actions.openMenu })
+            dispatch({ type: Actions.focusFirst })
           }
           break
         case 'ArrowUp':
           if (opensDownward) {
-            setIsOpen(true)
-            setFocussedItem(itemCount - 1)
+            dispatch({ type: Actions.openMenu })
+            dispatch({ type: Actions.focusLast })
           }
           break
         case 'ArrowRight':
           if (!opensDownward) {
-            setIsOpen(true)
-            setFocussedItem(0)
+            dispatch({ type: Actions.openMenu })
+            dispatch({ type: Actions.focusFirst })
           }
           break
         default:
@@ -134,8 +243,8 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
   return (
     <div
       onKeyDown={handleKey}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => { setIsOpen(false); setFocussedItem(-1) }}
+      onMouseEnter={() => dispatch({ type: Actions.openMenu })}
+      onMouseLeave={() => { dispatch({ type: Actions.closeMenu }) }}
       className="label"
       role="menu"
       tabIndex={-1}>
@@ -148,7 +257,7 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
             key={index}
             hasFocus={focussedItem === index && isOpen}
             ref={refs[index]}
-            onClick={() => setFocussedItem(index)}>
+            onClick={() => dispatch({ type: Actions.setFocussedItem, index })}>
             {React.isValidElement(child)
               ? (child.type === Menu)
                 ? React.cloneElement(child, {
