@@ -146,10 +146,12 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     refs: [],
   })
   useEffect(() => {
-    dispatch({
-      type: Actions.setIsOpen,
-      isOpen: open,
-    })
+    if (!open || opensDownward) {
+      dispatch({
+        type: Actions.setIsOpen,
+        isOpen: open,
+      })
+    }
   }, [open])
   useEffect(() => {
     dispatch({
@@ -172,15 +174,14 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
         case 'Escape':
           dispatch({ type: Actions.closeMenu })
           break
-        case 'ArrowRight':
-          if (opensDownward) {
-            const child = React.Children.toArray(children)[focussedItem]
-            if (!React.isValidElement(child) || child.type !== Menu) {
-              dispatch({ type: Actions.closeMenu })
-              openNextSibling()
-            }
+        case 'ArrowRight': {
+          const child = React.Children.toArray(children)[focussedItem]
+          if (!React.isValidElement(child) || child.type !== Menu) {
+            dispatch({ type: Actions.closeMenu })
+            openNextSibling()
           }
           break
+        }
         case 'ArrowLeft':
           if (!opensDownward) {
             dispatch({ type: Actions.closeMenu })
@@ -259,6 +260,9 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
               ? (child.type === Menu)
                 ? React.cloneElement(child, {
                   onClose: () => { refs[focussedItem]?.current?.focus() },
+                  openNextSibling,
+                  openPreviousSibling,
+                  open: isOpen,
                 })
                 : child
               : <button type="button">{child}</button>}
