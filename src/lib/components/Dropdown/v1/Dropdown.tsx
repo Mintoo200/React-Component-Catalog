@@ -43,9 +43,11 @@ const Dropdown: React.FC<Props> = ({ children }) => {
         let newIndex = refs.slice(focussedItem).findIndex(predicate)
         if (newIndex === -1) {
           newIndex = refs.slice(0, focussedItem).findIndex(predicate)
-        }
-        if (newIndex === -1) {
-          break
+          if (newIndex === -1) {
+            break
+          }
+        } else {
+          newIndex += focussedItem + 1
         }
         setFocussedItem(newIndex)
         break
