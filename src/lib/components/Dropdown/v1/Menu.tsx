@@ -97,26 +97,30 @@ function Reducer(state: State, action: Action) {
         focussedItem: (state.focussedItem - 1 + state.refs.length) % state.refs.length,
       }
     case Actions.focusMatching: {
-      const predicate = (item: React.RefObject<HTMLElement>) => (
-        item?.current?.textContent.substring(0, 1).toLowerCase() === action.match.toLowerCase()
-      )
-      let newIndex = state.refs.slice(state.focussedItem + 1).findIndex(predicate)
-      if (newIndex === -1) {
-        newIndex = state.refs.slice(0, state.focussedItem).findIndex(predicate)
+      if (state.isOpen && state.focussedItem !== -1) {
+        const predicate = (item: React.RefObject<HTMLElement>) => (
+          item?.current?.textContent.substring(0, 1).toLowerCase() === action.match.toLowerCase()
+        )
+        let newIndex = state.refs.slice(state.focussedItem + 1).findIndex(predicate)
         if (newIndex === -1) {
-          return state
+          newIndex = state.refs.slice(0, state.focussedItem).findIndex(predicate)
+          if (newIndex === -1) {
+            break
+          }
+        } else {
+          newIndex += state.focussedItem + 1
         }
-      } else {
-        newIndex += state.focussedItem + 1
+        return {
+          ...state,
+          focussedItem: newIndex,
+        }
       }
-      return {
-        ...state,
-        focussedItem: newIndex,
-      }
+      break
     }
     default:
       throw new InvalidActionError()
   }
+  return state
 }
 
 export type Props = {
@@ -166,7 +170,7 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     }
   }, [isOpen])
   const handleKey = (event: React.KeyboardEvent) => {
-    if (isOpen && !(event.key === 'Escape' && opensDownward)) {
+    if ((isOpen && focussedItem !== -1) && !(event.key === 'Escape' && opensDownward)) {
       event.stopPropagation()
     }
     if (isOpen) {
