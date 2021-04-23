@@ -1,5 +1,5 @@
 import React, {
-  RefObject, useEffect, useReducer,
+  RefObject, useEffect, useReducer, useState,
 } from 'react'
 import InvalidActionError from '../../../errors/InvalidActionError'
 import Item from './Item'
@@ -150,6 +150,13 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     focussedItem: -1,
     refs: [],
   })
+  const [ariaLabel, setAriaLabel] = useState('')
+  useEffect(() => {
+    if (typeof ref === 'function') {
+      throw new Error('Menu component only support RefObjects, not ref callbacks.')
+    }
+    setAriaLabel(ref?.current?.textContent)
+  }, [ref])
   useEffect(() => {
     if (!open || opensDownward) {
       dispatch({
@@ -250,7 +257,8 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
       onMouseLeave={() => { dispatch({ type: Actions.closeMenu }) }}
       className="label"
       role="menu"
-      tabIndex={-1}>
+      tabIndex={-1}
+      aria-label={ariaLabel}>
       {(React.isValidElement(label))
         ? React.cloneElement(label, { ref, tabIndex })
         : <button type="button" tabIndex={tabIndex}>{label}</button>}

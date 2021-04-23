@@ -10,7 +10,7 @@ export type Props = {
 const Item = React.forwardRef<HTMLElement, Props>(
   ({ children, hasFocus = false, onClick }, ref) => {
     if (typeof ref === 'function') {
-      throw new Error('Item component only support MutableRefs, not ref callbacks.')
+      throw new Error('Item component only support RefObjects, not ref callbacks.')
     }
     useFocus<HTMLElement>(hasFocus, ref)
     return (

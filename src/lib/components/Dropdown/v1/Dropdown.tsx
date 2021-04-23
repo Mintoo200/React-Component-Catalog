@@ -124,9 +124,10 @@ function Reducer(state: State, action: Action) {
 
 export type Props = {
   children: React.ReactNode,
+  'aria-label': string,
 }
 
-const Dropdown: React.FC<Props> = ({ children }) => {
+const Dropdown: React.FC<Props> = ({ children, ...a11y }) => {
   const [{ focussedItem, refs, openMenu }, dispatch] = useReducer(Reducer, {
     focussedItem: 0,
     refs: [],
@@ -160,7 +161,7 @@ const Dropdown: React.FC<Props> = ({ children }) => {
     }
   }
   return (
-    <ul className="dropdown" onKeyDown={handleKey} role="menubar">
+    <ul className="dropdown" onKeyDown={handleKey} role="menubar" aria-label={a11y['aria-label']}>
       {React.Children.map(children, (child, index) => (
         <Item
           key={index}
