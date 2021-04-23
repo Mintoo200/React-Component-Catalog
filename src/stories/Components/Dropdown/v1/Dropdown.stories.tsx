@@ -120,3 +120,44 @@ WithCustomButtons.args = {
   ],
   'aria-label': 'My navigation menu',
 }
+WithCustomButtons.parameters = {
+  docs: {
+    source: {
+      code: `
+type PopupType = boolean | 'dialog' | 'menu' | 'false' | 'true' | 'listbox' | 'tree' | 'grid'
+type MyButtonProps = {
+  children?: React.ReactNode,
+  tabIndex?: number,
+  role?: string,
+  'aria-haspopup'?: PopupType,
+  'aria-expanded'?: boolean,
+}
+const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
+  ({ children, ...a11y }, ref) => (
+    <button
+      ref={ref}
+      type="button"
+      tabIndex={a11y.tabIndex}
+      role={a11y.role}
+      aria-haspopup={a11y['aria-haspopup']}
+      aria-expanded={a11y['aria-expanded']}
+      /* eslint-disable-next-line no-alert */
+      onClick={() => alert(\`click on \${children}\`)}>
+      {children}
+    </button>
+  ),
+)
+//
+<nav aria-label="My Navigation Menu">
+  <Dropdown aria-label="My navigation menu">
+    <MyButton>Link 1</MyButton>
+    <Menu label={<MyButton>Menu 1</MyButton>}>
+      <MyButton>Link 2</MyButton>
+      ...
+    </Menu>
+  </Dropdown>
+</nav>
+`,
+    },
+  },
+}
