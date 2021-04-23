@@ -161,11 +161,16 @@ const Dropdown: React.FC<Props> = ({ children, ...a11y }) => {
     }
   }
   return (
-    <ul className="dropdown" onKeyDown={handleKey} role="menubar" aria-label={a11y['aria-label']}>
+    <ul
+      className="dropdown"
+      onKeyDown={handleKey}
+      role="menubar"
+      aria-label={a11y['aria-label']}>
       {React.Children.map(children, (child, index) => (
         <Item
           key={index}
           hasFocus={focussedItem === index}
+          tabIndex={focussedItem === index ? 0 : -1}
           ref={refs[index]}
           onClick={() => { dispatch({ type: Actions.setFocussedItem, index }) }}>
           {React.isValidElement(child)
