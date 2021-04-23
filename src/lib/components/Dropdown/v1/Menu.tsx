@@ -262,7 +262,7 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
           ref,
           tabIndex,
           'aria-haspopup': 'menu',
-          'aria-extended': isOpen,
+          'aria-expanded': isOpen,
           role: 'menuitem',
         })
         : <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu">{label}</button>}
