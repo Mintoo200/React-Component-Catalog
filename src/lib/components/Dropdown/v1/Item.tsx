@@ -22,7 +22,7 @@ const Item = React.forwardRef<HTMLElement, Props>(
     // eslint-disable-next-line max-len
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
       <li onClick={onClick} role="none">
-        {React.cloneElement(children, { ref, tabIndex })}
+        {React.cloneElement(children, { ref, tabIndex, role: 'menuitem' })}
       </li>
     )
   },
