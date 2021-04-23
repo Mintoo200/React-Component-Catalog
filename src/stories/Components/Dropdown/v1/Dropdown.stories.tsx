@@ -26,8 +26,10 @@ export default {
 
 const Template: Story<DropdownProps> = (args) => (
   <>
-    <Dropdown {...args} />
-    <div style={{ height: '300px', background: 'cyan' }} />
+    <nav aria-label="My Navigation Menu">
+      <Dropdown {...args} />
+    </nav>
+    <div style={{ height: '300px', background: 'cyan' }} role="main" />
   </>
 )
 
