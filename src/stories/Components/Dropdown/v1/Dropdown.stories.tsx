@@ -59,7 +59,7 @@ Default.args = {
       </Menu>
       <button type="button">Link 11</button>
     </Menu>,
-    <button type="button">ALink 12</button>,
+    <button type="button">Link 12</button>,
     <button type="button">Link 13</button>,
   ],
   'aria-label': 'My navigation menu',
@@ -115,7 +115,7 @@ WithCustomButtons.args = {
       </Menu>
       <MyButton>Link 11</MyButton>
     </Menu>,
-    <MyButton>ALink 12</MyButton>,
+    <MyButton>Link 12</MyButton>,
     <MyButton>Link 13</MyButton>,
   ],
   'aria-label': 'My navigation menu',
