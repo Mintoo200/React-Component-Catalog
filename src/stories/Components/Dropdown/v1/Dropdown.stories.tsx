@@ -48,5 +48,19 @@ Default.args = {
       </Menu>
       <button type="button">Link 6</button>
     </Menu>,
+    <Menu label={<button type="button">Menu 2</button>}>
+      <button type="button">Link 7</button>
+      <Menu label={<button type="button">Submenu 3</button>}>
+        <button type="button">Link 8</button>
+        <Menu label={<button type="button">Submenu 4</button>}>
+          <button type="button">Link 9</button>
+        </Menu>
+        <button type="button">Link 10</button>
+      </Menu>
+      <button type="button">Link 11</button>
+    </Menu>,
+    <button type="button">ALink 12</button>,
+    <button type="button">Link 13</button>,
   ],
+  'aria-label': 'My navigation menu',
 }
