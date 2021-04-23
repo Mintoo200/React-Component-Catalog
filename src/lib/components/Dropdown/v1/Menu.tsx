@@ -256,9 +256,7 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
       onMouseEnter={() => dispatch({ type: Actions.openMenu })}
       onMouseLeave={() => { dispatch({ type: Actions.closeMenu }) }}
       className="label"
-      role="menu"
-      tabIndex={-1}
-      aria-label={ariaLabel}>
+      role="presentation">
       {(React.isValidElement(label))
         ? React.cloneElement(label, {
           ref,
@@ -268,7 +266,10 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
           role: 'menuitem',
         })
         : <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu">{label}</button>}
-      <ul className={`submenu ${isOpen ? 'open' : 'closed'}`}>
+      <ul
+        className={`submenu ${isOpen ? 'open' : 'closed'}`}
+        role="menu"
+        aria-label={ariaLabel}>
         {React.Children.map(children, (child, index) => (
           <Item
             key={index}
