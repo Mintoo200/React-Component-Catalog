@@ -64,3 +64,59 @@ Default.args = {
   ],
   'aria-label': 'My navigation menu',
 }
+
+type PopupType = boolean | 'dialog' | 'menu' | 'false' | 'true' | 'listbox' | 'tree' | 'grid'
+type MyButtonProps = {
+  children?: React.ReactNode,
+  tabIndex?: number,
+  role?: string,
+  'aria-haspopup'?: PopupType,
+  'aria-expanded'?: boolean,
+}
+const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
+  ({ children, ...a11y }, ref) => (
+    <button
+      ref={ref}
+      type="button"
+      tabIndex={a11y.tabIndex}
+      role={a11y.role}
+      aria-haspopup={a11y['aria-haspopup']}
+      aria-expanded={a11y['aria-expanded']}
+      /* eslint-disable-next-line no-alert */
+      onClick={() => alert(`click on ${children}`)}>
+      {children}
+    </button>
+  ),
+)
+
+export const WithCustomButtons = Template.bind({})
+WithCustomButtons.args = {
+  children: [
+    <MyButton>Link 1</MyButton>,
+    <Menu label={<MyButton>Menu 1</MyButton>}>
+      <MyButton>Link 2</MyButton>
+      <Menu label={<MyButton>Submenu 1</MyButton>}>
+        <MyButton>Link 3</MyButton>
+        <Menu label={<MyButton>Submenu 2</MyButton>}>
+          <MyButton>Link 4</MyButton>
+        </Menu>
+        <MyButton>Link 5</MyButton>
+      </Menu>
+      <MyButton>Link 6</MyButton>
+    </Menu>,
+    <Menu label={<MyButton>Menu 2</MyButton>}>
+      <MyButton>Link 7</MyButton>
+      <Menu label={<MyButton>Submenu 3</MyButton>}>
+        <MyButton>Link 8</MyButton>
+        <Menu label={<MyButton>Submenu 4</MyButton>}>
+          <MyButton>Link 9</MyButton>
+        </Menu>
+        <MyButton>Link 10</MyButton>
+      </Menu>
+      <MyButton>Link 11</MyButton>
+    </Menu>,
+    <MyButton>ALink 12</MyButton>,
+    <MyButton>Link 13</MyButton>,
+  ],
+  'aria-label': 'My navigation menu',
+}
