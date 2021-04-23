@@ -140,6 +140,8 @@ const Dropdown: React.FC<Props> = ({ children, ...a11y }) => {
     })
   }, [children])
   const handleKey = (event: React.KeyboardEvent) => {
+    event.stopPropagation()
+    event.preventDefault()
     switch (event.key) {
       case 'Escape':
         dispatch({ type: Actions.closeMenu })

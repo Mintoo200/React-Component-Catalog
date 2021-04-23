@@ -181,6 +181,7 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
     if ((isOpen && focussedItem !== -1) && !(event.key === 'Escape' && opensDownward)) {
       event.stopPropagation()
     }
+    event.preventDefault()
     if (isOpen && focussedItem !== -1) {
       switch (event.key) {
         case 'Escape':
