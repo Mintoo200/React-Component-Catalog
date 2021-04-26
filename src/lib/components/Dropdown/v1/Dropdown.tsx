@@ -3,9 +3,12 @@ import React, {
 } from 'react'
 import Item from './Item'
 import Menu from './Menu'
+import InvalidActionError from '../../../errors/InvalidActionError'
+import {
+  findNextMatching, isCharacter,
+} from './Utils'
 
 import '../style.css'
-import InvalidActionError from '../../../errors/InvalidActionError'
 
 enum Actions {
   setRefs,
@@ -87,17 +90,12 @@ function Reducer(state: State, action: Action) {
         focussedItem: (state.focussedItem - 1 + state.refs.length) % state.refs.length,
       }
     case Actions.focusMatching: {
-      const predicate = (item: React.RefObject<HTMLElement>) => (
-        item?.current?.textContent.substring(0, 1).toLowerCase() === action.match.toLowerCase()
-      )
-      let newIndex = state.refs.slice(state.focussedItem + 1).findIndex(predicate)
+      if (!isCharacter(action.match)) {
+        break
+      }
+      const newIndex = findNextMatching(state.refs, action.match, state.focussedItem)
       if (newIndex === -1) {
-        newIndex = state.refs.slice(0, state.focussedItem).findIndex(predicate)
-        if (newIndex === -1) {
-          break
-        }
-      } else {
-        newIndex += state.focussedItem + 1
+        break
       }
       return {
         ...state,
