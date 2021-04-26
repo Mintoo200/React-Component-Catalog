@@ -281,8 +281,14 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
               ? (child.type === Menu)
                 ? React.cloneElement(child, {
                   onClose: () => { refs[focussedItem]?.current?.focus() },
-                  openNextSibling,
-                  openPreviousSibling,
+                  openNextSibling: () => {
+                    dispatch({ type: Actions.closeMenu })
+                    openNextSibling()
+                  },
+                  openPreviousSibling: () => {
+                    dispatch({ type: Actions.closeMenu })
+                    openPreviousSibling()
+                  },
                   open: isOpen,
                 })
                 : child
