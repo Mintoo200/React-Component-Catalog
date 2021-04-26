@@ -127,7 +127,7 @@ export type Props = {
   'aria-label': string,
 }
 
-const Dropdown: React.FC<Props> = ({ children, ...a11y }) => {
+const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
   const [{ focussedItem, refs, openMenu }, dispatch] = useReducer(Reducer, {
     focussedItem: 0,
     refs: [],
