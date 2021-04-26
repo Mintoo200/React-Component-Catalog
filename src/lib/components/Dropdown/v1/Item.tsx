@@ -1,4 +1,5 @@
 import React from 'react'
+import useCombinedRef from '../../../hooks/useCombinedRef/useCombinedRef'
 import useFocus from '../../../hooks/useFocus/useFocus'
 
 export type Props = {
@@ -11,10 +12,8 @@ export type Props = {
 const Item = React.forwardRef<HTMLElement, Props>(
   ({
     children, hasFocus = false, tabIndex = -1, onClick,
-  }, ref) => {
-    if (typeof ref === 'function') {
-      throw new Error('Item component only support RefObjects, not ref callbacks.')
-    }
+  }, forwardedRef) => {
+    const ref = useCombinedRef(forwardedRef)
     useFocus<HTMLElement>(hasFocus, ref)
     return (
     // onClick is used as a pass-through from the click on the link

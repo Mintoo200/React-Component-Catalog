@@ -2,6 +2,7 @@ import React, {
   RefObject, useEffect, useReducer, useState,
 } from 'react'
 import InvalidActionError from '../../../errors/InvalidActionError'
+import useCombinedRef from '../../../hooks/useCombinedRef/useCombinedRef'
 import Item from './Item'
 
 enum Actions {
@@ -144,19 +145,17 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
   openNextSibling = () => null,
   openPreviousSibling = () => null,
   open = false,
-}, ref) => {
+}, forwardedRef) => {
   const [{ isOpen, focussedItem, refs }, dispatch] = useReducer(Reducer, {
     isOpen: open,
     focussedItem: -1,
     refs: [],
   })
   const [ariaLabel, setAriaLabel] = useState('')
+  const ref = useCombinedRef(forwardedRef)
   useEffect(() => {
-    if (typeof ref === 'function') {
-      throw new Error('Menu component only support RefObjects, not ref callbacks.')
-    }
     setAriaLabel(ref?.current?.textContent)
-  }, [ref])
+  }, [ref?.current?.textContent])
   useEffect(() => {
     if (!open || opensDownward) {
       dispatch({
