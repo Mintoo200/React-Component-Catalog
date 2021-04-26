@@ -6,6 +6,9 @@ export default function useCombinedRef<T>(...forwardedRefs: ForwardedRef<T>[]): 
   const localRef = useRef<T>()
   useEffect(() => {
     forwardedRefs.forEach((ref) => {
+      if (ref == null) {
+        return
+      }
       if (typeof ref === 'function') {
         ref(localRef?.current)
       } else {
