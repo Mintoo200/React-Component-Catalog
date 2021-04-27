@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Tabs from '../Tabs'
 import Tab from '../Tab'
 import TabList from '../TabList'
@@ -60,7 +61,7 @@ describe('Tabs tests', (): void => {
         </Tabs>
       </>,
     )
-    screen.getByText('Tab2').click()
+    userEvent.click(screen.getByText('Tab2'))
     expect(screen.getByText('Content1')).not.toBeVisible()
     expect(screen.getByText('Content2')).toBeVisible()
   })
