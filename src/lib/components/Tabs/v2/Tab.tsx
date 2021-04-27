@@ -12,7 +12,7 @@ type Props = {
 }
 
 const Tab = ({
-  active = false, children, label, onClick, onKeyPress,
+  active = false, label, onClick, onKeyPress,
 }: Props): React.ReactElement => (
   <>
     <button
@@ -23,7 +23,6 @@ const Tab = ({
       type="button">
       {label}
     </button>
-    <template title={`${label}-content`}>{children}</template>
   </>
 )
 
