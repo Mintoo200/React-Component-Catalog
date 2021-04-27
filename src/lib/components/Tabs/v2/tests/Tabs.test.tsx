@@ -1,64 +1,60 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Tabs from '../Tabs'
 import Tab from '../Tab'
 
+import '../../style.css'
+
 describe('Tabs tests', (): void => {
-  it('should render the Tabs', (): void => {
-    const wrapper = shallow(
-      <Tabs>
-        <Tab label="Salut">
-          Content
-        </Tab>
-        <Tab label="Salut 2">
-          Content 2
-        </Tab>
-      </Tabs>,
+  it('should render the content of the active tab', (): void => {
+    render(
+      <>
+        <style>{'.hidden { display: none; }'}</style>
+        <Tabs>
+          <Tab label="Salut">
+            Content
+          </Tab>
+          <Tab label="Salut 2">
+            Content 2
+          </Tab>
+        </Tabs>
+      </>,
     )
-    // Here is why I don't like TS:
-    // The following error is caused by the selector type being "string"
-    // Where it is strongly recommended to use the constructor instead of the name
-    expect(wrapper).toContainMatchingElements(2, 'Tab')
-  })
-  it('should render the content of the tabs', (): void => {
-    const wrapper = shallow(
-      <Tabs>
-        <Tab label="Salut">
-          Content
-        </Tab>
-        <Tab label="Salut 2">
-          Content 2
-        </Tab>
-      </Tabs>,
-    )
-    expect(wrapper).toIncludeText('Content')
+    expect(screen.getByText('Content')).toBeVisible()
   })
   it('should render hidden tabs as hidden', (): void => {
-    const wrapper = shallow(
-      <Tabs>
-        <Tab label="Salut">
-          Content
-        </Tab>
-        <Tab label="Salut 2">
-          Content 2
-        </Tab>
-      </Tabs>,
+    render(
+      <>
+        <style>{'.hidden { display: none; }'}</style>
+        <Tabs>
+          <Tab label="Salut">
+            Content
+          </Tab>
+          <Tab label="Salut 2">
+            Content 2
+          </Tab>
+        </Tabs>
+      </>,
     )
-    expect(wrapper).toContainExactlyOneMatchingElement('.hidden')
+    expect(screen.getByText('Content 2')).not.toBeVisible()
   })
   it('should switch shown tab on click', (): void => {
-    const wrapper = shallow(
-      <Tabs>
-        <Tab label="Salut">
-          Content
-        </Tab>
-        <Tab label="Salut 2">
-          Content 2
-        </Tab>
-      </Tabs>,
+    render(
+      <>
+        <style>{'.hidden { display: none; }'}</style>
+        <Tabs>
+          <Tab label="Salut">
+            Content
+          </Tab>
+          <Tab label="Salut 2">
+            Content 2
+          </Tab>
+        </Tabs>
+      </>,
     )
-    wrapper.find(Tab).last().simulate('click')
-    const firstTab = wrapper.find('.content').first()
-    expect(firstTab).toHaveClassName('hidden')
+    userEvent.click(screen.getByText('Salut 2'))
+    expect(screen.getByText('Content')).not.toBeVisible()
+    expect(screen.getByText('Content 2')).toBeVisible()
   })
 })
