@@ -31,6 +31,15 @@ function TestingMenu() {
 }
 
 describe('Dropdown tests', () => {
+  function openSubmenu(menu: HTMLElement, firstItem?: HTMLElement): void {
+    menu.focus()
+    expect(menu).toHaveFocus()
+    userEvent.keyboard('{ArrowDown}')
+    if (firstItem != null) {
+      expect(firstItem).toBeVisible()
+      expect(firstItem).toHaveFocus()
+    }
+  }
   it('should trigger onClick when button clicked', () => {
     renderWithStyle(<TestingMenu />)
     userEvent.click(screen.getByText('Link 1'))
@@ -66,13 +75,6 @@ describe('Dropdown tests', () => {
   })
 
   describe('Keyboard tests', () => {
-    function openSubmenu(menu: HTMLElement, firstItem: HTMLElement): void {
-      menu.focus()
-      expect(menu).toHaveFocus()
-      userEvent.keyboard('{ArrowDown}')
-      expect(firstItem).toBeVisible()
-      expect(firstItem).toHaveFocus()
-    }
     describe('Menubar tests', () => {
       describe('Focus moving tests', () => {
         it('should move the focus to the next item when pressing Right Arrow', () => {
@@ -661,6 +663,134 @@ describe('Dropdown tests', () => {
         userEvent.keyboard('{ArrowLeft}')
         expect(menu1).toHaveFocus()
       })
+    })
+  })
+
+  describe('a11y tests', () => {
+    it('should set a role of menubar on the main menu', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <button type="button">Link</button>
+        </Dropdown>,
+      )
+      const menubar = screen.getByRole('menubar')
+      expect(menubar).toBeInTheDocument()
+    })
+    it('should set a role of menuitem on the items', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <button type="button">Link</button>
+        </Dropdown>,
+      )
+      const item = screen.getByText('Link')
+      expect(item).toHaveAttribute('role', 'menuitem')
+    })
+    it('should remove the role of listitem from the items', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <button type="button">Link</button>
+        </Dropdown>,
+      )
+      const items = screen.queryAllByRole('listitem')
+      expect(items).toHaveLength(0)
+    })
+    it('should set a role of menu on the submenus', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <Menu label="Menu">
+            <button type="button">Link</button>
+          </Menu>
+        </Dropdown>,
+      )
+      const label = screen.getByText('Menu')
+      userEvent.hover(label)
+      const menu = screen.getByRole('menu')
+      expect(menu).toBeInTheDocument()
+    })
+    it('should set a role of menuitem on the items of the submenus', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <Menu label="Menu">
+            <button type="button">Link</button>
+          </Menu>
+        </Dropdown>,
+      )
+      const label = screen.getByText('Menu')
+      userEvent.hover(label)
+      const item = screen.getByText('Link')
+      expect(item).toHaveAttribute('role', 'menuitem')
+    })
+    it('should set the tabindex to 0 only on the current top level item', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <button type="button">Active Link</button>
+          <button type="button">Link</button>
+        </Dropdown>,
+      )
+      const activeLink = screen.getByText('Active Link')
+      const otherLink = screen.getByText('Link')
+      expect(activeLink).toHaveAttribute('tabIndex', '0')
+      expect(otherLink).toHaveAttribute('tabIndex', '-1')
+    })
+    it('should keep the tabindex to -1 when focussing an item in a submenu', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <Menu label="Menu">
+            <button type="button">Link</button>
+          </Menu>
+        </Dropdown>,
+      )
+      const label = screen.getByText('Menu')
+      const item = screen.getByText('Link')
+      openSubmenu(label, item)
+      expect(label).toHaveAttribute('tabIndex', '0')
+      expect(item).toHaveAttribute('tabIndex', '-1')
+    })
+    it('should set an aria-label on the menubar', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <button type="button">Link</button>
+        </Dropdown>,
+      )
+      const menubar = screen.getByRole('menubar')
+      expect(menubar).toHaveAttribute('aria-label', 'My Menu')
+    })
+    it('should set an aria-haspopup of menu on the labels for submenus', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <Menu label="Menu">
+            <button type="button">Link</button>
+          </Menu>
+        </Dropdown>,
+      )
+      const label = screen.getByText('Menu')
+      // aria-haspopup="true" defaults to menu
+      // This will also match aria-haspopup={true} (as a boolean)
+      // because it is converted to string on render
+      expect(label).toHaveAttribute('aria-haspopup', expect.stringMatching(/menu|true/))
+    })
+    it('should set aria-expanded to false on submenu when closed', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <Menu label="Menu">
+            <button type="button">Link</button>
+          </Menu>
+        </Dropdown>,
+      )
+      const label = screen.getByText('Menu')
+      expect(label).toHaveAttribute('aria-expanded', 'false')
+    })
+    it('should set aria-expanded to true on submenu when open', () => {
+      renderWithStyle(
+        <Dropdown aria-label="My Menu">
+          <Menu label="Menu">
+            <button type="button">Link</button>
+          </Menu>
+        </Dropdown>,
+      )
+      const label = screen.getByText('Menu')
+      openSubmenu(label)
+      expect(label).toHaveAttribute('aria-expanded', 'true')
     })
   })
 })
