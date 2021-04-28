@@ -740,6 +740,24 @@ describe('Dropdown tests', () => {
         expect(menu1).toHaveFocus()
       })
     })
+    it('should return focus to the last focussed item of the menubar when tabbing back', () => {
+      render(
+        <Dropdown aria-label="My Menu">
+          <button type="button">Link 1</button>
+          <button type="button">Link 2</button>
+        </Dropdown>,
+      )
+      const firstLink = screen.getByText('Link 1')
+      const secondLink = screen.getByText('Link 2')
+      firstLink.focus()
+      expect(firstLink).toHaveFocus()
+      userEvent.keyboard('{ArrowLeft}')
+      expect(secondLink).toHaveFocus()
+      userEvent.tab()
+      expect(secondLink).not.toHaveFocus()
+      userEvent.tab({ shift: true })
+      expect(secondLink).toHaveFocus()
+    })
   })
 
   describe('a11y tests', () => {
