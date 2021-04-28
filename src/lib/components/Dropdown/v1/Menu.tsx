@@ -132,7 +132,7 @@ export type Props = {
   open?: boolean
 }
 
-const Menu = React.forwardRef<HTMLElement, Props>(({
+const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   children,
   label,
   tabIndex = -1,
@@ -261,7 +261,7 @@ const Menu = React.forwardRef<HTMLElement, Props>(({
           'aria-expanded': isOpen,
           role: 'menuitem',
         })
-        : <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu">{label}</button>}
+        : <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" ref={ref}>{label}</button>}
       <ul
         className={`submenu ${isOpen ? 'open' : 'closed'}`}
         role="menu"
