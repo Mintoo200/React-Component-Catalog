@@ -172,14 +172,16 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
       onClose()
     }
   }, [isOpen])
+
   const handleKey = (event: React.KeyboardEvent) => {
-    if ((isOpen && focussedItem !== -1) && !(event.key === 'Escape' && opensDownward)) {
-      event.stopPropagation()
-    }
+    let shouldStopPropagation = true
     let shouldPreventDefault = true
     if (isOpen && focussedItem !== -1) {
       switch (event.key) {
         case 'Escape':
+          if (opensDownward) {
+            shouldStopPropagation = false
+          }
           dispatch({ type: Actions.closeMenu })
           break
         case 'ArrowRight': {
@@ -191,10 +193,8 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
           break
         }
         case 'ArrowLeft':
-          if (!opensDownward) {
-            dispatch({ type: Actions.closeMenu })
-          } else {
-            dispatch({ type: Actions.closeMenu })
+          dispatch({ type: Actions.closeMenu })
+          if (opensDownward) {
             openPreviousSibling()
           }
           break
@@ -229,27 +229,37 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
           if (opensDownward) {
             dispatch({ type: Actions.openMenu })
             dispatch({ type: Actions.focusFirst })
+          } else {
+            shouldStopPropagation = false
           }
           break
         case 'ArrowUp':
           if (opensDownward) {
             dispatch({ type: Actions.openMenu })
             dispatch({ type: Actions.focusLast })
+          } else {
+            shouldStopPropagation = false
           }
           break
         case 'ArrowRight':
           if (!opensDownward) {
             dispatch({ type: Actions.openMenu })
             dispatch({ type: Actions.focusFirst })
+          } else {
+            shouldStopPropagation = false
           }
           break
         default:
           shouldPreventDefault = false
+          shouldStopPropagation = false
           break
       }
     }
     if (shouldPreventDefault) {
       event.preventDefault()
+    }
+    if (shouldStopPropagation) {
+      event.stopPropagation()
     }
   }
 
