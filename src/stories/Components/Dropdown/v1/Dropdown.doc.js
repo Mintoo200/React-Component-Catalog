@@ -19,7 +19,7 @@ If you want to use a custom component for the buttons or links, you will need to
 {
   role: string,
   aria-haspopup: boolean | 'dialog' | 'menu' | 'false' | 'true' | 'listbox' | 'tree' | 'grid',
-  aria-extended: boolean | 'false' | 'true',
+  aria-expanded: boolean | 'false' | 'true',
   tabIndex: number,
 }
 \`\`\`
@@ -60,4 +60,5 @@ Remember to have your \`Dropdown\` wrapped in a \`<nav aria-label />\` element i
 <br />
 learn more about the component in [the Study page](/story/components-dropdown-study--page#version-1---label-as-prop)
 `
+
 export default documentation
