@@ -123,13 +123,21 @@ function Reducer(state: State, action: Action) {
 
 export type Props = {
   children: React.ReactNode,
-  label: React.ReactNode,
+  label: React.ReactNode | ((props: LabelProps<HTMLElement>) => React.ReactElement),
   tabIndex?: number,
   onClose?: () => void,
   opensDownward?: boolean,
   openNextSibling?: () => void,
   openPreviousSibling?: () => void,
   open?: boolean
+}
+
+export type LabelProps<T> = {
+  ref: React.ForwardedRef<T>,
+  tabIndex: number,
+  'aria-haspopup': boolean | 'dialog' | 'menu' | 'false' | 'true' | 'listbox' | 'tree' | 'grid',
+  'aria-expanded': boolean | 'false' | 'true',
+  role: string,
 }
 
 const Menu = React.forwardRef<HTMLButtonElement, Props>(({
@@ -270,19 +278,33 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
       onMouseLeave={() => { dispatch({ type: Actions.closeMenu }) }}
       className="label"
       role="presentation">
-      {(React.isValidElement(label))
-        ? React.cloneElement(label, {
-          ref,
-          tabIndex,
-          'aria-haspopup': 'menu',
-          'aria-expanded': isOpen,
-          role: 'menuitem',
-        })
-        : (
-          <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" aria-expanded={isOpen} ref={ref}>
-            {label}
-          </button>
-        )}
+      {(() => {
+        let result: React.ReactElement
+        if (React.isValidElement(label)) {
+          result = React.cloneElement(label, {
+            ref,
+            tabIndex,
+            'aria-haspopup': 'menu',
+            'aria-expanded': isOpen,
+            role: 'menuitem',
+          })
+        } else if (typeof label === 'function') {
+          result = label({
+            ref,
+            tabIndex,
+            'aria-haspopup': 'menu',
+            'aria-expanded': isOpen,
+            role: 'menuitem',
+          })
+        } else {
+          result = (
+            <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" aria-expanded={isOpen} ref={ref}>
+              {label}
+            </button>
+          )
+        }
+        return result
+      })()}
       <ul
         className={`submenu ${isOpen ? 'open' : 'closed'}`}
         role="menu"

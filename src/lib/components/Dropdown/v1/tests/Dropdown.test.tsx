@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Dropdown from '../Dropdown'
-import Menu from '../Menu'
+import Menu, { LabelProps } from '../Menu'
 
 function renderWithStyle(ui: React.ReactElement, ...args: unknown[]) {
   return render(
@@ -76,13 +76,27 @@ describe('Dropdown tests', () => {
     userEvent.hover(submenu)
     expect(link).toBeVisible()
   })
-  it('should support custom buttons', () => {
+  it('should support custom buttons as ReactElement', () => {
     const CustomButton = React.forwardRef<HTMLButtonElement>((props, ref) => (
       <button ref={ref} type="button" onClick={onClick}>Hello</button>
     ))
     renderWithStyle(
       <Dropdown aria-label="My Menu">
         <CustomButton />
+      </Dropdown>,
+    )
+    userEvent.click(screen.getByText('Hello'))
+    expect(onClick).toHaveBeenCalledTimes(1)
+  })
+  it('should support custom buttons as render prop for menu labels', () => {
+    const CustomButton = React.forwardRef<HTMLButtonElement>((props, ref) => (
+      <button ref={ref} type="button" onClick={onClick}>Hello</button>
+    ))
+    renderWithStyle(
+      <Dropdown aria-label="My Menu">
+        <Menu label={(props: LabelProps<HTMLButtonElement>) => <CustomButton {...props} />}>
+          <button type="button">Link</button>
+        </Menu>
       </Dropdown>,
     )
     userEvent.click(screen.getByText('Hello'))
