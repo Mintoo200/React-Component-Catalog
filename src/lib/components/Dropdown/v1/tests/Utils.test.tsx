@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   findFirstMatchingElement, findNextMatching, isCharacter, matchFirstCharacter, shiftArray,
 } from '../Utils'
@@ -13,6 +12,9 @@ describe('Utils tests', () => {
     })
     it('should return false if given a nullish value', () => {
       expect(isCharacter(null)).toBe(false)
+    })
+    it('should return false if given {Space}', () => {
+      expect(isCharacter(' ')).toBe(false)
     })
   })
   describe('matchFirstCharacter tests', () => {

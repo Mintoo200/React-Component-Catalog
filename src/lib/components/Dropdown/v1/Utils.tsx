@@ -1,5 +1,5 @@
 export function isCharacter(key: string): boolean {
-  return key != null && key.length === 1
+  return key != null && key.length === 1 && key !== ' '
 }
 
 export function matchFirstCharacter(text: string, key: string): boolean {
