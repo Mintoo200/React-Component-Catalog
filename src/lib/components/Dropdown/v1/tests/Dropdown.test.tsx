@@ -247,6 +247,21 @@ describe('Dropdown tests', () => {
             userEvent.keyboard('{a}')
             expect(nextMatchingItem).toHaveFocus()
           })
+          it('should ignore the case', () => {
+            renderWithStyle(
+              <Dropdown aria-label="My Menu">
+                <button type="button">A--</button>
+                <button type="button">B--</button>
+                <button type="button">C--</button>
+              </Dropdown>,
+            )
+            const firstItem = screen.getByText('A--')
+            const matchingItem = screen.getByText('B--')
+            firstItem.focus()
+            expect(firstItem).toHaveFocus()
+            userEvent.keyboard('{b}')
+            expect(matchingItem).toHaveFocus()
+          })
         })
       })
     })
@@ -569,6 +584,25 @@ describe('Dropdown tests', () => {
 
             userEvent.keyboard('{a}')
             expect(nextMatchingItem).toHaveFocus()
+          })
+          it('should ignore the case', () => {
+            renderWithStyle(
+              <Dropdown aria-label="My Menu">
+                <Menu label="Menu">
+                  <button type="button">A--</button>
+                  <button type="button">B--</button>
+                  <button type="button">C--</button>
+                </Menu>
+              </Dropdown>,
+            )
+            const menu = screen.getByText('Menu')
+            openSubmenu(menu)
+            const firstItem = screen.getByText('A--')
+            const matchingItem = screen.getByText('B--')
+            firstItem.focus()
+            expect(firstItem).toHaveFocus()
+            userEvent.keyboard('{b}')
+            expect(matchingItem).toHaveFocus()
           })
         })
       })
