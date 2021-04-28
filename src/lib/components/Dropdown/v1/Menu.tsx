@@ -261,7 +261,11 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
           'aria-expanded': isOpen,
           role: 'menuitem',
         })
-        : <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" ref={ref}>{label}</button>}
+        : (
+          <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" aria-expanded={isOpen} ref={ref}>
+            {label}
+          </button>
+        )}
       <ul
         className={`submenu ${isOpen ? 'open' : 'closed'}`}
         role="menu"
