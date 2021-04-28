@@ -176,7 +176,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
     if ((isOpen && focussedItem !== -1) && !(event.key === 'Escape' && opensDownward)) {
       event.stopPropagation()
     }
-    event.preventDefault()
+    let shouldPreventDefault = true
     if (isOpen && focussedItem !== -1) {
       switch (event.key) {
         case 'Escape':
@@ -211,6 +211,9 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
           dispatch({ type: Actions.focusLast })
           break
         default: {
+          if (!isCharacter(event.key)) {
+            shouldPreventDefault = false
+          }
           dispatch({ type: Actions.focusMatching, match: event.key })
           break
         }
@@ -241,8 +244,12 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
           }
           break
         default:
+          shouldPreventDefault = false
           break
       }
+    }
+    if (shouldPreventDefault) {
+      event.preventDefault()
     }
   }
 

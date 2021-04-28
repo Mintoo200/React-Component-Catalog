@@ -76,6 +76,20 @@ describe('Dropdown tests', () => {
 
   describe('Keyboard tests', () => {
     describe('Menubar tests', () => {
+      it('should trigger onClick when pressing Space on a link', () => {
+        renderWithStyle(<TestingMenu />)
+        screen.getByText('Link 1').focus()
+        expect(screen.getByText('Link 1')).toHaveFocus()
+        userEvent.keyboard('{space}')
+        expect(onClick).toHaveBeenCalledTimes(1)
+      })
+      it('should trigger onClick when pressing Enter on a link', () => {
+        renderWithStyle(<TestingMenu />)
+        screen.getByText('Link 1').focus()
+        expect(screen.getByText('Link 1')).toHaveFocus()
+        userEvent.keyboard('{Enter}')
+        expect(onClick).toHaveBeenCalledTimes(1)
+      })
       describe('Focus moving tests', () => {
         it('should move the focus to the next item when pressing Right Arrow', () => {
           renderWithStyle(
@@ -237,6 +251,34 @@ describe('Dropdown tests', () => {
       })
     })
     describe('Submenu tests', () => {
+      it('should trigger onClick when pressing Space on a link in a submenu', () => {
+        renderWithStyle(
+          <Dropdown aria-label="My Menu">
+            <Menu label="Menu">
+              <button type="button" onClick={onClick}>Link</button>
+            </Menu>
+          </Dropdown>,
+        )
+        const menu = screen.getByText('Menu')
+        const link = screen.getByText('Link')
+        openSubmenu(menu, link)
+        userEvent.keyboard('{space}')
+        expect(onClick).toHaveBeenCalledTimes(1)
+      })
+      it('should trigger onClick when pressing Enter on a link in a submenu', () => {
+        renderWithStyle(
+          <Dropdown aria-label="My Menu">
+            <Menu label="Menu">
+              <button type="button" onClick={onClick}>Link</button>
+            </Menu>
+          </Dropdown>,
+        )
+        const menu = screen.getByText('Menu')
+        const link = screen.getByText('Link')
+        openSubmenu(menu, link)
+        userEvent.keyboard('{Enter}')
+        expect(onClick).toHaveBeenCalledTimes(1)
+      })
       describe('Focus moving tests', () => {
         it('should open the submenu and focus the first item when pressing Space on the label', () => {
           renderWithStyle(

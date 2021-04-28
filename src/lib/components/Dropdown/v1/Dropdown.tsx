@@ -138,8 +138,8 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
     })
   }, [children])
   const handleKey = (event: React.KeyboardEvent) => {
+    let shouldPreventDefault = true
     event.stopPropagation()
-    event.preventDefault()
     switch (event.key) {
       case 'Escape':
         dispatch({ type: Actions.closeMenu })
@@ -157,7 +157,13 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
         dispatch({ type: Actions.focusLast })
         break
       default:
+        if (!isCharacter(event.key)) {
+          shouldPreventDefault = false
+        }
         dispatch({ type: Actions.focusMatching, match: event.key })
+    }
+    if (shouldPreventDefault) {
+      event.preventDefault()
     }
   }
   return (
