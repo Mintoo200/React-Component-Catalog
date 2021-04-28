@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Dropdown from '../Dropdown'
 import Menu from '../Menu'
@@ -16,20 +16,6 @@ function renderWithStyle(ui: React.ReactElement, ...args: unknown[]) {
 
 const onClick = jest.fn()
 
-function TestingMenu() {
-  return (
-    <Dropdown aria-label="My Menu">
-      <button type="button" onClick={onClick}>Link 1</button>
-      <Menu label="Submenu 1">
-        <button type="button" onClick={onClick}>Link 2</button>
-        <Menu label="Submenu 2">
-          <button type="button" onClick={onClick}>Link 3</button>
-        </Menu>
-      </Menu>
-    </Dropdown>
-  )
-}
-
 describe('Dropdown tests', () => {
   function openSubmenu(menu: HTMLElement, firstItem?: HTMLElement): void {
     menu.focus()
@@ -41,25 +27,54 @@ describe('Dropdown tests', () => {
     }
   }
   it('should trigger onClick when button clicked', () => {
-    renderWithStyle(<TestingMenu />)
-    userEvent.click(screen.getByText('Link 1'))
+    renderWithStyle(
+      <Dropdown aria-label="My Menu">
+        <button type="button" onClick={onClick}>Link</button>
+      </Dropdown>,
+    )
+    userEvent.click(screen.getByText('Link'))
     expect(onClick).toHaveBeenCalledTimes(1)
   })
   it('should hide all submenus', () => {
-    renderWithStyle(<TestingMenu />)
-    expect(screen.getByText('Link 2')).not.toBeVisible()
+    renderWithStyle(
+      <Dropdown aria-label="My Menu">
+        <Menu label="Menu">
+          <button type="button">Link</button>
+        </Menu>
+      </Dropdown>,
+    )
+    expect(screen.getByText('Link')).not.toBeVisible()
   })
   it('should open menus when hovering', () => {
-    renderWithStyle(<TestingMenu />)
-    userEvent.hover(screen.getByText('Submenu 1'))
-    expect(screen.getByText('Link 2')).toBeVisible()
-    expect(screen.getByText('Link 3')).not.toBeVisible()
+    renderWithStyle(
+      <Dropdown aria-label="My Menu">
+        <Menu label="Menu">
+          <button type="button">Link</button>
+        </Menu>
+      </Dropdown>,
+    )
+    userEvent.hover(screen.getByText('Menu'))
+    expect(screen.getByText('Link')).toBeVisible()
   })
   it('should open any number of submenu when hovering', () => {
-    renderWithStyle(<TestingMenu />)
-    userEvent.hover(screen.getByText('Submenu 1'))
-    userEvent.hover(screen.getByText('Submenu 2'))
-    expect(screen.getByText('Link 3')).toBeVisible()
+    renderWithStyle(
+      <Dropdown aria-label="My Menu">
+        <Menu label="Menu">
+          <Menu label="Submenu">
+            <button type="button">Link</button>
+          </Menu>
+        </Menu>
+      </Dropdown>,
+    )
+    const menu = screen.getByText('Menu')
+    const submenu = screen.getByText('Submenu')
+    const link = screen.getByText('Link')
+    expect(submenu).not.toBeVisible()
+    expect(link).not.toBeVisible()
+    userEvent.hover(menu)
+    expect(link).not.toBeVisible()
+    userEvent.hover(submenu)
+    expect(link).toBeVisible()
   })
   it('should support custom buttons', () => {
     const CustomButton = React.forwardRef<HTMLButtonElement>((props, ref) => (
@@ -77,16 +92,26 @@ describe('Dropdown tests', () => {
   describe('Keyboard tests', () => {
     describe('Menubar tests', () => {
       it('should trigger onClick when pressing Space on a link', () => {
-        renderWithStyle(<TestingMenu />)
-        screen.getByText('Link 1').focus()
-        expect(screen.getByText('Link 1')).toHaveFocus()
+        renderWithStyle(
+          <Dropdown aria-label="My Menu">
+            <button type="button" onClick={onClick}>Link</button>
+          </Dropdown>,
+        )
+        const link = screen.getByText('Link')
+        link.focus()
+        expect(link).toHaveFocus()
         userEvent.keyboard('{space}')
         expect(onClick).toHaveBeenCalledTimes(1)
       })
       it('should trigger onClick when pressing Enter on a link', () => {
-        renderWithStyle(<TestingMenu />)
-        screen.getByText('Link 1').focus()
-        expect(screen.getByText('Link 1')).toHaveFocus()
+        renderWithStyle(
+          <Dropdown aria-label="My Menu">
+            <button type="button" onClick={onClick}>Link</button>
+          </Dropdown>,
+        )
+        const link = screen.getByText('Link')
+        link.focus()
+        expect(link).toHaveFocus()
         userEvent.keyboard('{Enter}')
         expect(onClick).toHaveBeenCalledTimes(1)
       })
