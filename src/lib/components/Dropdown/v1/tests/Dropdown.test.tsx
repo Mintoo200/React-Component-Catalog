@@ -757,9 +757,8 @@ describe('Dropdown tests', () => {
         )
         const menu1 = screen.getByText('Menu 1')
         const menu2 = screen.getByText('Menu 2')
-        const submenu2 = screen.getByText('Link 2')
         userEvent.keyboard('{ArrowRight}')
-        openSubmenu(menu2, submenu2)
+        openSubmenu(menu2)
 
         userEvent.keyboard('{ArrowLeft}')
         expect(menu1).toHaveFocus()
