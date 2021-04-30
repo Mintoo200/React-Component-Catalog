@@ -129,7 +129,7 @@ export type Props = {
   opensDownward?: boolean,
   openNextSibling?: () => void,
   openPreviousSibling?: () => void,
-  open?: boolean
+  preview?: boolean
 }
 
 export type LabelProps<T> = {
@@ -148,10 +148,10 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   opensDownward = false,
   openNextSibling = () => null,
   openPreviousSibling = () => null,
-  open = false,
+  preview = false,
 }, forwardedRef) => {
   const [{ isOpen, focussedItem, refs }, dispatch] = useReducer(Reducer, {
-    isOpen: open,
+    isOpen: false,
     focussedItem: -1,
     refs: [],
   })
@@ -160,14 +160,6 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   useEffect(() => {
     setAriaLabel(ref?.current?.textContent)
   }, [ref?.current?.textContent])
-  useEffect(() => {
-    if (!open || opensDownward) {
-      dispatch({
-        type: Actions.setIsOpen,
-        isOpen: open,
-      })
-    }
-  }, [open])
   useEffect(() => {
     dispatch({
       type: Actions.setRefs,
@@ -306,7 +298,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
         return result
       })()}
       <ul
-        className={`submenu ${isOpen ? 'open' : 'closed'}`}
+        className={`submenu ${(isOpen || preview) ? 'open' : 'closed'}`}
         role="menu"
         aria-label={ariaLabel}>
         {React.Children.map(children, (child, index) => (

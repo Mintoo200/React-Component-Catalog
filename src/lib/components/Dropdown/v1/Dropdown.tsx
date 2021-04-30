@@ -47,7 +47,7 @@ type Action = {
 }
 
 type State = {
-  openMenu: boolean,
+  previewMenu: boolean,
   focussedItem: number,
   refs: RefObject<HTMLElement>[],
 }
@@ -62,7 +62,7 @@ function Reducer(state: State, action: Action) {
     case Actions.closeMenu:
       return {
         ...state,
-        openMenu: false,
+        previewMenu: false,
       }
     case Actions.setFocussedItem:
       return {
@@ -105,13 +105,13 @@ function Reducer(state: State, action: Action) {
     case Actions.focusPreviousSibling:
       return {
         ...state,
-        openMenu: true,
+        previewMenu: true,
         focussedItem: (state.focussedItem - 1 + state.refs.length) % state.refs.length,
       }
     case Actions.focusNextSibling:
       return {
         ...state,
-        openMenu: true,
+        previewMenu: true,
         focussedItem: (state.focussedItem + 1) % state.refs.length,
       }
     default:
@@ -126,10 +126,10 @@ export type Props = {
 }
 
 const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
-  const [{ focussedItem, refs, openMenu }, dispatch] = useReducer(Reducer, {
+  const [{ focussedItem, refs, previewMenu }, dispatch] = useReducer(Reducer, {
     focussedItem: 0,
     refs: [],
-    openMenu: false,
+    previewMenu: false,
   })
   useEffect(() => {
     dispatch({
@@ -186,7 +186,7 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
                 opensDownward: true,
                 openNextSibling: () => { dispatch({ type: Actions.focusNextSibling }) },
                 openPreviousSibling: () => { dispatch({ type: Actions.focusPreviousSibling }) },
-                open: focussedItem === index && openMenu,
+                preview: focussedItem === index && previewMenu,
               })
               : child
             : <button type="button">{child}</button>}
