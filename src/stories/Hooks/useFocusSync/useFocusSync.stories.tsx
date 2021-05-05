@@ -86,13 +86,15 @@ const TemplateWithSyncedChildrenFocus: Story = () => {
     return (
       <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus} tabIndex={0}>
         {(() => {
-          let result = 'Does not have focus'
+          let result
           if (hasDirectFocus) {
             result = 'Has direct focus'
           } else if (syncedChildHasFocus) {
             result = 'Synced child has focus'
           } else if (hasIndirectFocus) {
             result = 'Has indirect focus'
+          } else {
+            result = 'Does not have focus'
           }
           return result
         })()}
