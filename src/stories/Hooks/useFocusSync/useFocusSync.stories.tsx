@@ -91,6 +91,35 @@ const App = () => (
   <div synced focussed />
 </div>
 \`\`\`
+
+\`syncedChildHasFocus\` can be used when handling events for children but to allow a nested component to handle events for its own children:
+
+\`\`\`tsx
+const MyNestedComponent = () => {
+  const ref = useRef()
+  const {hasFocus, syncFocus} = useSyncFocus(ref)
+  return (
+    <>...</>
+  )
+}
+
+const MyComponent = () => {
+  const ref = useRef()
+  const {hasFocus, syncedChildHasFocus, syncFocus} = useSyncFocus(ref)
+  function doStuff() {
+    if (hasFocus && !syncedChildHasFocus) {
+      // do stuff when focus on any li item but not on MyNestedComponent
+    }
+  }
+  return (
+    <ul ref={ref} onKeyPress={doStuff} onFocus={syncFocus} onBlur={syncFocus}>
+      <li>...</li>
+      <li><MyNestedComponent /></li>
+      <li>...</li>
+    </ul>
+  )
+}
+\`\`\`
 `
 
 export default {
