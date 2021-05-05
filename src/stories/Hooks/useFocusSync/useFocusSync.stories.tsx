@@ -4,6 +4,14 @@ import useFocusSync, { SyncProvider } from '../../../lib/hooks/useFocusSync/useF
 
 export default {
   title: 'Hooks/useFocusSync/useFocusSync',
+  parameters: {
+    componentSource: {
+      url: [
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseSyncFocus%2FuseSyncFocus%2Etsx/raw?ref=master',
+      ],
+      language: 'javascript',
+    },
+  },
 }
 
 const Template: Story = () => {
