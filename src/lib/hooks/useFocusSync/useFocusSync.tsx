@@ -46,12 +46,29 @@ export type SyncObject = {
   hasFocus: boolean,
   hasDirectFocus: boolean,
   hasIndirectFocus: boolean,
+  syncedChildHasFocus: boolean,
   syncFocus: (event: React.FocusEvent<HTMLElement>) => void,
+}
+
+function RefContainsElement(ref: RefObject<HTMLElement>, element: HTMLElement) {
+  return (
+    element != null && ref?.current?.contains(element)
+  )
+}
+
+function isParent(parent: RefObject<HTMLElement>, child: RefObject<HTMLElement> | HTMLElement) {
+  let result = false
+  if (child instanceof HTMLElement) {
+    result = RefContainsElement(parent, child)
+  } else {
+    result = RefContainsElement(parent, child.current)
+  }
+  return result
 }
 
 export function useSyncFocus(ref: RefObject<HTMLElement>): SyncObject {
   const {
-    currentFocus, addRef, setCurrentFocus,
+    refs, currentFocus, addRef, setCurrentFocus,
   } = useSyncContext()
   useLayoutEffect(() => {
     addRef(ref)
@@ -65,12 +82,18 @@ export function useSyncFocus(ref: RefObject<HTMLElement>): SyncObject {
       setCurrentFocus(event.target)
     }
   }
-  const hasFocus = currentFocus && ref.current?.contains(currentFocus)
+  const hasFocus = currentFocus && isParent(ref, currentFocus)
   const hasDirectFocus = currentFocus && ref.current === currentFocus
+  const hasIndirectFocus = hasFocus && !hasDirectFocus
+  const syncedChildHasFocus = hasIndirectFocus && (
+    refs.some((syncedRef) => (
+      syncedRef !== ref && isParent(syncedRef, currentFocus) && isParent(ref, syncedRef)))
+  )
   return {
     hasFocus,
     hasDirectFocus,
-    hasIndirectFocus: hasFocus && !hasDirectFocus,
+    hasIndirectFocus,
+    syncedChildHasFocus,
     syncFocus,
   }
 }
