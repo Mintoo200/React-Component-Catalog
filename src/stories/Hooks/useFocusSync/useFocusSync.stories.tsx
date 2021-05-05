@@ -118,3 +118,47 @@ const TemplateWithSyncedChildrenFocus: Story = () => {
 
 export const SyncedChildFocus = TemplateWithSyncedChildrenFocus.bind({})
 SyncedChildFocus.args = {}
+
+const TemplateSyncedChildrenMultipleProviders: Story = () => {
+  const FocusComponent: React.FC = ({ children }) => {
+    const ref = useRef<HTMLButtonElement>()
+    const {
+      hasIndirectFocus, hasDirectFocus, syncedChildHasFocus, syncFocus,
+    } = useFocusSync(ref)
+    return (
+      <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus} tabIndex={0}>
+        {(() => {
+          let result
+          if (hasDirectFocus) {
+            result = 'Has direct focus'
+          } else if (syncedChildHasFocus) {
+            result = 'Synced child has focus'
+          } else if (hasIndirectFocus) {
+            result = 'Has indirect focus'
+          } else {
+            result = 'Does not have focus'
+          }
+          return result
+        })()}
+        {children}
+      </button>
+    )
+  }
+  return (
+    <>
+      <SyncProvider>
+        <FocusComponent>
+          <button type="button">This button is not synced</button>
+          <SyncProvider>
+            <FocusComponent>
+              <button type="button">This button is not synced</button>
+            </FocusComponent>
+          </SyncProvider>
+        </FocusComponent>
+      </SyncProvider>
+    </>
+  )
+}
+
+export const SyncedChildWithMultipleProviders = TemplateSyncedChildrenMultipleProviders.bind({})
+SyncedChildWithMultipleProviders.args = {}
