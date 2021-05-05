@@ -69,7 +69,6 @@ const TemplateWithIndirectFocus: Story = () => {
     <>
       <SyncProvider>
         <FocusComponent />
-        <FocusComponent />
       </SyncProvider>
     </>
   )
