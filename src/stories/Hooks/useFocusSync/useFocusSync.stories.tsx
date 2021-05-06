@@ -92,6 +92,13 @@ const App = () => (
   <div />
   <div synced focussed />
 </div>
+
+<div synced>              {/* <-- syncedChildHasFocus is true (focus is indirectly in a synced child) */}
+  <div />
+  <div synced>
+    <div focussed />
+  </div>
+</div>
 \`\`\`
 
 \`syncedChildHasFocus\` can be used when handling events for children but to allow a nested component to handle events for its own children:
