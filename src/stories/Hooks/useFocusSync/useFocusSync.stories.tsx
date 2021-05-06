@@ -2,6 +2,8 @@ import React, { useRef } from 'react'
 import { Story } from '@storybook/react'
 import useFocusSync, { SyncProvider } from '../../../lib/hooks/useFocusSync/useFocusSync'
 
+import './style.css'
+
 const documentation = `
 ## API
 
@@ -144,7 +146,7 @@ const Template: Story = () => {
     const ref = useRef<HTMLButtonElement>()
     const { hasFocus, syncFocus } = useFocusSync(ref)
     return (
-      <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus}>
+      <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus} className="button">
         {hasFocus ? 'Has focus' : 'Does not have focus'}
       </button>
     )
@@ -165,7 +167,7 @@ const TemplateWithMultipleProviders: Story = () => {
     const ref = useRef<HTMLButtonElement>()
     const { hasFocus, syncFocus } = useFocusSync(ref)
     return (
-      <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus}>
+      <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus} className="button">
         {hasFocus ? 'Has focus' : 'Does not have focus'}
       </button>
     )
@@ -187,15 +189,15 @@ WithMultipleProviders.args = {}
 
 const TemplateWithIndirectFocus: Story = () => {
   function FocusComponent() {
-    const ref = useRef<HTMLButtonElement>()
+    const ref = useRef<HTMLDivElement>()
     const { hasIndirectFocus, hasDirectFocus, syncFocus } = useFocusSync(ref)
     return (
-      <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus} tabIndex={0}>
+      <div onFocus={syncFocus} onBlur={syncFocus} ref={ref} tabIndex={0} role="button" className="button">
         {hasDirectFocus ? 'Has direct focus' : hasIndirectFocus ? 'Has indirect focus' : 'Does not have focus'}
-        <button type="button">
+        <button type="button" className="button">
           Focus Me!
         </button>
-      </button>
+      </div>
     )
   }
   return (
@@ -212,12 +214,12 @@ IndirectFocus.args = {}
 
 const TemplateWithSyncedChildrenFocus: Story = () => {
   const FocusComponent: React.FC = ({ children }) => {
-    const ref = useRef<HTMLButtonElement>()
+    const ref = useRef<HTMLDivElement>()
     const {
       hasIndirectFocus, hasDirectFocus, syncedChildHasFocus, syncFocus,
     } = useFocusSync(ref)
     return (
-      <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus} tabIndex={0}>
+      <div onFocus={syncFocus} onBlur={syncFocus} ref={ref} tabIndex={0} role="button" className="button">
         {(() => {
           let result
           if (hasDirectFocus) {
@@ -232,16 +234,16 @@ const TemplateWithSyncedChildrenFocus: Story = () => {
           return result
         })()}
         {children}
-      </button>
+      </div>
     )
   }
   return (
     <>
       <SyncProvider>
         <FocusComponent>
-          <button type="button">This button is not synced</button>
+          <button type="button" className="button">This button is not synced</button>
           <FocusComponent>
-            <button type="button">This button is not synced</button>
+            <button type="button" className="button">This button is not synced</button>
           </FocusComponent>
         </FocusComponent>
       </SyncProvider>
@@ -254,12 +256,12 @@ SyncedChildFocus.args = {}
 
 const TemplateSyncedChildrenMultipleProviders: Story = () => {
   const FocusComponent: React.FC = ({ children }) => {
-    const ref = useRef<HTMLButtonElement>()
+    const ref = useRef<HTMLDivElement>()
     const {
       hasIndirectFocus, hasDirectFocus, syncedChildHasFocus, syncFocus,
     } = useFocusSync(ref)
     return (
-      <button type="button" ref={ref} onFocus={syncFocus} onBlur={syncFocus} tabIndex={0}>
+      <div onFocus={syncFocus} onBlur={syncFocus} ref={ref} tabIndex={0} role="button" className="button">
         {(() => {
           let result
           if (hasDirectFocus) {
@@ -274,17 +276,17 @@ const TemplateSyncedChildrenMultipleProviders: Story = () => {
           return result
         })()}
         {children}
-      </button>
+      </div>
     )
   }
   return (
     <>
       <SyncProvider>
         <FocusComponent>
-          <button type="button">This button is not synced</button>
+          <button type="button" className="button">This button is not synced</button>
           <SyncProvider>
             <FocusComponent>
-              <button type="button">This button is not synced</button>
+              <button type="button" className="button">This button is not synced</button>
             </FocusComponent>
           </SyncProvider>
         </FocusComponent>
