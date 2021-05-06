@@ -82,13 +82,13 @@ export function useSyncFocus(ref: RefObject<HTMLElement>): SyncObject {
       setCurrentFocus(event.target)
     }
   }
-  const hasFocus = currentFocus && isParent(ref, currentFocus)
-  const hasDirectFocus = currentFocus && ref.current === currentFocus
-  const hasIndirectFocus = hasFocus && !hasDirectFocus
-  const syncedChildHasFocus = hasIndirectFocus && (
+  const hasFocus = !!(currentFocus && isParent(ref, currentFocus))
+  const hasDirectFocus = !!(currentFocus && ref.current === currentFocus)
+  const hasIndirectFocus = !!(hasFocus && !hasDirectFocus)
+  const syncedChildHasFocus = !!(hasIndirectFocus && (
     refs.some((syncedRef) => (
       syncedRef !== ref && isParent(syncedRef, currentFocus) && isParent(ref, syncedRef)))
-  )
+  ))
   return {
     hasFocus,
     hasDirectFocus,
