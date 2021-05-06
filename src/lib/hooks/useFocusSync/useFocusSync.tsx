@@ -66,7 +66,7 @@ function isParent(parent: RefObject<HTMLElement>, child: RefObject<HTMLElement> 
   return result
 }
 
-export function useSyncFocus(ref: RefObject<HTMLElement>): SyncObject {
+export function useFocusSync(ref: RefObject<HTMLElement>): SyncObject {
   const {
     refs, currentFocus, addRef, setCurrentFocus,
   } = useSyncContext()
@@ -98,4 +98,4 @@ export function useSyncFocus(ref: RefObject<HTMLElement>): SyncObject {
   }
 }
 
-export default useSyncFocus
+export default useFocusSync

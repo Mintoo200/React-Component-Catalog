@@ -1,12 +1,12 @@
 import React, { useRef } from 'react'
 import { render, screen } from '@testing-library/react'
-import useSyncFocus, { SyncProvider } from '../useFocusSync'
+import useFocusSync, { SyncProvider } from '../useFocusSync'
 
 function FocusDisplay({ children = null, id = null }: {children?: React.ReactNode, id?: number}) {
   const ref = useRef<HTMLDivElement>()
   const {
     hasFocus, hasDirectFocus, hasIndirectFocus, syncedChildHasFocus, syncFocus,
-  } = useSyncFocus(ref)
+  } = useFocusSync(ref)
   return (
     <div onFocus={syncFocus} onBlur={syncFocus} data-testid={id?.toString()} ref={ref} tabIndex={0} role="button">
       {`hasFocus: ${hasFocus.toString()}`}
@@ -18,7 +18,7 @@ function FocusDisplay({ children = null, id = null }: {children?: React.ReactNod
   )
 }
 
-describe('useSyncFocus tests', () => {
+describe('useFocusSync tests', () => {
   describe.each([
     ['hasFocus', [true, false, true, true]],
     ['hasDirectFocus', [true, false, false, false]],

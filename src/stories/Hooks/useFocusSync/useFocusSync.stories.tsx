@@ -18,7 +18,7 @@ type SyncObject = {
 
 const MyComponent = () => {
   const ref = useRef<HTMLButtonElement>()
-  const sync: SyncObject = useSyncFocus(ref)
+  const sync: SyncObject = useFocusSync(ref)
   return (
     <button ref={ref} onFocus={sync.syncFocus} onBlur={sync.syncFocus}>
       Click Me!
@@ -106,7 +106,7 @@ const App = () => (
 \`\`\`tsx
 const MyNestedComponent = () => {
   const ref = useRef()
-  const {hasFocus, syncFocus} = useSyncFocus(ref)
+  const {hasFocus, syncFocus} = useFocusSync(ref)
   return (
     <>...</>
   )
@@ -114,7 +114,7 @@ const MyNestedComponent = () => {
 
 const MyComponent = () => {
   const ref = useRef()
-  const {hasFocus, syncedChildHasFocus, syncFocus} = useSyncFocus(ref)
+  const {hasFocus, syncedChildHasFocus, syncFocus} = useFocusSync(ref)
   function doStuff() {
     if (hasFocus && !syncedChildHasFocus) {
       // do stuff when focus on any li item but not on MyNestedComponent
@@ -136,7 +136,7 @@ export default {
   parameters: {
     componentSource: {
       url: [
-        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseSyncFocus%2FuseSyncFocus%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseFocusSync%2FuseFocusSync%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },
