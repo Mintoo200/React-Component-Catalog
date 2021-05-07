@@ -211,6 +211,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
     if (isOpen) {
       grabFocus()
     }
+    // "focussedItem === -1" => call when switching between === -1 and !== -1
   }, [isOpen, focussedItem === -1])
 
   const handleKey = (event: React.KeyboardEvent) => {
