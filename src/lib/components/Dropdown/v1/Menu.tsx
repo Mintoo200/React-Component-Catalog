@@ -270,7 +270,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
       onMouseLeave={() => { dispatch({ type: Actions.closeMenu }) }}
       className="label"
       role="presentation">
-      {(() => {
+      {(function renderLabel() {
         let result: React.ReactElement
         if (React.isValidElement(label)) {
           result = React.cloneElement(label, {
@@ -296,7 +296,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
           )
         }
         return result
-      })()}
+      }())}
       <ul
         className={`submenu ${(isOpen || preview) ? 'open' : 'closed'}`}
         role="menu"
