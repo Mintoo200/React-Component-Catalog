@@ -1,5 +1,5 @@
 import React, {
-  RefObject, useEffect, useReducer, useState,
+  RefObject, useEffect, useReducer,
 } from 'react'
 import Item from './Item'
 import Menu from './Menu'
@@ -23,6 +23,8 @@ enum Actions {
   focusPreviousSibling,
   grabFocus,
   loseFocus,
+  childGrabFocus,
+  childLoseFocus,
 }
 
 type Action = {
@@ -43,7 +45,9 @@ type Action = {
   | Actions.focusPreviousSibling
   | Actions.focusPrevious
   | Actions.grabFocus
-  | Actions.loseFocus,
+  | Actions.loseFocus
+  | Actions.childGrabFocus
+  | Actions.childLoseFocus,
   isOpen?: never,
   index?: never,
   refs?: never,
@@ -54,6 +58,7 @@ type State = {
   previewMenu: boolean,
   focussedItem: number,
   hasFocus: boolean,
+  childHasFocus: boolean,
   refs: RefObject<HTMLElement>[],
 }
 
@@ -129,6 +134,16 @@ function Reducer(state: State, action: Action) {
         ...state,
         hasFocus: false,
       }
+    case Actions.childGrabFocus:
+      return {
+        ...state,
+        childHasFocus: true,
+      }
+    case Actions.childLoseFocus:
+      return {
+        ...state,
+        childHasFocus: false,
+      }
     default:
       throw new InvalidActionError()
   }
@@ -142,14 +157,14 @@ export type Props = {
 
 const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
   const [{
-    focussedItem, refs, hasFocus, previewMenu,
+    focussedItem, refs, hasFocus, previewMenu, childHasFocus,
   }, dispatch] = useReducer(Reducer, {
     focussedItem: 0,
     refs: [],
     hasFocus: false,
+    childHasFocus: false,
     previewMenu: false,
   })
-  const [childHasFocus, setChildFocus] = useState(false)
   useEffect(() => {
     dispatch({
       type: Actions.setRefs,
@@ -203,8 +218,8 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
           {React.isValidElement(child)
             ? (child.type === Menu)
               ? React.cloneElement(child, {
-                grabFocus: () => { setChildFocus(true) },
-                loseFocus: () => { setChildFocus(false) },
+                grabFocus: () => { dispatch({ type: Actions.childGrabFocus }) },
+                loseFocus: () => { dispatch({ type: Actions.childLoseFocus }) },
                 opensDownward: true,
                 openNextSibling: () => { dispatch({ type: Actions.focusNextSibling }) },
                 openPreviousSibling: () => { dispatch({ type: Actions.focusPreviousSibling }) },

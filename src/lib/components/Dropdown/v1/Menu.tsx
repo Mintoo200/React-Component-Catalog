@@ -19,6 +19,8 @@ enum Actions {
   focusMatching,
   hover,
   unhover,
+  childGrabFocus,
+  childLoseFocus,
 }
 
 type Action = {
@@ -41,7 +43,9 @@ type Action = {
   | Actions.focusNext
   | Actions.focusPrevious
   | Actions.hover
-  | Actions.unhover,
+  | Actions.unhover
+  | Actions.childGrabFocus
+  | Actions.childLoseFocus,
   isOpen?: never,
   index?: never,
   refs?: never,
@@ -52,6 +56,7 @@ type State = {
   isOpen: boolean,
   isHovered: boolean,
   focussedItem: number,
+  childHasFocus: boolean,
   refs: RefObject<HTMLElement>[],
 }
 
@@ -130,6 +135,16 @@ function Reducer(state: State, action: Action) {
         ...state,
         isHovered: false,
       }
+    case Actions.childGrabFocus:
+      return {
+        ...state,
+        childHasFocus: true,
+      }
+    case Actions.childLoseFocus:
+      return {
+        ...state,
+        childHasFocus: false,
+      }
     default:
       throw new InvalidActionError()
   }
@@ -168,14 +183,14 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   preview = false,
 }, forwardedRef) => {
   const [{
-    isOpen, focussedItem, refs, isHovered,
+    isOpen, focussedItem, refs, isHovered, childHasFocus,
   }, dispatch] = useReducer(Reducer, {
     isOpen: false,
     isHovered: false,
     focussedItem: -1,
+    childHasFocus: false,
     refs: [],
   })
-  const [childHasFocus, setChildFocus] = useState(false)
   const [ariaLabel, setAriaLabel] = useState('')
   const labelRef = useCombinedRef(forwardedRef)
   useLayoutEffect(() => {
@@ -335,8 +350,8 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
             {React.isValidElement(child)
               ? (child.type === Menu)
                 ? React.cloneElement(child, {
-                  grabFocus: () => { setChildFocus(true) },
-                  loseFocus: () => { setChildFocus(false) },
+                  grabFocus: () => { dispatch({ type: Actions.childGrabFocus }) },
+                  loseFocus: () => { dispatch({ type: Actions.childLoseFocus }) },
                   openNextSibling: () => {
                     dispatch({ type: Actions.closeMenu })
                     openNextSibling()
