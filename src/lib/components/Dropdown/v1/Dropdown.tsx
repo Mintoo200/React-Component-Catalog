@@ -1,5 +1,5 @@
 import React, {
-  RefObject, useEffect, useReducer,
+  RefObject, useEffect, useReducer, useState,
 } from 'react'
 import Item from './Item'
 import Menu from './Menu'
@@ -131,6 +131,8 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
     refs: [],
     previewMenu: false,
   })
+  const [hasFocus, setFocus] = useState(false)
+  const [childHasFocus, setChildFocus] = useState(false)
   useEffect(() => {
     dispatch({
       type: Actions.setRefs,
@@ -171,18 +173,21 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
       className="dropdown"
       onKeyDown={handleKey}
       role="menubar"
-      aria-label={a11y['aria-label']}>
+      aria-label={a11y['aria-label']}
+      onFocus={() => setFocus(true)}
+      onBlur={() => setFocus(false)}>
       {React.Children.map(children, (child, index) => (
         <Item
           key={index}
-          hasFocus={focussedItem === index}
+          hasFocus={focussedItem === index && hasFocus && !childHasFocus}
           tabIndex={focussedItem === index ? 0 : -1}
           ref={refs[index]}
           onClick={() => { dispatch({ type: Actions.setFocussedItem, index }) }}>
           {React.isValidElement(child)
             ? (child.type === Menu)
               ? React.cloneElement(child, {
-                onClose: () => { refs[focussedItem]?.current?.focus() },
+                grabFocus: () => { setChildFocus(true) },
+                loseFocus: () => { setChildFocus(false) },
                 opensDownward: true,
                 openNextSibling: () => { dispatch({ type: Actions.focusNextSibling }) },
                 openPreviousSibling: () => { dispatch({ type: Actions.focusPreviousSibling }) },

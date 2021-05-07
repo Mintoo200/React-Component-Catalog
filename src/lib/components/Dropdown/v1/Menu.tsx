@@ -1,5 +1,5 @@
 import React, {
-  RefObject, useEffect, useReducer, useState,
+  RefObject, useEffect, useLayoutEffect, useReducer, useState,
 } from 'react'
 import InvalidActionError from '../../../errors/InvalidActionError'
 import useCombinedRef from '../../../hooks/useCombinedRef/useCombinedRef'
@@ -140,7 +140,8 @@ export type Props = {
   children: React.ReactNode,
   label: React.ReactNode | ((props: LabelProps<HTMLElement>) => React.ReactElement),
   tabIndex?: number,
-  onClose?: () => void,
+  grabFocus?: () => void,
+  loseFocus?: () => void,
   opensDownward?: boolean,
   openNextSibling?: () => void,
   openPreviousSibling?: () => void,
@@ -159,7 +160,8 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   children,
   label,
   tabIndex = -1,
-  onClose = () => null,
+  grabFocus = () => null,
+  loseFocus = () => null,
   opensDownward = false,
   openNextSibling = () => null,
   openPreviousSibling = () => null,
@@ -173,9 +175,10 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
     focussedItem: -1,
     refs: [],
   })
+  const [childHasFocus, setChildFocus] = useState(false)
   const [ariaLabel, setAriaLabel] = useState('')
   const labelRef = useCombinedRef(forwardedRef)
-  useEffect(() => {
+  useLayoutEffect(() => {
     setAriaLabel(labelRef?.current?.textContent)
   }, [labelRef?.current?.textContent])
   useEffect(() => {
@@ -184,12 +187,16 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
       refs: React.Children.map(children, () => React.createRef<HTMLElement>()),
     })
   }, [children])
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOpen) {
-      // call onClose when closing
-      onClose()
+      loseFocus()
     }
   }, [isOpen])
+  useLayoutEffect(() => {
+    if (isOpen) {
+      grabFocus()
+    }
+  }, [isOpen, focussedItem === -1])
 
   const handleKey = (event: React.KeyboardEvent) => {
     let shouldStopPropagation = true
@@ -322,13 +329,14 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
         {React.Children.map(children, (child, index) => (
           <Item
             key={index}
-            hasFocus={focussedItem === index && isOpen}
+            hasFocus={focussedItem === index && isOpen && !childHasFocus}
             ref={refs[index]}
             onClick={() => dispatch({ type: Actions.setFocussedItem, index })}>
             {React.isValidElement(child)
               ? (child.type === Menu)
                 ? React.cloneElement(child, {
-                  onClose: () => { refs[focussedItem]?.current?.focus() },
+                  grabFocus: () => { setChildFocus(true) },
+                  loseFocus: () => { setChildFocus(false) },
                   openNextSibling: () => {
                     dispatch({ type: Actions.closeMenu })
                     openNextSibling()
