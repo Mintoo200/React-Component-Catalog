@@ -156,10 +156,10 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
     refs: [],
   })
   const [ariaLabel, setAriaLabel] = useState('')
-  const ref = useCombinedRef(forwardedRef)
+  const labelRef = useCombinedRef(forwardedRef)
   useEffect(() => {
-    setAriaLabel(ref?.current?.textContent)
-  }, [ref?.current?.textContent])
+    setAriaLabel(labelRef?.current?.textContent)
+  }, [labelRef?.current?.textContent])
   useEffect(() => {
     dispatch({
       type: Actions.setRefs,
@@ -274,7 +274,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
         let result: React.ReactElement
         if (React.isValidElement(label)) {
           result = React.cloneElement(label, {
-            ref,
+            ref: labelRef,
             tabIndex,
             'aria-haspopup': 'menu',
             'aria-expanded': isOpen,
@@ -282,7 +282,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
           })
         } else if (typeof label === 'function') {
           result = label({
-            ref,
+            ref: labelRef,
             tabIndex,
             'aria-haspopup': 'menu',
             'aria-expanded': isOpen,
@@ -290,7 +290,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
           })
         } else {
           result = (
-            <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" aria-expanded={isOpen} ref={ref}>
+            <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" aria-expanded={isOpen} ref={labelRef}>
               {label}
             </button>
           )
