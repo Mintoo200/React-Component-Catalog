@@ -1,5 +1,5 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
+import React, { useEffect } from 'react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Dropdown from '../Dropdown'
 import Menu, { LabelProps } from '../Menu'
@@ -101,6 +101,46 @@ describe('Dropdown tests', () => {
     )
     userEvent.click(screen.getByText('Hello'))
     expect(onClick).toHaveBeenCalledTimes(1)
+  })
+  it('should not refocus the menubar when closing a menu by unhovering', async () => {
+    const effect = jest.fn()
+    function EffectComponent(): React.ReactElement {
+      useEffect(effect)
+      return null
+    }
+    renderWithStyle(
+      <>
+        <button type="button">Focus</button>
+        <Dropdown aria-label="My Menu">
+          <Menu label="Menu">
+            <button type="button">Link</button>
+          </Menu>
+        </Dropdown>
+        <EffectComponent />
+      </>,
+    )
+    const focus = screen.getByText('Focus')
+    const menu = screen.getByText('Menu')
+    focus.focus()
+    expect(menu).not.toHaveFocus()
+    userEvent.hover(menu)
+    expect(menu).not.toHaveFocus()
+    userEvent.unhover(menu)
+    // Wait for effect to finish
+    // should not race the focus since focus is a layout effect => called before effects
+    // also since rendered last, should call its effects after other components
+    await waitFor(() => expect(effect).toHaveBeenCalled())
+    expect(menu).not.toHaveFocus()
+    expect(focus).toHaveFocus()
+  })
+  it('should not focus the menu at mount', () => {
+    renderWithStyle(
+      <Dropdown aria-label="My Menu">
+        <button type="button">Link</button>
+      </Dropdown>,
+    )
+    const menu = screen.getByText('Link')
+    expect(menu).not.toHaveFocus()
   })
 
   describe('Keyboard tests', () => {
