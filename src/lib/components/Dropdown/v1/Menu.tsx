@@ -17,6 +17,8 @@ enum Actions {
   focusNext,
   focusPrevious,
   focusMatching,
+  hover,
+  unhover,
 }
 
 type Action = {
@@ -37,7 +39,9 @@ type Action = {
   | Actions.focusFirst
   | Actions.focusLast
   | Actions.focusNext
-  | Actions.focusPrevious,
+  | Actions.focusPrevious
+  | Actions.hover
+  | Actions.unhover,
   isOpen?: never,
   index?: never,
   refs?: never,
@@ -46,6 +50,7 @@ type Action = {
 
 type State = {
   isOpen: boolean,
+  isHovered: boolean,
   focussedItem: number,
   refs: RefObject<HTMLElement>[],
 }
@@ -115,6 +120,16 @@ function Reducer(state: State, action: Action) {
       }
       break
     }
+    case Actions.hover:
+      return {
+        ...state,
+        isHovered: true,
+      }
+    case Actions.unhover:
+      return {
+        ...state,
+        isHovered: false,
+      }
     default:
       throw new InvalidActionError()
   }
@@ -150,8 +165,11 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   openPreviousSibling = () => null,
   preview = false,
 }, forwardedRef) => {
-  const [{ isOpen, focussedItem, refs }, dispatch] = useReducer(Reducer, {
+  const [{
+    isOpen, focussedItem, refs, isHovered,
+  }, dispatch] = useReducer(Reducer, {
     isOpen: false,
+    isHovered: false,
     focussedItem: -1,
     refs: [],
   })
@@ -266,8 +284,8 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   return (
     <div
       onKeyDown={handleKey}
-      onMouseEnter={() => dispatch({ type: Actions.openMenu })}
-      onMouseLeave={() => { dispatch({ type: Actions.closeMenu }) }}
+      onMouseEnter={() => { dispatch({ type: Actions.hover }) }}
+      onMouseLeave={() => { dispatch({ type: Actions.unhover }) }}
       className="label"
       role="presentation">
       {(function renderLabel() {
@@ -298,7 +316,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
         return result
       }())}
       <ul
-        className={`submenu ${(isOpen || preview) ? 'open' : 'closed'}`}
+        className={`submenu ${(isOpen || preview || isHovered) ? 'open' : 'closed'}`}
         role="menu"
         aria-label={ariaLabel}>
         {React.Children.map(children, (child, index) => (
