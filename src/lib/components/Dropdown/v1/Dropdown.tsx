@@ -21,6 +21,8 @@ enum Actions {
   setFocussedItem,
   focusNextSibling,
   focusPreviousSibling,
+  grabFocus,
+  loseFocus,
 }
 
 type Action = {
@@ -39,7 +41,9 @@ type Action = {
   | Actions.focusNext
   | Actions.focusNextSibling
   | Actions.focusPreviousSibling
-  | Actions.focusPrevious,
+  | Actions.focusPrevious
+  | Actions.grabFocus
+  | Actions.loseFocus,
   isOpen?: never,
   index?: never,
   refs?: never,
@@ -49,6 +53,7 @@ type Action = {
 type State = {
   previewMenu: boolean,
   focussedItem: number,
+  hasFocus: boolean,
   refs: RefObject<HTMLElement>[],
 }
 
@@ -114,6 +119,16 @@ function Reducer(state: State, action: Action) {
         previewMenu: true,
         focussedItem: (state.focussedItem + 1) % state.refs.length,
       }
+    case Actions.grabFocus:
+      return {
+        ...state,
+        hasFocus: true,
+      }
+    case Actions.loseFocus:
+      return {
+        ...state,
+        hasFocus: false,
+      }
     default:
       throw new InvalidActionError()
   }
@@ -126,12 +141,14 @@ export type Props = {
 }
 
 const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
-  const [{ focussedItem, refs, previewMenu }, dispatch] = useReducer(Reducer, {
+  const [{
+    focussedItem, refs, hasFocus, previewMenu,
+  }, dispatch] = useReducer(Reducer, {
     focussedItem: 0,
     refs: [],
+    hasFocus: false,
     previewMenu: false,
   })
-  const [hasFocus, setFocus] = useState(false)
   const [childHasFocus, setChildFocus] = useState(false)
   useEffect(() => {
     dispatch({
@@ -174,8 +191,8 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
       onKeyDown={handleKey}
       role="menubar"
       aria-label={a11y['aria-label']}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}>
+      onFocus={() => { dispatch({ type: Actions.grabFocus }) }}
+      onBlur={() => { dispatch({ type: Actions.loseFocus }) }}>
       {React.Children.map(children, (child, index) => (
         <Item
           key={index}
