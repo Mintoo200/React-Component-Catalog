@@ -811,6 +811,7 @@ describe('Dropdown tests', () => {
         )
         const menu1 = screen.getByText('Menu 1')
         const menu2 = screen.getByText('Menu 2')
+        menu1.focus()
         userEvent.keyboard('{ArrowRight}')
         openSubmenu(menu2)
 
