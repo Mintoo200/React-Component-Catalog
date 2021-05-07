@@ -47,6 +47,25 @@ const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
 
 Modifying the source code might cause react-hot-reload to fail (cf. [the related issue on Github](https://github.com/gaearon/react-hot-loader/issues/304)). Reloading the page should fix the issue.
 
+The label of a menu can be either a primitive:
+
+\`\`\`tsx
+<Menu label="Menu" />
+\`\`\`
+
+a component:
+
+\`\`\`tsx
+<Menu label={<button>Menu</button>} />
+\`\`\`
+
+or a render props:
+
+\`\`\`tsx
+// import {LabelProps} from './Dropdown/Menu'
+<Menu label={(props: LabelProps) => <button {...props}>Menu</button>} />
+\`\`\`
+
 ## Accessibility
 
 This component implements the accessibility features described in [the W3C example for the matching component](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html) including:
@@ -55,9 +74,8 @@ This component implements the accessibility features described in [the W3C examp
 - [aria attributes for roles, labels, haspopup and expanded](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html#rps_label)
 
 Remember to have your \`Dropdown\` wrapped in a \`<nav aria-label />\` element if it is the main navigation menu of your page.
-<br />
-<br />
-<br />
+
+<hr />
 learn more about the component in [the Study page](/story/components-dropdown-study--page#version-1---label-as-prop)
 `
 
