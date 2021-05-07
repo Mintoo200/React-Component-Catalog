@@ -19,8 +19,8 @@ enum Actions {
   focusMatching,
   hover,
   unhover,
-  childGrabFocus,
-  childLoseFocus,
+  submenuGrabFocus,
+  submenuLoseFocus,
 }
 
 type Action = {
@@ -44,8 +44,8 @@ type Action = {
   | Actions.focusPrevious
   | Actions.hover
   | Actions.unhover
-  | Actions.childGrabFocus
-  | Actions.childLoseFocus,
+  | Actions.submenuGrabFocus
+  | Actions.submenuLoseFocus,
   isOpen?: never,
   index?: never,
   refs?: never,
@@ -56,7 +56,7 @@ type State = {
   isOpen: boolean,
   isHovered: boolean,
   focussedItem: number,
-  childHasFocus: boolean,
+  submenuHasFocus: boolean,
   refs: RefObject<HTMLElement>[],
 }
 
@@ -135,15 +135,15 @@ function Reducer(state: State, action: Action) {
         ...state,
         isHovered: false,
       }
-    case Actions.childGrabFocus:
+    case Actions.submenuGrabFocus:
       return {
         ...state,
-        childHasFocus: true,
+        submenuHasFocus: true,
       }
-    case Actions.childLoseFocus:
+    case Actions.submenuLoseFocus:
       return {
         ...state,
-        childHasFocus: false,
+        submenuHasFocus: false,
       }
     default:
       throw new InvalidActionError()
@@ -183,12 +183,12 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   preview = false,
 }, forwardedRef) => {
   const [{
-    isOpen, focussedItem, refs, isHovered, childHasFocus,
+    isOpen, focussedItem, refs, isHovered, submenuHasFocus,
   }, dispatch] = useReducer(Reducer, {
     isOpen: false,
     isHovered: false,
     focussedItem: -1,
-    childHasFocus: false,
+    submenuHasFocus: false,
     refs: [],
   })
   const [ariaLabel, setAriaLabel] = useState('')
@@ -345,14 +345,14 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
         {React.Children.map(children, (child, index) => (
           <Item
             key={index}
-            hasFocus={focussedItem === index && isOpen && !childHasFocus}
+            hasFocus={focussedItem === index && isOpen && !submenuHasFocus}
             ref={refs[index]}
             onClick={() => dispatch({ type: Actions.setFocussedItem, index })}>
             {React.isValidElement(child)
               ? (child.type === Menu)
                 ? React.cloneElement(child, {
-                  grabFocus: () => { dispatch({ type: Actions.childGrabFocus }) },
-                  loseFocus: () => { dispatch({ type: Actions.childLoseFocus }) },
+                  grabFocus: () => { dispatch({ type: Actions.submenuGrabFocus }) },
+                  loseFocus: () => { dispatch({ type: Actions.submenuLoseFocus }) },
                   openNextSibling: () => {
                     dispatch({ type: Actions.closeMenu })
                     openNextSibling()

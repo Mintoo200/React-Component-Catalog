@@ -23,8 +23,8 @@ enum Actions {
   focusPreviousSibling,
   grabFocus,
   loseFocus,
-  childGrabFocus,
-  childLoseFocus,
+  submenuGrabFocus,
+  submenuLoseFocus,
 }
 
 type Action = {
@@ -46,8 +46,8 @@ type Action = {
   | Actions.focusPrevious
   | Actions.grabFocus
   | Actions.loseFocus
-  | Actions.childGrabFocus
-  | Actions.childLoseFocus,
+  | Actions.submenuGrabFocus
+  | Actions.submenuLoseFocus,
   isOpen?: never,
   index?: never,
   refs?: never,
@@ -58,7 +58,7 @@ type State = {
   previewMenu: boolean,
   focussedItem: number,
   hasFocus: boolean,
-  childHasFocus: boolean,
+  submenuHasFocus: boolean,
   refs: RefObject<HTMLElement>[],
 }
 
@@ -134,15 +134,15 @@ function Reducer(state: State, action: Action) {
         ...state,
         hasFocus: false,
       }
-    case Actions.childGrabFocus:
+    case Actions.submenuGrabFocus:
       return {
         ...state,
-        childHasFocus: true,
+        submenuHasFocus: true,
       }
-    case Actions.childLoseFocus:
+    case Actions.submenuLoseFocus:
       return {
         ...state,
-        childHasFocus: false,
+        submenuHasFocus: false,
       }
     default:
       throw new InvalidActionError()
@@ -157,12 +157,12 @@ export type Props = {
 
 const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
   const [{
-    focussedItem, refs, hasFocus, previewMenu, childHasFocus,
+    focussedItem, refs, hasFocus, previewMenu, submenuHasFocus,
   }, dispatch] = useReducer(Reducer, {
     focussedItem: 0,
     refs: [],
     hasFocus: false,
-    childHasFocus: false,
+    submenuHasFocus: false,
     previewMenu: false,
   })
   useEffect(() => {
@@ -211,15 +211,15 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
       {React.Children.map(children, (child, index) => (
         <Item
           key={index}
-          hasFocus={focussedItem === index && hasFocus && !childHasFocus}
+          hasFocus={focussedItem === index && hasFocus && !submenuHasFocus}
           tabIndex={focussedItem === index ? 0 : -1}
           ref={refs[index]}
           onClick={() => { dispatch({ type: Actions.setFocussedItem, index }) }}>
           {React.isValidElement(child)
             ? (child.type === Menu)
               ? React.cloneElement(child, {
-                grabFocus: () => { dispatch({ type: Actions.childGrabFocus }) },
-                loseFocus: () => { dispatch({ type: Actions.childLoseFocus }) },
+                grabFocus: () => { dispatch({ type: Actions.submenuGrabFocus }) },
+                loseFocus: () => { dispatch({ type: Actions.submenuLoseFocus }) },
                 opensDownward: true,
                 openNextSibling: () => { dispatch({ type: Actions.focusNextSibling }) },
                 openPreviousSibling: () => { dispatch({ type: Actions.focusPreviousSibling }) },
