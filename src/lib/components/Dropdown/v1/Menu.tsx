@@ -319,7 +319,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
                     dispatch({ type: Actions.closeMenu })
                     openPreviousSibling()
                   },
-                  open: isOpen,
+                  preview: false,
                 })
                 : child
               : <button type="button">{child}</button>}
