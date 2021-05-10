@@ -142,6 +142,31 @@ describe('Dropdown tests', () => {
     const menu = screen.getByText('Link')
     expect(menu).not.toHaveFocus()
   })
+  it('should close all submenus when loosing focus', () => {
+    renderWithStyle(
+      <>
+        <button type="button">focus</button>
+        <Dropdown aria-label="My Menu">
+          <Menu label="Submenu 1">
+            <Menu label="Submenu 2">
+              <button type="button">Link</button>
+            </Menu>
+          </Menu>
+        </Dropdown>
+      </>,
+    )
+    const submenu1 = screen.getByText('Submenu 1')
+    const submenu2 = screen.getByText('Submenu 2')
+    const link = screen.getByText('Link')
+    const focus = screen.getByText('focus')
+    openSubmenu(submenu1)
+    userEvent.keyboard('{ArrowRight}')
+    expect(link).toBeVisible()
+    focus.focus()
+    expect(link).not.toBeVisible()
+    expect(submenu2).not.toBeVisible()
+    expect(focus).toHaveFocus()
+  })
 
   describe('Keyboard tests', () => {
     describe('Menubar tests', () => {

@@ -6,6 +6,16 @@ import useCombinedRef from '../../../hooks/useCombinedRef/useCombinedRef'
 import Item from './Item'
 import { findNextMatching, isCharacter } from './Utils'
 
+function actualBlur(event: React.FocusEvent) {
+  return (
+    event.type === 'blur'
+    && (
+      !(event.relatedTarget instanceof HTMLElement)
+      || !(event.currentTarget.contains(event.relatedTarget))
+    )
+  )
+}
+
 enum Actions {
   setRefs,
   setIsOpen,
@@ -309,6 +319,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
       onKeyDown={handleKey}
       onMouseEnter={() => { dispatch({ type: Actions.hover }) }}
       onMouseLeave={() => { dispatch({ type: Actions.unhover }) }}
+      onBlur={(event) => { if (actualBlur(event)) dispatch({ type: Actions.closeMenu }) }}
       className="label"
       role="presentation">
       {(function renderLabel() {
