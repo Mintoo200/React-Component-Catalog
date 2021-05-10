@@ -13,6 +13,8 @@ const documentation = `
 </Dropdown>
 \`\`\`
 
+<p className="warning">onKeyDown events on your links must not stop the propagation since it will stop all keyboard events from being handled in the menu.</p>
+
 If you want to use a custom component for the buttons or links, you will need to forward a ref and the following props to the button itself:
 
 \`\`\`tsx

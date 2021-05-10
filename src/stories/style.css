@@ -116,3 +116,11 @@ kbd {
   white-space: nowrap;
   width: fit-content;
 }
+
+.warning {
+  background: orange;
+}
+
+.warning::before {
+  content: "⚠️ "
+}
