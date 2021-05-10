@@ -151,7 +151,7 @@ function Reducer(state: State, action: Action) {
 }
 
 export type Props = {
-  children: React.ReactNode,
+  children: React.ReactElement | React.ReactElement[],
   'aria-label': string,
 }
 
@@ -215,18 +215,16 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
           tabIndex={focussedItem === index ? 0 : -1}
           ref={refs[index]}
           onClick={() => { dispatch({ type: Actions.setFocussedItem, index }) }}>
-          {React.isValidElement(child)
-            ? (child.type === Menu)
-              ? React.cloneElement(child, {
-                grabFocus: () => { dispatch({ type: Actions.submenuGrabFocus }) },
-                loseFocus: () => { dispatch({ type: Actions.submenuLoseFocus }) },
-                opensDownward: true,
-                openNextSibling: () => { dispatch({ type: Actions.focusNextSibling }) },
-                openPreviousSibling: () => { dispatch({ type: Actions.focusPreviousSibling }) },
-                preview: focussedItem === index && previewMenu,
-              })
-              : child
-            : <button type="button">{child}</button>}
+          {(child.type === Menu)
+            ? React.cloneElement(child, {
+              grabFocus: () => { dispatch({ type: Actions.submenuGrabFocus }) },
+              loseFocus: () => { dispatch({ type: Actions.submenuLoseFocus }) },
+              opensDownward: true,
+              openNextSibling: () => { dispatch({ type: Actions.focusNextSibling }) },
+              openPreviousSibling: () => { dispatch({ type: Actions.focusPreviousSibling }) },
+              preview: focussedItem === index && previewMenu,
+            })
+            : child}
         </Item>
       ))}
     </ul>

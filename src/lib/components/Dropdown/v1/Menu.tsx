@@ -162,7 +162,7 @@ function Reducer(state: State, action: Action) {
 }
 
 export type Props = {
-  children: React.ReactNode,
+  children: React.ReactElement | React.ReactElement[],
   label: React.ReactNode | ((props: LabelProps<HTMLElement>) => React.ReactElement),
   tabIndex?: number,
   grabFocus?: () => void,
@@ -191,7 +191,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
   openNextSibling = () => null,
   openPreviousSibling = () => null,
   preview = false,
-}, forwardedRef) => {
+}: Props, forwardedRef) => {
   const [{
     isOpen, focussedItem, refs, isHovered, submenuHasFocus,
   }, dispatch] = useReducer(Reducer, {
@@ -359,23 +359,21 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
             hasFocus={focussedItem === index && isOpen && !submenuHasFocus}
             ref={refs[index]}
             onClick={() => dispatch({ type: Actions.setFocussedItem, index })}>
-            {React.isValidElement(child)
-              ? (child.type === Menu)
-                ? React.cloneElement(child, {
-                  grabFocus: () => { dispatch({ type: Actions.submenuGrabFocus }) },
-                  loseFocus: () => { dispatch({ type: Actions.submenuLoseFocus }) },
-                  openNextSibling: () => {
-                    dispatch({ type: Actions.closeMenu })
-                    openNextSibling()
-                  },
-                  openPreviousSibling: () => {
-                    dispatch({ type: Actions.closeMenu })
-                    openPreviousSibling()
-                  },
-                  preview: false,
-                })
-                : child
-              : <button type="button">{child}</button>}
+            {(child.type === Menu)
+              ? React.cloneElement(child, {
+                grabFocus: () => { dispatch({ type: Actions.submenuGrabFocus }) },
+                loseFocus: () => { dispatch({ type: Actions.submenuLoseFocus }) },
+                openNextSibling: () => {
+                  dispatch({ type: Actions.closeMenu })
+                  openNextSibling()
+                },
+                openPreviousSibling: () => {
+                  dispatch({ type: Actions.closeMenu })
+                  openPreviousSibling()
+                },
+                preview: false,
+              })
+              : child}
           </Item>
         ))}
       </ul>
