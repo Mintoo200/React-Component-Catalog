@@ -63,7 +63,7 @@ export default {
 }
 
 const Template: Story<FormProps> = () => {
-  const [form, setForm] = useState(null as FormState)
+  const [form, setForm] = useState<FormState>(null)
   return (
     <Form onChange={setForm}>
       <input id="id-1" type="email" required minLength={10} />
