@@ -89,7 +89,7 @@ export default {
 }
 
 const SingleAPIComponent = ({ timeout = false }: {timeout?: boolean}): React.ReactElement => {
-  const [file, setFile] = useState(null as string)
+  const [file, setFile] = useState<string>(null)
   const API = useAPI<MyAPI>()
   useEffect(() => {
     const cancelablePromise = makeCancelable<AxiosResponse>(
@@ -149,7 +149,7 @@ Unmount.args = {
 }
 
 const MultiAPIComponent1 = (): React.ReactElement => {
-  const [file, setFile] = useState(null as string)
+  const [file, setFile] = useState<string>(null)
   const API = useAPI<MyAPI>('gitlab')
   useEffect(() => {
     const promise = makeCancelable<AxiosResponse>(API.getFile())
@@ -165,7 +165,7 @@ const MultiAPIComponent1 = (): React.ReactElement => {
 }
 
 const MultiAPIComponent2 = (): React.ReactElement => {
-  const [file, setFile] = useState(null as string)
+  const [file, setFile] = useState<string>(null)
   const API = useAPI<MySecondAPI>('also gitlab')
   useEffect(() => {
     const promise = makeCancelable<AxiosResponse>(API.getFile())

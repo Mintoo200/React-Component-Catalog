@@ -22,7 +22,7 @@ const valueMatch = (node: React.ReactElement, input: string) => (
 const childrenMatch = (node: React.ReactElement, input: string) => (
   node.props.children
   && (typeof node.props.children === 'string'
-    && match(node.props.children as string, input))
+    && match(node.props.children, input))
 )
 
 const Options = ({ children }: Props): React.ReactElement => {
@@ -30,7 +30,7 @@ const Options = ({ children }: Props): React.ReactElement => {
     currentInput, dispatch, hasFocus, focussedItem,
   } = useAutoComplete()
   useEffect(() => {
-    const options = [] as string[]
+    const options: string[] = []
     React.Children.forEach(children, (child) => {
       if (isOption(child)) {
         if (valueMatch(child, currentInput)

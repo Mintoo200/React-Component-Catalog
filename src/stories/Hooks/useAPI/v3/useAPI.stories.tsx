@@ -80,7 +80,7 @@ export default {
 }
 
 const SingleAPIComponent = ({ timeout = false }: {timeout?: boolean}): React.ReactElement => {
-  const [file, setFile] = useState(null as string)
+  const [file, setFile] = useState<string>(null)
   const MyAPIInstance = useAPI<MyAPI>()
   useEffect(() => {
     if (MyAPIInstance) {
@@ -143,7 +143,7 @@ Unmount.args = {
 }
 
 const MultiAPIComponent1 = (): React.ReactElement => {
-  const [file, setFile] = useState(null as string)
+  const [file, setFile] = useState<string>(null)
   const APIInstance = useAPI<MyAPI>('gitlab')
   useEffect(() => {
     if (APIInstance) {
@@ -162,7 +162,7 @@ const MultiAPIComponent1 = (): React.ReactElement => {
 }
 
 const MultiAPIComponent2 = (): React.ReactElement => {
-  const [file, setFile] = useState(null as string)
+  const [file, setFile] = useState<string>(null)
   const APIInstance = useAPI<MySecondAPI>('also gitlab')
   useEffect(() => {
     if (APIInstance) {

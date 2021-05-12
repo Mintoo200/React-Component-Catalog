@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import BaseAPIClass, { BaseAPIClassConstructor } from '../APIClass'
 
-export const Context = React.createContext(null as BaseAPIClass)
+export const Context = React.createContext<BaseAPIClass>(null)
 
 export type Props<T extends BaseAPIClassConstructor> = {
   url: string,
@@ -16,16 +16,13 @@ function APIContext<T extends BaseAPIClassConstructor>(
     url, APIClass, token, children,
   }: Props<T>,
 ): React.ReactElement {
-  const options = {
-    baseURL: url,
-    headers: null as unknown,
-  }
+  let headers
   if (token != null) {
-    options.headers = {
+    headers = {
       Authorization: `Bearer ${token}`,
     }
   }
-  const axiosInstance = axios.create(options)
+  const axiosInstance = axios.create({ baseURL: url, headers })
   const APIInstance = new APIClass(axiosInstance)
   return (
     <Context.Provider value={APIInstance}>

@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import BaseAPIClass, { BaseAPIClassConstructor } from '../APIClass'
 
-export const Context = React.createContext({} as Record<string, BaseAPIClass>)
+export const Context = React.createContext<Record<string, BaseAPIClass>>({})
 
 export type SingleAPIProps<T extends BaseAPIClassConstructor> = {
   url: string,
@@ -30,20 +30,17 @@ export type Props<T extends BaseAPIClassConstructor> = SingleAPIProps<T>|MultiAP
 function MultiAPIContext(
   { APIs, children }: MultiAPIProps,
 ): React.ReactElement {
-  const APIInstances = {} as Record<string, BaseAPIClass>
+  const APIInstances: Record<string, BaseAPIClass> = {}
   APIs.forEach(({
     name, url, APIClass, token,
   }) => {
-    const options = {
-      baseURL: url,
-      headers: null as unknown,
-    }
+    let headers
     if (token != null) {
-      options.headers = {
+      headers = {
         Authorization: `Bearer ${token}`,
       }
     }
-    const axiosInstance = axios.create(options)
+    const axiosInstance = axios.create({ baseURL: url, headers })
     const APIInstance = new APIClass(axiosInstance)
     APIInstances[name] = APIInstance
   })

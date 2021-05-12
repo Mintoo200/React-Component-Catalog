@@ -8,10 +8,16 @@ import BaseAPIClass, { BaseAPIClassConstructor } from '../APIClass'
 export type AddAPIFunction = (name: string, API: BaseAPIClass) => void
 export type RemoveAPIFunction = (name: string) => void
 
-export const Context = React.createContext({
-  APIs: {} as Record<string, BaseAPIClass>,
-  addAPI: (() => { throw new NoContextError() }) as AddAPIFunction,
-  removeAPI: (() => { throw new NoContextError() }) as RemoveAPIFunction,
+type ContextType = {
+  APIs: Record<string, BaseAPIClass>,
+  addAPI: AddAPIFunction,
+  removeAPI: RemoveAPIFunction,
+}
+
+export const Context = React.createContext<ContextType>({
+  APIs: {},
+  addAPI: (() => { throw new NoContextError() }),
+  removeAPI: (() => { throw new NoContextError() }),
 })
 
 export type ContextProps = {
@@ -19,7 +25,7 @@ export type ContextProps = {
 }
 
 export const APIContext = ({ children }: ContextProps): React.ReactElement => {
-  const [APIs, setAPIs] = useState({} as Record<string, BaseAPIClass>)
+  const [APIs, setAPIs] = useState<Record<string, BaseAPIClass>>({})
   const addAPI = useCallback((name, APIInstance) => {
     // setAPIs with callback because if you call addAPI multiple times
     // in quick succession, calling it with the new state would overwrite
@@ -55,16 +61,13 @@ export function API<T extends BaseAPIClassConstructor>({
 }: APIProps<T>): React.ReactElement {
   const { addAPI, removeAPI } = useContext(Context)
   useEffect(() => {
-    const options = {
-      baseURL: url,
-      headers: null as unknown,
-    }
+    let headers
     if (token != null) {
-      options.headers = {
+      headers = {
         Authorization: `Bearer ${token}`,
       }
     }
-    const axiosInstance = axios.create(options)
+    const axiosInstance = axios.create({ baseURL: url, headers })
     const APIInstance = new APIClass(axiosInstance)
     addAPI(name, APIInstance)
 

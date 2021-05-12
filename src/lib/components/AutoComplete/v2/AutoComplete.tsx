@@ -16,7 +16,7 @@ export type Props = {
 const AutoComplete = ({ getOptions, onSubmit }: Props): React.ReactElement => {
   const salt = useSalt()
   const [inputValue, setInputValue] = useState('')
-  const [options, setOptions] = useState([] as Option[])
+  const [options, setOptions] = useState<Option[]>([])
   useEffect(() => {
     const cancelable = makeCancelable(getOptions(inputValue))
     cancelable.promise.then(setOptions)
