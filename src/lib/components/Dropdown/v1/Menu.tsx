@@ -224,86 +224,94 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
     // "focussedItem === -1" => call when switching between === -1 and !== -1
   }, [isOpen, focussedItem === -1])
 
-  const handleKey = (event: React.KeyboardEvent) => {
+  const handleKeyOnLabel = (event: React.KeyboardEvent) => {
     let shouldStopPropagation = true
     let shouldPreventDefault = true
-    if (isOpen && focussedItem !== -1) {
-      switch (event.key) {
-        case 'Escape':
-          if (opensDownward) {
-            shouldStopPropagation = false
-          }
-          dispatch({ type: Actions.closeMenu })
-          break
-        case 'ArrowRight': {
-          const child = React.Children.toArray(children)[focussedItem]
-          if (!React.isValidElement(child) || child.type !== Menu) {
-            dispatch({ type: Actions.closeMenu })
-            openNextSibling()
-          }
-          break
-        }
-        case 'ArrowLeft':
-          dispatch({ type: Actions.closeMenu })
-          if (opensDownward) {
-            openPreviousSibling()
-          }
-          break
-        case 'ArrowDown':
-          dispatch({ type: Actions.focusNext })
-          break
-        case 'ArrowUp':
-          dispatch({ type: Actions.focusPrevious })
-          break
-        case 'Home':
-          dispatch({ type: Actions.focusFirst })
-          break
-        case 'End':
-          dispatch({ type: Actions.focusLast })
-          break
-        default: {
-          if (!isCharacter(event.key)) {
-            shouldPreventDefault = false
-          }
-          dispatch({ type: Actions.focusMatching, match: event.key })
-          break
-        }
-      }
-    } else {
-      switch (event.key) {
-        case 'Enter':
-        case ' ':
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        dispatch({ type: Actions.openMenu })
+        dispatch({ type: Actions.focusFirst })
+        break
+      case 'ArrowDown':
+        if (opensDownward) {
           dispatch({ type: Actions.openMenu })
           dispatch({ type: Actions.focusFirst })
-          break
-        case 'ArrowDown':
-          if (opensDownward) {
-            dispatch({ type: Actions.openMenu })
-            dispatch({ type: Actions.focusFirst })
-          } else {
-            shouldStopPropagation = false
-          }
-          break
-        case 'ArrowUp':
-          if (opensDownward) {
-            dispatch({ type: Actions.openMenu })
-            dispatch({ type: Actions.focusLast })
-          } else {
-            shouldStopPropagation = false
-          }
-          break
-        case 'ArrowRight':
-          if (!opensDownward) {
-            dispatch({ type: Actions.openMenu })
-            dispatch({ type: Actions.focusFirst })
-          } else {
-            shouldStopPropagation = false
-          }
-          break
-        default:
-          shouldPreventDefault = false
+        } else {
           shouldStopPropagation = false
-          break
+        }
+        break
+      case 'ArrowUp':
+        if (opensDownward) {
+          dispatch({ type: Actions.openMenu })
+          dispatch({ type: Actions.focusLast })
+        } else {
+          shouldStopPropagation = false
+        }
+        break
+      case 'ArrowRight':
+        if (!opensDownward) {
+          dispatch({ type: Actions.openMenu })
+          dispatch({ type: Actions.focusFirst })
+        } else {
+          shouldStopPropagation = false
+        }
+        break
+      default:
+        shouldPreventDefault = false
+        shouldStopPropagation = false
+        break
+    }
+    if (shouldPreventDefault) {
+      event.preventDefault()
+    }
+    if (shouldStopPropagation) {
+      event.stopPropagation()
+    }
+  }
+
+  const handleKeyOnMenu = (event: React.KeyboardEvent) => {
+    let shouldStopPropagation = true
+    let shouldPreventDefault = true
+    switch (event.key) {
+      case 'Escape':
+        if (opensDownward) {
+          shouldStopPropagation = false
+        }
+        dispatch({ type: Actions.closeMenu })
+        break
+      case 'ArrowRight': {
+        const child = React.Children.toArray(children)[focussedItem]
+        if (!React.isValidElement(child) || child.type !== Menu) {
+          dispatch({ type: Actions.closeMenu })
+          openNextSibling()
+        }
+        break
+      }
+      case 'ArrowLeft':
+        dispatch({ type: Actions.closeMenu })
+        if (opensDownward) {
+          openPreviousSibling()
+        }
+        break
+      case 'ArrowDown':
+        dispatch({ type: Actions.focusNext })
+        break
+      case 'ArrowUp':
+        dispatch({ type: Actions.focusPrevious })
+        break
+      case 'Home':
+        dispatch({ type: Actions.focusFirst })
+        break
+      case 'End':
+        dispatch({ type: Actions.focusLast })
+        break
+      default: {
+        if (!isCharacter(event.key)) {
+          shouldPreventDefault = false
+        }
+        dispatch({ type: Actions.focusMatching, match: event.key })
+        break
       }
     }
     if (shouldPreventDefault) {
@@ -316,40 +324,42 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
 
   return (
     <div
-      onKeyDown={handleKey}
       onMouseEnter={() => { dispatch({ type: Actions.hover }) }}
       onMouseLeave={() => { dispatch({ type: Actions.unhover }) }}
       onBlur={(event) => { if (actualBlur(event)) dispatch({ type: Actions.closeMenu }) }}
       className="label"
       role="presentation">
-      {(function renderLabel() {
-        let result: React.ReactElement
-        if (React.isValidElement(label)) {
-          result = React.cloneElement(label, {
-            ref: labelRef,
-            tabIndex,
-            'aria-haspopup': 'menu',
-            'aria-expanded': isOpen,
-            role: 'menuitem',
-          })
-        } else if (typeof label === 'function') {
-          result = label({
-            ref: labelRef,
-            tabIndex,
-            'aria-haspopup': 'menu',
-            'aria-expanded': isOpen,
-            role: 'menuitem',
-          })
-        } else {
-          result = (
-            <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" aria-expanded={isOpen} ref={labelRef}>
-              {label}
-            </button>
-          )
-        }
-        return result
-      }())}
+      <div role="presentation" className="label" onKeyDown={handleKeyOnLabel}>
+        {(function renderLabel() {
+          let result: React.ReactElement
+          if (React.isValidElement(label)) {
+            result = React.cloneElement(label, {
+              ref: labelRef,
+              tabIndex,
+              'aria-haspopup': 'menu',
+              'aria-expanded': isOpen,
+              role: 'menuitem',
+            })
+          } else if (typeof label === 'function') {
+            result = label({
+              ref: labelRef,
+              tabIndex,
+              'aria-haspopup': 'menu',
+              'aria-expanded': isOpen,
+              role: 'menuitem',
+            })
+          } else {
+            result = (
+              <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" aria-expanded={isOpen} ref={labelRef}>
+                {label}
+              </button>
+            )
+          }
+          return result
+        }())}
+      </div>
       <ul
+        onKeyDown={handleKeyOnMenu}
         className={`submenu ${(isOpen || preview || isHovered) ? 'open' : 'closed'}`}
         role="menu"
         aria-label={ariaLabel}>
