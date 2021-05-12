@@ -4,13 +4,22 @@ import React, {
 import NoContextError from '../../../errors/NoContextError'
 import './style.css'
 
-const CarouselContext = React.createContext({
-  slideComponent: [] as React.ReactNode[],
-  setSlideComponent: (() => { throw new NoContextError() }) as Dispatch<React.ReactNode[]>,
+type ContextType = {
+  slideComponent: React.ReactNode[],
+  setSlideComponent: Dispatch<React.ReactNode[]>,
+  isPlaying: boolean,
+  setIsPlaying: Dispatch<boolean>,
+  currentIndex: number,
+  setCurrentIndex: Dispatch<number>,
+}
+
+const CarouselContext = React.createContext<ContextType>({
+  slideComponent: [],
+  setSlideComponent: (() => { throw new NoContextError() }),
   isPlaying: false,
-  setIsPlaying: (() => { throw new NoContextError() }) as Dispatch<boolean>,
+  setIsPlaying: (() => { throw new NoContextError() }),
   currentIndex: 0,
-  setCurrentIndex: (() => { throw new NoContextError() }) as Dispatch<number>,
+  setCurrentIndex: (() => { throw new NoContextError() }),
 })
 
 export type CarouselProps = {
@@ -19,7 +28,7 @@ export type CarouselProps = {
 }
 
 export const Carousel = ({ children, isPlaying = false }: CarouselProps): React.ReactElement => {
-  const [slideComponent, setSlideComponent] = useState([] as React.ReactNode[])
+  const [slideComponent, setSlideComponent] = useState<React.ReactNode[]>([])
   const [isCurrentlyPlaying, setIsCurrentlyPlaying] = useState(isPlaying)
   const [currentIndex, setCurrentIndex] = useState(0)
 
