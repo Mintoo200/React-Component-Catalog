@@ -38,7 +38,7 @@ const isInputField = (node: React.ReactElement): node is React.ReactElement => (
 )
 
 const Form = ({ children, onChange = () => null, onSubmit }: Props): React.ReactElement => {
-  const defaultState = {} as Record<string, FieldValue<unknown>>
+  const defaultState: Record<string, FieldValue<unknown>> = {}
   const setDefault = (node: React.ReactNode) => {
     React.Children.forEach(node, (child) => {
       if (React.isValidElement(child)) {
@@ -79,8 +79,8 @@ const Form = ({ children, onChange = () => null, onSubmit }: Props): React.React
   const addProps = (currentChildren: React.ReactNode): React.ReactNode => (
     React.Children.map(currentChildren, (child) => {
       if (React.isValidElement(child)) {
-        const props = {} as React.HTMLAttributes<HTMLElement>
-        let processedChildren = null as React.ReactNode
+        const props: React.HTMLAttributes<HTMLElement> = {}
+        let processedChildren: React.ReactNode = null
         if (isInputField(child)) {
           props.onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             onFieldChange(child.props.id, {
