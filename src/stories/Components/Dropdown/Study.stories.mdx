@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import TryBadge from '../../assets/Badges/TryBadge'
+import A11yBadge from '../../assets/Badges/A11yBadge'
 import DeprecatedBadge from '../../assets/Badges/DeprecatedBadge'
 import Tip from '../../assets/Banners/Tip'
 
@@ -12,6 +13,7 @@ import '../../style.css'
 ## Version 1 - Label as prop
 
 <TryBadge kind="components-dropdown-v1-⭐-label-as-prop" story="default" />
+<A11yBadge href="#v1-a11y" />
 
 <div className="subheading">API</div>
 
@@ -39,7 +41,7 @@ import '../../style.css'
   <li>Labels as props makes reading the render less clear</li>
 </ul>
 
-<div className="subheading">Accessibility</div>
+<div className="subheading" id="v1-a11y">Accessibility</div>
 
 This component implements the accessibility features described in [the W3C example for the matching component](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html) including:
 
