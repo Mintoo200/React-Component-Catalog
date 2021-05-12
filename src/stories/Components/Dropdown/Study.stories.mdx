@@ -16,9 +16,9 @@ import '../../style.css'
 <div className="subheading">API</div>
 
 ```tsx
-<Dropdown>
+<Dropdown aria-label="My Dropdown">
   <button type="button">Link 1</button>
-  <Menu label="Submenu 1">
+  <Menu label={<button type="button">Submenu 1</button>}>
     <button type="button">Link 2</button>
     <Menu label={<button type="button">Submenu 2</button>}>
       <button type="button">Link 3</button>
@@ -30,7 +30,6 @@ import '../../style.css'
 
 <div className="subheading">Advantages</div>
 <ul>
-  <li>Simple implementation</li>
   <li>Affordant API</li>
   <li>Allows nested menus</li>
 </ul>
@@ -39,6 +38,15 @@ import '../../style.css'
 <ul>
   <li>Labels as props makes reading the render less clear</li>
 </ul>
+
+<div className="subheading">Accessibility</div>
+
+This component implements the accessibility features described in [the W3C example for the matching component](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html) including:
+
+- [Full keyboard controls](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html#kbd_label)
+- [ARIA attributes for roles, labels, haspopup and expanded](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html#rps_label)
+
+Remember to have your `Dropdown` wrapped in a `<nav aria-label />` element if it is the main navigation menu of your page.
 
 ## Version 2 - Label as component
 
