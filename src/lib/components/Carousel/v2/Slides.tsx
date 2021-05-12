@@ -17,7 +17,7 @@ const Slides = ({ children }: Props): React.ReactElement => {
       // FIXME: React Hot-loader does cause problem here.
       // Reloading the page should fix count being 0
       // cf. https://github.com/gaearon/react-hot-loader/issues/304
-      && (child as React.ReactElement).type === Slide) {
+      && child.type === Slide) {
       slideCount += 1
       return React.cloneElement(child, {
         isActive: slideCount === currentSlide + 1,

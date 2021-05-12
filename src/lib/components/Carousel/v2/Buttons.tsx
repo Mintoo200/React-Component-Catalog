@@ -17,7 +17,7 @@ export const Play = ({ children = null }: Props): React.ReactElement => {
       return <>{children}</>
     }
     return (
-      <>{isPlaying ? (children as React.ReactNode[])[1] : (children as React.ReactNode[])[0]}</>
+      <>{isPlaying ? React.Children.toArray(children)[1] : React.Children.toArray(children)[0]}</>
     )
   }
 
