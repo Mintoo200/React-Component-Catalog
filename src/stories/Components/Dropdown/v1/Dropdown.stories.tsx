@@ -12,6 +12,7 @@ export default {
       url: [
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FDropdown%2Fv1%2FDropdown%2Etsx/raw?ref=master',
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FDropdown%2Fv1%2FMenu%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FDropdown%2Fv1%2FUtils%2Etsx/raw?ref=master',
         'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fcomponents%2FDropdown%2Fstyle%2Ecss/raw?ref=master',
       ],
       language: 'javascript',
