@@ -118,9 +118,9 @@ otherFieldTypes.args = {
 export const withEventHandlers = GenericTemplate.bind({})
 withEventHandlers.args = {
   children: [
-    /* eslint-disable-next-line */
+    /* eslint-disable-next-line no-console */
     <input id="input" placeholder="logs on change" onChange={() => console.log('input changed')} />,
-    /* eslint-disable-next-line */
+    /* eslint-disable-next-line no-console */
     <input id="input" placeholder="logs on blur" onBlur={() => console.log('input blur')} />,
   ],
 }
@@ -129,9 +129,9 @@ export const withSubmit = GenericTemplate.bind({})
 withSubmit.args = {
   children: [
     <input id="input" />,
-    /* eslint-disable-next-line */
+    /* eslint-disable-next-line no-console */
     <button type="submit" onClick={() => console.log('Submitting')}>Submit</button>,
   ],
-  /* eslint-disable-next-line */
-  onSubmit: console.log
+  /* eslint-disable-next-line no-console */
+  onSubmit: console.log,
 }
