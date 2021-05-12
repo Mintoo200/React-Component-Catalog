@@ -54,7 +54,7 @@ export default {
 }
 
 const SingleAPIComponent = ({ timeout = false }: {timeout?: boolean}): React.ReactElement => {
-  const [file, setFile] = useState(null as string)
+  const [file, setFile] = useState<string>(null)
   const API = useAPI<MyAPI>()
   useEffect(() => {
     const cancelablePromise = makeCancelable<AxiosResponse>(
