@@ -224,7 +224,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
     // "focussedItem === -1" => call when switching between === -1 and !== -1
   }, [isOpen, focussedItem === -1])
 
-  const handleKeyOnLabel = (event: React.KeyboardEvent) => {
+  function handleKeyOnLabel(event: React.KeyboardEvent) {
     let shouldStopPropagation = true
     let shouldPreventDefault = true
     switch (event.key) {
@@ -270,7 +270,7 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
     }
   }
 
-  const handleKeyOnMenu = (event: React.KeyboardEvent) => {
+  function handleKeyOnMenu(event: React.KeyboardEvent) {
     let shouldStopPropagation = true
     let shouldPreventDefault = true
     switch (event.key) {

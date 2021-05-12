@@ -171,7 +171,7 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
       refs: React.Children.map(children, () => React.createRef<HTMLElement>()),
     })
   }, [children])
-  const handleKey = (event: React.KeyboardEvent) => {
+  function handleKey(event: React.KeyboardEvent) {
     let shouldPreventDefault = true
     event.stopPropagation()
     switch (event.key) {
