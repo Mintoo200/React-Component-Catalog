@@ -73,7 +73,7 @@ or a render props:
 This component implements the accessibility features described in [the W3C example for the matching component](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html) including:
 
 - [Full keyboard controls](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html#kbd_label)
-- [aria attributes for roles, labels, haspopup and expanded](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html#rps_label)
+- [ARIA attributes for roles, labels, haspopup and expanded](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/menubar/menubar-1/menubar-1.html#rps_label)
 
 Remember to have your \`Dropdown\` wrapped in a \`<nav aria-label />\` element if it is the main navigation menu of your page.
 
