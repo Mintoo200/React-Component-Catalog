@@ -166,4 +166,24 @@ describe('AutoComplete tests', () => {
       expect(onSubmit).toHaveBeenCalledWith('Text')
     })
   })
+  describe('a11y tests', () => {
+    it('should render a combobox element with the appropriate role and aria attributes', () => {
+      renderWithStyle(
+        <AutoComplete onSubmit={onSubmit}>
+          <Input />
+          <Options>
+            <Option>Text</Option>
+          </Options>
+        </AutoComplete>,
+      )
+      const combobox = screen.getByRole('combobox')
+      expect(combobox).toHaveAttribute('aria-expanded', 'false')
+      const input = screen.getByRole('textbox')
+      input.focus()
+      const options = screen.getByRole('list')
+      expect(combobox).toHaveAttribute('aria-haspopup', 'listbox')
+      expect(combobox).toHaveAttribute('aria-owns', options.id)
+      expect(combobox).toHaveAttribute('aria-expanded', 'true')
+    })
+  })
 })

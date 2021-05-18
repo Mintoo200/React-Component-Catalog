@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react'
+import useID from '../../../hooks/useID/useID'
 import { Context } from './Context'
-import Reducer, { ReducerActions } from './Reducer'
+import Reducer from './Reducer'
 
 import './style.css'
 
@@ -10,6 +11,7 @@ export type Props = {
 }
 
 function AutoComplete({ children, onSubmit }: Props): React.ReactElement {
+  const id = useID()
   const [state, dispatch] = useReducer(Reducer, {
     currentInput: '',
     hasFocus: false,
@@ -17,39 +19,20 @@ function AutoComplete({ children, onSubmit }: Props): React.ReactElement {
     focussedItem: -1,
     options: [],
   })
-  function handleKeyPress(event: React.KeyboardEvent) {
-    switch (event.key) {
-      case 'ArrowDown':
-        dispatch({
-          type: ReducerActions.focusNext,
-        })
-        break
-      case 'ArrowUp':
-        dispatch({
-          type: ReducerActions.focusPrevious,
-        })
-        break
-      case 'Enter':
-        dispatch({
-          type: ReducerActions.submit,
-        })
-        break
-      default:
-        break
-    }
-  }
-
   return (
     <Context.Provider value={{
       ...state,
+      id,
       dispatch,
     }}>
       <div
         className="autocomplete"
-        onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
-        onBlur={() => dispatch({ type: ReducerActions.lostFocus })}
-        onKeyDown={handleKeyPress}
-        role="presentation">
+        aria-expanded={state.hasFocus}
+        aria-haspopup="listbox"
+        aria-owns={`autocomplete-${id}-options`}
+        /* FIXME: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/issues/789 */
+        /* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */
+        role="combobox">
         {children}
       </div>
     </Context.Provider>

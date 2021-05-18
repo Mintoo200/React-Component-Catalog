@@ -3,6 +3,7 @@ import NoContextError from '../../../errors/NoContextError'
 import { Action, State } from './Reducer'
 
 export type ContextType = State & {
+  id: number,
   dispatch: React.Dispatch<Action>,
 }
 

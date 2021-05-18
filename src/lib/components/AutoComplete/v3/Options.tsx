@@ -29,7 +29,7 @@ function childrenMatch(node: React.ReactElement, input: string) {
 
 function Options({ children }: Props): React.ReactElement {
   const {
-    currentInput, dispatch, hasFocus, focussedItem,
+    currentInput, dispatch, hasFocus, focussedItem, id,
   } = useAutoComplete()
   useEffect(() => {
     const options: string[] = []
@@ -48,7 +48,7 @@ function Options({ children }: Props): React.ReactElement {
   }, [children, currentInput])
   let itemIndex = -1
   return (
-    <ol className={`options ${hasFocus ? '' : 'hidden'}`}>
+    <ol className={`options ${hasFocus ? '' : 'hidden'}`} id={`autocomplete-${id}-options`}>
       {React.Children.map(children, (child) => {
         if (isOption(child)) {
           if (valueMatch(child, currentInput)
