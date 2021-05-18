@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-// import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event'
 import AutoComplete from '../AutoComplete'
 import Input from '../Input'
 import Options from '../Options'
@@ -23,17 +23,37 @@ describe('AutoComplete tests', () => {
       <AutoComplete onSubmit={onSubmit}>
         <Input />
         <Options>
-          <Option>Test</Option>
-          <Option value="Test 2">Also a test</Option>
+          <Option>Value</Option>
         </Options>
       </AutoComplete>,
     )
     const input = screen.getByRole('textbox')
-    const list = screen.getByText('Test')
+    const list = screen.getByText('Value')
     expect(input).not.toHaveFocus()
     expect(list).not.toBeVisible()
     input.focus()
     expect(input).toHaveFocus()
     expect(list).toBeVisible()
+  })
+  it('should filter the list when typing in the input field', () => {
+    renderWithStyle(
+      <AutoComplete onSubmit={onSubmit}>
+        <Input />
+        <Options>
+          <Option>First value</Option>
+          <Option>Second value</Option>
+        </Options>
+      </AutoComplete>,
+    )
+    const input = screen.getByRole('textbox')
+    const first = screen.getByText('First value')
+    const second = screen.getByText('Second value')
+    input.focus()
+    expect(input).toHaveFocus()
+    expect(first).toBeVisible()
+    expect(second).toBeVisible()
+    userEvent.type(input, 'Second')
+    expect(first).not.toBeVisible()
+    expect(second).toBeVisible()
   })
 })
