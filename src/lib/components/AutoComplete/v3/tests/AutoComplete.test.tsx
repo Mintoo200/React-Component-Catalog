@@ -132,4 +132,22 @@ describe('AutoComplete tests', () => {
     userEvent.click(value)
     expect(onSubmit).toHaveBeenCalledWith('Value')
   })
+  describe('Keyboard controls tests', () => {
+    it('should submit the content of the input when pressing enter', () => {
+      renderWithStyle(
+        <AutoComplete onSubmit={onSubmit}>
+          <Input />
+          <Options>
+            <Option>Text</Option>
+          </Options>
+        </AutoComplete>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      userEvent.type(input, 'Hello')
+      userEvent.keyboard('{Enter}')
+      expect(onSubmit).toHaveBeenCalledWith('Hello')
+    })
+  })
 })
