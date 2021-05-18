@@ -7,23 +7,25 @@ export type Props = {
   children: React.ReactNode,
 }
 
-const isOption = (node: React.ReactNode): node is React.ReactElement => (
-  React.isValidElement(node) && node.type === Option
-)
+function isOption(node: React.ReactNode): node is React.ReactElement {
+  return React.isValidElement(node) && node.type === Option
+}
 
-const match = (option: string, input: string) => (
-  option.toLowerCase().includes(input.toLowerCase())
-)
+function match(option: string, input: string) {
+  return option.toLowerCase().includes(input.toLowerCase())
+}
 
-const valueMatch = (node: React.ReactElement, input: string) => (
-  node.props.value && match(node.props.value, input)
-)
+function valueMatch(node: React.ReactElement, input: string) {
+  return node.props.value && match(node.props.value, input)
+}
 
-const childrenMatch = (node: React.ReactElement, input: string) => (
-  node.props.children
-  && (typeof node.props.children === 'string'
-    && match(node.props.children, input))
-)
+function childrenMatch(node: React.ReactElement, input: string) {
+  return (
+    node.props.children
+    && typeof node.props.children === 'string'
+    && match(node.props.children, input)
+  )
+}
 
 const Options = ({ children }: Props): React.ReactElement => {
   const {
