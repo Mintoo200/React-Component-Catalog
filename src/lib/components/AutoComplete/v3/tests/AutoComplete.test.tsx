@@ -81,6 +81,23 @@ describe('AutoComplete tests', () => {
     expect(second).toBeVisible()
     expect(third).toBeVisible()
   })
+  it('should ignore the case when filtering', () => {
+    renderWithStyle(
+      <AutoComplete onSubmit={onSubmit}>
+        <Input />
+        <Options>
+          <Option>Value</Option>
+        </Options>
+      </AutoComplete>,
+    )
+    const input = screen.getByRole('textbox')
+    const option = screen.getByText('Value')
+    input.focus()
+    expect(input).toHaveFocus()
+    expect(option).toBeVisible()
+    userEvent.type(input, 'vaLUe')
+    expect(option).toBeVisible()
+  })
   it('should call onSubmit on click with the text if no value provided', () => {
     renderWithStyle(
       <AutoComplete onSubmit={onSubmit}>
