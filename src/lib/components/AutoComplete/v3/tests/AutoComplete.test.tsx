@@ -180,7 +180,7 @@ describe('AutoComplete tests', () => {
       expect(combobox).toHaveAttribute('aria-expanded', 'false')
       const input = screen.getByRole('textbox')
       input.focus()
-      const options = screen.getByRole('list')
+      const options = screen.getByRole('listbox')
       expect(combobox).toHaveAttribute('aria-haspopup', 'listbox')
       expect(combobox).toHaveAttribute('aria-owns', options.id)
       expect(combobox).toHaveAttribute('aria-expanded', 'true')
@@ -196,12 +196,26 @@ describe('AutoComplete tests', () => {
       )
       const input = screen.getByRole('textbox')
       input.focus()
-      const options = screen.getByRole('list')
+      const options = screen.getByRole('listbox')
       expect(input).toHaveAttribute('aria-autocomplete', 'list')
       expect(input).toHaveAttribute('aria-controls', options.id)
       expect(input).not.toHaveAttribute('aria-activedescendant')
       userEvent.keyboard('{ArrowDown}')
       expect(input).toHaveAttribute('aria-activedescendant', options.children[0].id)
+    })
+    it('should render a listbox element with the appropriate role', () => {
+      renderWithStyle(
+        <AutoComplete onSubmit={onSubmit}>
+          <Input />
+          <Options>
+            <Option>Text</Option>
+          </Options>
+        </AutoComplete>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      const options = screen.getByRole('listbox')
+      expect(options).toBeInTheDocument()
     })
   })
 })

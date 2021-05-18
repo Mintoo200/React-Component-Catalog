@@ -48,7 +48,10 @@ function Options({ children }: Props): React.ReactElement {
   }, [children, currentInput])
   let itemIndex = -1
   return (
-    <ol className={`options ${hasFocus ? '' : 'hidden'}`} id={`autocomplete-${id}-options`}>
+    <ul
+      className={`options ${hasFocus ? '' : 'hidden'}`}
+      id={`autocomplete-${id}-options`}
+      role="listbox">
       {React.Children.map(children, (child) => {
         if (isOption(child)) {
           if (valueMatch(child, currentInput)
@@ -78,7 +81,7 @@ function Options({ children }: Props): React.ReactElement {
         }
         return child
       })}
-    </ol>
+    </ul>
   )
 }
 
