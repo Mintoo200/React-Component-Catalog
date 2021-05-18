@@ -217,5 +217,22 @@ describe('AutoComplete tests', () => {
       const options = screen.getByRole('listbox')
       expect(options).toBeInTheDocument()
     })
+    it('should render the option elements with the appropriate role and aria attributes', () => {
+      renderWithStyle(
+        <AutoComplete onSubmit={onSubmit}>
+          <Input />
+          <Options>
+            <Option>Text</Option>
+          </Options>
+        </AutoComplete>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      const options = screen.getAllByRole('option')
+      expect(options).toHaveLength(1)
+      expect(options[0]).toHaveAttribute('aria-selected', 'false')
+      userEvent.keyboard('{ArrowDown}')
+      expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    })
   })
 })

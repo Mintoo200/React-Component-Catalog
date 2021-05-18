@@ -17,7 +17,9 @@ function Option({
     <li
       className={`option ${hidden ? 'hidden' : ''} ${focussed ? 'focussed' : ''}`}
       onMouseEnter={onHover}
-      id={id}>
+      id={id}
+      aria-selected={focussed}
+      role="option">
       <button
         type="button"
       // MouseDown fires before focus loss
