@@ -40,19 +40,19 @@ function AutoComplete({ children, onSubmit }: Props): React.ReactElement {
   }
 
   return (
-    <div
-      className="autocomplete"
-      onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
-      onBlur={() => dispatch({ type: ReducerActions.lostFocus })}
-      onKeyDown={handleKeyPress}
-      role="presentation">
-      <Context.Provider value={{
-        ...state,
-        dispatch,
-      }}>
+    <Context.Provider value={{
+      ...state,
+      dispatch,
+    }}>
+      <div
+        className="autocomplete"
+        onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
+        onBlur={() => dispatch({ type: ReducerActions.lostFocus })}
+        onKeyDown={handleKeyPress}
+        role="presentation">
         {children}
-      </Context.Provider>
-    </div>
+      </div>
+    </Context.Provider>
   )
 }
 
