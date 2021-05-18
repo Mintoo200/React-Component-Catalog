@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react'
-import NoContextError from '../../../errors/NoContextError'
 import { Context } from './Context'
 import Reducer, { ReducerActions } from './Reducer'
 
@@ -16,7 +15,7 @@ const AutoComplete = ({ children, onSubmit }: Props): React.ReactElement => {
     hasFocus: false,
     onSubmit,
     focussedItem: -1,
-    dispatch: () => { throw new NoContextError() },
+    options: [],
   })
   function handleKeyPress(event: React.KeyboardEvent) {
     switch (event.key) {

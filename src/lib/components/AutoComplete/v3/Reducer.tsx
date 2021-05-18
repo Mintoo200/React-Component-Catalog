@@ -1,6 +1,5 @@
 import { Reducer as ReducerType } from 'react'
 import InvalidActionError from '../../../errors/InvalidActionError'
-import { ContextType } from './Context'
 
 export enum ReducerActions {
   setCurrentInput,
@@ -33,7 +32,15 @@ export type Action = {
   index?: never,
 }
 
-const Reducer: ReducerType<ContextType, Action> = (state, action) => {
+export type State = {
+  currentInput: string,
+  hasFocus: boolean,
+  onSubmit: (value: string) => void,
+  options: string[],
+  focussedItem: number,
+}
+
+const Reducer: ReducerType<State, Action> = (state, action) => {
   switch (action.type) {
     case ReducerActions.setCurrentInput:
       return {

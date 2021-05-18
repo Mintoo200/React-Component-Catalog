@@ -1,13 +1,8 @@
 import React, { useContext } from 'react'
 import NoContextError from '../../../errors/NoContextError'
-import { Action } from './Reducer'
+import { Action, State } from './Reducer'
 
-export type ContextType = {
-  currentInput: string,
-  onSubmit: (value: string) => void,
-  hasFocus?: boolean,
-  options?: string[],
-  focussedItem: number,
+export type ContextType = State & {
   dispatch: React.Dispatch<Action>,
 }
 
