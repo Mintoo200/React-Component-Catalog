@@ -56,6 +56,31 @@ describe('AutoComplete tests', () => {
     expect(first).not.toBeVisible()
     expect(second).toBeVisible()
   })
+  it('should filter the list on text and value', () => {
+    renderWithStyle(
+      <AutoComplete onSubmit={onSubmit}>
+        <Input />
+        <Options>
+          <Option>First value</Option>
+          <Option value="Second value">Hello</Option>
+          <Option value="Hello">Third value</Option>
+        </Options>
+      </AutoComplete>,
+    )
+    const input = screen.getByRole('textbox')
+    const first = screen.getByText('First value')
+    const second = screen.getByText('Hello')
+    const third = screen.getByText('Third value')
+    input.focus()
+    expect(input).toHaveFocus()
+    expect(first).toBeVisible()
+    expect(second).toBeVisible()
+    expect(third).toBeVisible()
+    userEvent.type(input, 'value')
+    expect(first).toBeVisible()
+    expect(second).toBeVisible()
+    expect(third).toBeVisible()
+  })
   it('should call onSubmit on click with the text if no value provided', () => {
     renderWithStyle(
       <AutoComplete onSubmit={onSubmit}>
