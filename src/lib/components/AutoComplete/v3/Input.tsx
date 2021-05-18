@@ -2,7 +2,7 @@ import React from 'react'
 import useAutoComplete from './Context'
 import { ReducerActions } from './Reducer'
 
-const Input = (): React.ReactElement => {
+function Input(): React.ReactElement {
   const { currentInput, dispatch } = useAutoComplete()
   return (
     <input

@@ -27,7 +27,7 @@ function childrenMatch(node: React.ReactElement, input: string) {
   )
 }
 
-const Options = ({ children }: Props): React.ReactElement => {
+function Options({ children }: Props): React.ReactElement {
   const {
     currentInput, dispatch, hasFocus, focussedItem,
   } = useAutoComplete()
