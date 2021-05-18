@@ -18,26 +18,34 @@ const AutoComplete = ({ children, onSubmit }: Props): React.ReactElement => {
     focussedItem: -1,
     dispatch: () => { throw new NoContextError() },
   })
+  function handleKeyPress(event: React.KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowDown':
+        dispatch({
+          type: ReducerActions.focusNext,
+        })
+        break
+      case 'ArrowUp':
+        dispatch({
+          type: ReducerActions.focusPrevious,
+        })
+        break
+      case 'Enter':
+        dispatch({
+          type: ReducerActions.submit,
+        })
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <div
       className="autocomplete"
       onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
       onBlur={() => dispatch({ type: ReducerActions.lostFocus })}
-      onKeyDown={(event: React.KeyboardEvent) => {
-        if (event.key === 'ArrowDown') {
-          dispatch({
-            type: ReducerActions.focusNext,
-          })
-        } else if (event.key === 'ArrowUp') {
-          dispatch({
-            type: ReducerActions.focusPrevious,
-          })
-        } else if (event.key === 'Enter') {
-          dispatch({
-            type: ReducerActions.submit,
-          })
-        }
-      }}
+      onKeyDown={handleKeyPress}
       role="presentation">
       <Context.Provider value={{
         ...state,
