@@ -149,5 +149,21 @@ describe('AutoComplete tests', () => {
       userEvent.keyboard('{Enter}')
       expect(onSubmit).toHaveBeenCalledWith('Hello')
     })
+    it('should submit the selected option when pressing enter after arrow select', () => {
+      renderWithStyle(
+        <AutoComplete onSubmit={onSubmit}>
+          <Input />
+          <Options>
+            <Option>Text</Option>
+          </Options>
+        </AutoComplete>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      userEvent.keyboard('{ArrowDown}')
+      userEvent.keyboard('{Enter}')
+      expect(onSubmit).toHaveBeenCalledWith('Text')
+    })
   })
 })
