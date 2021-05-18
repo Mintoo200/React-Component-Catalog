@@ -38,6 +38,12 @@ This is to avoid unnecessary DOM mutations.
 export default {
   title: 'Hooks/useID/useID',
   parameters: {
+    componentSource: {
+      url: [
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseID%2FuseID%2Etsx/raw?ref=master',
+      ],
+      language: 'javascript',
+    },
     docs: {
       description: {
         component: documentation,
