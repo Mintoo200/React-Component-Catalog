@@ -56,4 +56,21 @@ describe('AutoComplete tests', () => {
     expect(first).not.toBeVisible()
     expect(second).toBeVisible()
   })
+  it('should call onSubmit on click with the text if no value provided', () => {
+    renderWithStyle(
+      <AutoComplete onSubmit={onSubmit}>
+        <Input />
+        <Options>
+          <Option>Text</Option>
+        </Options>
+      </AutoComplete>,
+    )
+    const input = screen.getByRole('textbox')
+    const value = screen.getByText('Text')
+    input.focus()
+    expect(input).toHaveFocus()
+    expect(value).toBeVisible()
+    userEvent.click(value)
+    expect(onSubmit).toHaveBeenCalledWith('Text')
+  })
 })
