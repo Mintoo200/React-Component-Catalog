@@ -185,5 +185,23 @@ describe('AutoComplete tests', () => {
       expect(combobox).toHaveAttribute('aria-owns', options.id)
       expect(combobox).toHaveAttribute('aria-expanded', 'true')
     })
+    it('should render a text input element with the appropriate role and aria attributes', () => {
+      renderWithStyle(
+        <AutoComplete onSubmit={onSubmit}>
+          <Input />
+          <Options>
+            <Option>Text</Option>
+          </Options>
+        </AutoComplete>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      const options = screen.getByRole('list')
+      expect(input).toHaveAttribute('aria-autocomplete', 'list')
+      expect(input).toHaveAttribute('aria-controls', options.id)
+      expect(input).not.toHaveAttribute('aria-activedescendant')
+      userEvent.keyboard('{ArrowDown}')
+      expect(input).toHaveAttribute('aria-activedescendant', options.children[0].id)
+    })
   })
 })

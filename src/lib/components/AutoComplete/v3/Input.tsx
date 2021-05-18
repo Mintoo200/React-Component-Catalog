@@ -3,7 +3,9 @@ import useAutoComplete from './Context'
 import { ReducerActions } from './Reducer'
 
 function Input(): React.ReactElement {
-  const { currentInput, dispatch } = useAutoComplete()
+  const {
+    currentInput, id, focussedItem, dispatch,
+  } = useAutoComplete()
   function handleKeyPress(event: React.KeyboardEvent) {
     switch (event.key) {
       case 'ArrowDown':
@@ -28,8 +30,11 @@ function Input(): React.ReactElement {
 
   return (
     <input
-      name="find"
+      type="text"
       autoComplete="off"
+      aria-autocomplete="list"
+      aria-controls={`autocomplete-${id}-options`}
+      aria-activedescendant={focussedItem !== -1 ? `autocomplete-${id}-options-${focussedItem}` : null}
       value={currentInput}
       onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
       onBlur={() => dispatch({ type: ReducerActions.lostFocus })}

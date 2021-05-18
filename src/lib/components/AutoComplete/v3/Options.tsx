@@ -69,6 +69,7 @@ function Options({ children }: Props): React.ReactElement {
                   index: indexCopy,
                 })
               ),
+              id: `autocomplete-${id}-options-${itemIndex}`,
             })
           }
           return React.cloneElement(child, {

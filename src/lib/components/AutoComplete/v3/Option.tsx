@@ -7,13 +7,17 @@ export type Props = {
   hidden?: boolean,
   focussed?: boolean,
   onHover?: () => void,
+  id?: string,
 }
 
 function Option({
-  children = null, value = null, onClick, hidden = false, focussed = false, onHover,
+  children = null, value = null, onClick, hidden = false, focussed = false, onHover, id = '',
 }: Props): React.ReactElement {
   return (
-    <li className={`option ${hidden ? 'hidden' : ''} ${focussed ? 'focussed' : ''}`} onMouseEnter={onHover}>
+    <li
+      className={`option ${hidden ? 'hidden' : ''} ${focussed ? 'focussed' : ''}`}
+      onMouseEnter={onHover}
+      id={id}>
       <button
         type="button"
       // MouseDown fires before focus loss
