@@ -16,7 +16,7 @@ function AutoComplete({
 }: Props): React.ReactElement {
   const [state, dispatch] = useReducer(Reducer, {
     currentInput: '',
-    hasFocus: false,
+    isOpen: false,
     onSubmit,
     focussedItem: -1,
     options: [],
@@ -30,7 +30,7 @@ function AutoComplete({
     }}>
       <div
         className="autocomplete"
-        aria-expanded={state.hasFocus}
+        aria-expanded={state.isOpen}
         aria-haspopup="listbox"
         aria-owns={`${id}-options`}
         /* FIXME: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/issues/789 */

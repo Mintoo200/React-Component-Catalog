@@ -4,8 +4,8 @@ import InvalidActionError from '../../../errors/InvalidActionError'
 export enum ReducerActions {
   setCurrentInput,
   submit,
-  gotFocus,
-  lostFocus,
+  openList,
+  closeList,
   setOptions,
   focusNext,
   focusPrevious,
@@ -23,8 +23,8 @@ export type Action = {
   index: number,
 } | {
   type: ReducerActions.submit
-    | ReducerActions.gotFocus
-    | ReducerActions.lostFocus
+    | ReducerActions.openList
+    | ReducerActions.closeList
     | ReducerActions.focusNext
     | ReducerActions.focusPrevious,
   input?: never,
@@ -34,7 +34,7 @@ export type Action = {
 
 export type State = {
   currentInput: string,
-  hasFocus: boolean,
+  isOpen: boolean,
   onSubmit: (value: string) => void,
   options: string[],
   focussedItem: number,
@@ -60,16 +60,16 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
       state.onSubmit(state.currentInput)
       return state
 
-    case ReducerActions.gotFocus:
+    case ReducerActions.openList:
       return {
         ...state,
-        hasFocus: true,
+        isOpen: true,
       }
 
-    case ReducerActions.lostFocus:
+    case ReducerActions.closeList:
       return {
         ...state,
-        hasFocus: false,
+        isOpen: false,
       }
 
     case ReducerActions.setOptions:

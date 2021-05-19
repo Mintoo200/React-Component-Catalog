@@ -29,7 +29,7 @@ function childrenMatch(node: React.ReactElement, input: string) {
 
 function Options({ children }: Props): React.ReactElement {
   const {
-    currentInput, dispatch, hasFocus, focussedItem, id, 'aria-labelledby': labeledby,
+    currentInput, dispatch, isOpen, focussedItem, id, 'aria-labelledby': labeledby,
   } = useAutoComplete()
   useEffect(() => {
     const options: string[] = []
@@ -49,7 +49,7 @@ function Options({ children }: Props): React.ReactElement {
   let itemIndex = -1
   return (
     <ul
-      className={`options ${hasFocus ? '' : 'hidden'}`}
+      className={`options ${isOpen ? '' : 'hidden'}`}
       id={`${id}-options`}
       role="listbox"
       aria-labelledby={labeledby}>

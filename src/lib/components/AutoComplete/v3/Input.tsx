@@ -37,8 +37,8 @@ function Input(): React.ReactElement {
       aria-controls={`${id}-options`}
       aria-activedescendant={focussedItem !== -1 ? `${id}-options-${focussedItem}` : null}
       value={currentInput}
-      onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
-      onBlur={() => dispatch({ type: ReducerActions.lostFocus })}
+      onFocus={() => dispatch({ type: ReducerActions.openList })}
+      onBlur={() => dispatch({ type: ReducerActions.closeList })}
       onKeyDown={handleKeyPress}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
         dispatch({
