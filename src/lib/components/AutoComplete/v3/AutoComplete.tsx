@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { Context } from './Context'
 import Reducer from './Reducer'
 
@@ -9,10 +9,11 @@ export type Props = {
   onSubmit: (value: string) => void,
   id: string,
   'aria-labelledby': string,
+  onChange?: (value: string) => void,
 }
 
 function AutoComplete({
-  children, onSubmit, id, 'aria-labelledby': labelledby,
+  children, onSubmit, id, 'aria-labelledby': labelledby, onChange = () => null,
 }: Props): React.ReactElement {
   const [state, dispatch] = useReducer(Reducer, {
     currentInput: '',
@@ -21,6 +22,9 @@ function AutoComplete({
     focussedItem: -1,
     options: [],
   })
+  useEffect(() => {
+    onChange(state.currentInput)
+  }, [state.currentInput])
   return (
     <Context.Provider value={{
       ...state,

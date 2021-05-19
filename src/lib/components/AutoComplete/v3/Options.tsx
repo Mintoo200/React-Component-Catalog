@@ -52,7 +52,8 @@ function Options({ children }: Props): React.ReactElement {
       className={`options ${isOpen ? '' : 'hidden'}`}
       id={`${id}-options`}
       role="listbox"
-      aria-labelledby={labeledby}>
+      aria-labelledby={labeledby}
+      aria-live="polite">
       {React.Children.map(children, (child) => {
         if (isOption(child)) {
           if (valueMatch(child, currentInput)
