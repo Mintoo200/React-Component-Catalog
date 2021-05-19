@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Story } from '@storybook/react'
 import AutoComplete, { Props as AutoCompleteProps } from '../../../../lib/components/AutoComplete/v3/AutoComplete'
 import Input from '../../../../lib/components/AutoComplete/v3/Input'
@@ -46,6 +46,40 @@ Default.args = {
       <Option value="Test 2">Also a test</Option>
     </Options>,
   ],
+  /* eslint-disable-next-line no-alert */
+  onSubmit: (input) => alert(input),
+}
+
+const AsyncTemplate: Story<AutoCompleteProps> = (args) => {
+  const [options, setOptions] = useState<string[]>([])
+  const [input, setInput] = useState('')
+  useEffect(() => {
+    setOptions([])
+    const timeout = setTimeout(() => setOptions([
+      'options 1',
+      'options 2',
+      'options 3',
+      'options 4',
+    ].filter((option) => option.includes(input))), 2000)
+    return () => clearTimeout(timeout)
+  }, [input])
+  return (
+    <>
+      <label id="my-label-2" htmlFor="autocomplete-2">AutoComplete</label>
+      <AutoComplete {...args} id="autocomplete-2" aria-labelledby="my-label-2" onChange={setInput}>
+        <Input />
+        <Options>
+          {options.map((option: string) => (
+            <Option key={option}>{option}</Option>
+          ))}
+        </Options>
+      </AutoComplete>
+    </>
+  )
+}
+
+export const Async = AsyncTemplate.bind({})
+Async.args = {
   /* eslint-disable-next-line no-alert */
   onSubmit: (input) => alert(input),
 }
