@@ -356,6 +356,26 @@ describe('AutoComplete tests', () => {
       userEvent.keyboard('{ArrowUp}')
       expect(options).toBeVisible()
     })
+    it('should reset focus when typing', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      userEvent.keyboard('{ArrowDown}')
+      userEvent.type(input, 'T')
+      userEvent.keyboard('{Enter}')
+      expect(onSubmit).toHaveBeenCalledWith('T')
+    })
   })
   describe('a11y tests', () => {
     it('should render a combobox element with the appropriate role and aria attributes', () => {

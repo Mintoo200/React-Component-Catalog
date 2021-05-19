@@ -29,6 +29,10 @@ function Input(): React.ReactElement {
         })
         break
       default:
+        dispatch({
+          type: ReducerActions.setFocussed,
+          index: -1,
+        })
         break
     }
   }
