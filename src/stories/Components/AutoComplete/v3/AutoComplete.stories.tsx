@@ -31,7 +31,10 @@ export default {
 }
 
 const Template: Story<AutoCompleteProps> = (args) => (
-  <AutoComplete {...args} />
+  <>
+    <label id="my-label" htmlFor="autocomplete">AutoComplete</label>
+    <AutoComplete {...args} id="autocomplete" aria-labelledby="my-label" />
+  </>
 )
 
 export const Default = Template.bind({})
