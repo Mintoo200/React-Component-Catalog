@@ -7,23 +7,28 @@ function Input(): React.ReactElement {
     currentInput, id, focussedItem, dispatch,
   } = useAutoComplete()
   function handleKeyPress(event: React.KeyboardEvent) {
+    event.stopPropagation()
     switch (event.key) {
       case 'ArrowDown':
+        event.preventDefault()
         dispatch({
           type: ReducerActions.focusNext,
         })
         break
       case 'ArrowUp':
+        event.preventDefault()
         dispatch({
           type: ReducerActions.focusPrevious,
         })
         break
       case 'Enter':
+        event.preventDefault()
         dispatch({
           type: ReducerActions.submit,
         })
         break
       case 'Escape':
+        event.preventDefault()
         dispatch({
           type: ReducerActions.closeList,
         })
