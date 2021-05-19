@@ -69,6 +69,7 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
     case ReducerActions.closeList:
       return {
         ...state,
+        focussedItem: -1,
         isOpen: false,
       }
 

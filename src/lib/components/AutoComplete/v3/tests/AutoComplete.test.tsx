@@ -150,6 +150,28 @@ describe('AutoComplete tests', () => {
     userEvent.click(value)
     expect(onSubmit).toHaveBeenCalledWith('Value')
   })
+  it('should reset the focussed item when closing the list', () => {
+    renderWithStyle(
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>First</Option>
+            <Option>Second</Option>
+          </Options>
+        </AutoComplete>
+      </>,
+    )
+    const input = screen.getByRole('textbox')
+    input.focus()
+    expect(input).toHaveFocus()
+    userEvent.keyboard('{ArrowDown}')
+    userEvent.keyboard('{Escape}')
+    userEvent.keyboard('{ArrowDown}')
+    userEvent.keyboard('{Enter}')
+    expect(onSubmit).toHaveBeenCalledWith('First')
+  })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
       renderWithStyle(
