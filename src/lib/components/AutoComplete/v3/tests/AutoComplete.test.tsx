@@ -211,6 +211,87 @@ describe('AutoComplete tests', () => {
       userEvent.keyboard('{Enter}')
       expect(onSubmit).toHaveBeenCalledWith('Text')
     })
+    it('should select the next option when pressing down arrow', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>First</Option>
+              <Option>Second</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      userEvent.keyboard('{ArrowDown}')
+      userEvent.keyboard('{Enter}')
+      expect(onSubmit).toHaveBeenCalledWith('First')
+    })
+    it('should select the previous option when pressing up arrow', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>First</Option>
+              <Option>Second</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      userEvent.keyboard('{ArrowDown}')
+      userEvent.keyboard('{ArrowDown}')
+      userEvent.keyboard('{ArrowUp}')
+      userEvent.keyboard('{Enter}')
+      expect(onSubmit).toHaveBeenCalledWith('First')
+    })
+    it('should select the input field when pressing down arrow on the last option', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>First</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      userEvent.keyboard('{ArrowDown}')
+      userEvent.keyboard('{ArrowDown}')
+      userEvent.keyboard('{Enter}')
+      expect(onSubmit).toHaveBeenCalledWith('')
+    })
+    it('should select the last option when pressing up arrow on the input field', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>First</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      userEvent.keyboard('{ArrowUp}')
+      userEvent.keyboard('{Enter}')
+      expect(onSubmit).toHaveBeenCalledWith('First')
+    })
     it('should close the list when pressing escape', () => {
       renderWithStyle(
         <>
