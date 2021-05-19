@@ -20,12 +20,15 @@ const onSubmit = jest.fn()
 describe('AutoComplete tests', () => {
   it('should display the list only if focussed', () => {
     renderWithStyle(
-      <AutoComplete onSubmit={onSubmit}>
-        <Input />
-        <Options>
-          <Option>Value</Option>
-        </Options>
-      </AutoComplete>,
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>Value</Option>
+          </Options>
+        </AutoComplete>
+      </>,
     )
     const input = screen.getByRole('textbox')
     const list = screen.getByText('Value')
@@ -37,13 +40,16 @@ describe('AutoComplete tests', () => {
   })
   it('should filter the list when typing in the input field', () => {
     renderWithStyle(
-      <AutoComplete onSubmit={onSubmit}>
-        <Input />
-        <Options>
-          <Option>First value</Option>
-          <Option>Second value</Option>
-        </Options>
-      </AutoComplete>,
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>First value</Option>
+            <Option>Second value</Option>
+          </Options>
+        </AutoComplete>
+      </>,
     )
     const input = screen.getByRole('textbox')
     const first = screen.getByText('First value')
@@ -58,14 +64,17 @@ describe('AutoComplete tests', () => {
   })
   it('should filter the list on text and value', () => {
     renderWithStyle(
-      <AutoComplete onSubmit={onSubmit}>
-        <Input />
-        <Options>
-          <Option>First value</Option>
-          <Option value="Second value">Hello</Option>
-          <Option value="Hello">Third value</Option>
-        </Options>
-      </AutoComplete>,
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>First value</Option>
+            <Option value="Second value">Hello</Option>
+            <Option value="Hello">Third value</Option>
+          </Options>
+        </AutoComplete>
+      </>,
     )
     const input = screen.getByRole('textbox')
     const first = screen.getByText('First value')
@@ -83,12 +92,15 @@ describe('AutoComplete tests', () => {
   })
   it('should ignore the case when filtering', () => {
     renderWithStyle(
-      <AutoComplete onSubmit={onSubmit}>
-        <Input />
-        <Options>
-          <Option>Value</Option>
-        </Options>
-      </AutoComplete>,
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>Value</Option>
+          </Options>
+        </AutoComplete>
+      </>,
     )
     const input = screen.getByRole('textbox')
     const option = screen.getByText('Value')
@@ -100,12 +112,15 @@ describe('AutoComplete tests', () => {
   })
   it('should call onSubmit on click with the text if no value provided', () => {
     renderWithStyle(
-      <AutoComplete onSubmit={onSubmit}>
-        <Input />
-        <Options>
-          <Option>Text</Option>
-        </Options>
-      </AutoComplete>,
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>Text</Option>
+          </Options>
+        </AutoComplete>
+      </>,
     )
     const input = screen.getByRole('textbox')
     const value = screen.getByText('Text')
@@ -117,12 +132,15 @@ describe('AutoComplete tests', () => {
   })
   it('should call onSubmit on click with the value if provided', () => {
     renderWithStyle(
-      <AutoComplete onSubmit={onSubmit}>
-        <Input />
-        <Options>
-          <Option value="Value">Text</Option>
-        </Options>
-      </AutoComplete>,
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option value="Value">Text</Option>
+          </Options>
+        </AutoComplete>
+      </>,
     )
     const input = screen.getByRole('textbox')
     const value = screen.getByText('Text')
@@ -135,12 +153,15 @@ describe('AutoComplete tests', () => {
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
       renderWithStyle(
-        <AutoComplete onSubmit={onSubmit}>
-          <Input />
-          <Options>
-            <Option>Text</Option>
-          </Options>
-        </AutoComplete>,
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
       )
       const input = screen.getByRole('textbox')
       input.focus()
@@ -151,12 +172,15 @@ describe('AutoComplete tests', () => {
     })
     it('should submit the selected option when pressing enter after arrow select', () => {
       renderWithStyle(
-        <AutoComplete onSubmit={onSubmit}>
-          <Input />
-          <Options>
-            <Option>Text</Option>
-          </Options>
-        </AutoComplete>,
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
       )
       const input = screen.getByRole('textbox')
       input.focus()
@@ -169,12 +193,15 @@ describe('AutoComplete tests', () => {
   describe('a11y tests', () => {
     it('should render a combobox element with the appropriate role and aria attributes', () => {
       renderWithStyle(
-        <AutoComplete onSubmit={onSubmit}>
-          <Input />
-          <Options>
-            <Option>Text</Option>
-          </Options>
-        </AutoComplete>,
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
       )
       const combobox = screen.getByRole('combobox')
       expect(combobox).toHaveAttribute('aria-expanded', 'false')
@@ -187,12 +214,15 @@ describe('AutoComplete tests', () => {
     })
     it('should render a text input element with the appropriate role and aria attributes', () => {
       renderWithStyle(
-        <AutoComplete onSubmit={onSubmit}>
-          <Input />
-          <Options>
-            <Option>Text</Option>
-          </Options>
-        </AutoComplete>,
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
       )
       const input = screen.getByRole('textbox')
       input.focus()
@@ -205,12 +235,15 @@ describe('AutoComplete tests', () => {
     })
     it('should render a listbox element with the appropriate role', () => {
       renderWithStyle(
-        <AutoComplete onSubmit={onSubmit}>
-          <Input />
-          <Options>
-            <Option>Text</Option>
-          </Options>
-        </AutoComplete>,
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
       )
       const input = screen.getByRole('textbox')
       input.focus()
@@ -219,12 +252,15 @@ describe('AutoComplete tests', () => {
     })
     it('should render the option elements with the appropriate role and aria attributes', () => {
       renderWithStyle(
-        <AutoComplete onSubmit={onSubmit}>
-          <Input />
-          <Options>
-            <Option>Text</Option>
-          </Options>
-        </AutoComplete>,
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
       )
       const input = screen.getByRole('textbox')
       input.focus()
