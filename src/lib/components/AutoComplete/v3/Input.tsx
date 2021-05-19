@@ -23,6 +23,11 @@ function Input(): React.ReactElement {
           type: ReducerActions.submit,
         })
         break
+      case 'Escape':
+        dispatch({
+          type: ReducerActions.closeList,
+        })
+        break
       default:
         break
     }

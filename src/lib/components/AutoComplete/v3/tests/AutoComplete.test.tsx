@@ -189,6 +189,26 @@ describe('AutoComplete tests', () => {
       userEvent.keyboard('{Enter}')
       expect(onSubmit).toHaveBeenCalledWith('Text')
     })
+    it('should close the list when pressing escape', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      const options = screen.getByRole('listbox')
+      expect(options).toBeVisible()
+      userEvent.keyboard('{Escape}')
+      expect(options).not.toBeVisible()
+    })
   })
   describe('a11y tests', () => {
     it('should render a combobox element with the appropriate role and aria attributes', () => {
