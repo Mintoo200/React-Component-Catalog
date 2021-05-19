@@ -312,6 +312,50 @@ describe('AutoComplete tests', () => {
       userEvent.keyboard('{Escape}')
       expect(options).not.toBeVisible()
     })
+    it('should open the list when focussing the next item', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      const options = screen.getByRole('listbox')
+      expect(options).toBeVisible()
+      userEvent.keyboard('{Escape}')
+      expect(options).not.toBeVisible()
+      userEvent.keyboard('{ArrowDown}')
+      expect(options).toBeVisible()
+    })
+    it('should open the list when focussing the previous item', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      expect(input).toHaveFocus()
+      const options = screen.getByRole('listbox')
+      expect(options).toBeVisible()
+      userEvent.keyboard('{Escape}')
+      expect(options).not.toBeVisible()
+      userEvent.keyboard('{ArrowUp}')
+      expect(options).toBeVisible()
+    })
   })
   describe('a11y tests', () => {
     it('should render a combobox element with the appropriate role and aria attributes', () => {

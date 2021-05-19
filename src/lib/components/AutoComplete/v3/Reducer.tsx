@@ -84,6 +84,7 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
       return {
         ...state,
         focussedItem: ((state.focussedItem + 2) % (state.options.length + 1)) - 1,
+        isOpen: true,
       }
 
     case ReducerActions.focusPrevious:
@@ -92,6 +93,7 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
         focussedItem: (state.focussedItem === -1)
           ? state.options.length - 1
           : state.focussedItem - 1,
+        isOpen: true,
       }
 
     case ReducerActions.setFocussed:
