@@ -234,5 +234,23 @@ describe('AutoComplete tests', () => {
       userEvent.keyboard('{ArrowDown}')
       expect(options[0]).toHaveAttribute('aria-selected', 'true')
     })
+    it('should be "labelable"', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input />
+            <Options>
+              <Option>Text</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const input = screen.getByRole('textbox')
+      input.focus()
+      const options = screen.getByRole('listbox')
+      expect(options).toHaveAttribute('aria-labelledby', 'my-label')
+      expect(input).toHaveAttribute('id', 'autocomplete')
+    })
   })
 })

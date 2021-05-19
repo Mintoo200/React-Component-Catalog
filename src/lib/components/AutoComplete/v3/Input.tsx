@@ -33,8 +33,9 @@ function Input(): React.ReactElement {
       type="text"
       autoComplete="off"
       aria-autocomplete="list"
-      aria-controls={`autocomplete-${id}-options`}
-      aria-activedescendant={focussedItem !== -1 ? `autocomplete-${id}-options-${focussedItem}` : null}
+      id={id}
+      aria-controls={`${id}-options`}
+      aria-activedescendant={focussedItem !== -1 ? `${id}-options-${focussedItem}` : null}
       value={currentInput}
       onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
       onBlur={() => dispatch({ type: ReducerActions.lostFocus })}

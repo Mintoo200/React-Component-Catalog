@@ -29,7 +29,7 @@ function childrenMatch(node: React.ReactElement, input: string) {
 
 function Options({ children }: Props): React.ReactElement {
   const {
-    currentInput, dispatch, hasFocus, focussedItem, id,
+    currentInput, dispatch, hasFocus, focussedItem, id, 'aria-labelledby': labeledby,
   } = useAutoComplete()
   useEffect(() => {
     const options: string[] = []
@@ -50,8 +50,9 @@ function Options({ children }: Props): React.ReactElement {
   return (
     <ul
       className={`options ${hasFocus ? '' : 'hidden'}`}
-      id={`autocomplete-${id}-options`}
-      role="listbox">
+      id={`${id}-options`}
+      role="listbox"
+      aria-labelledby={labeledby}>
       {React.Children.map(children, (child) => {
         if (isOption(child)) {
           if (valueMatch(child, currentInput)
@@ -72,7 +73,7 @@ function Options({ children }: Props): React.ReactElement {
                   index: indexCopy,
                 })
               ),
-              id: `autocomplete-${id}-options-${itemIndex}`,
+              id: `${id}-options-${itemIndex}`,
             })
           }
           return React.cloneElement(child, {
