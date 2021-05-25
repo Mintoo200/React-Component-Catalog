@@ -29,12 +29,11 @@ function Options({ children }: Props): React.ReactElement {
     setRefs(newRefs)
   }, [children])
   useEffect(() => {
-    const options = refs.filter((ref) => ref?.current?.match(currentInput))
     dispatch({
       type: ReducerActions.setOptions,
-      options,
+      options: refs,
     })
-  }, [currentInput, refs])
+  }, [refs])
   let itemIndex = -1
   return (
     <ul

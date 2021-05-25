@@ -52,10 +52,13 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
 
     case ReducerActions.submit:
       if (state.focussedItem !== -1) {
-        state.onSubmit(state.options[state.focussedItem]?.current?.value)
+        const matchingOptions = state.options.filter((optionRef) => (
+          optionRef?.current?.match(state.currentInput)
+        ))
+        state.onSubmit(matchingOptions[state.focussedItem]?.current?.value)
         return {
           ...state,
-          currentInput: state.options[state.focussedItem]?.current?.value,
+          currentInput: matchingOptions[state.focussedItem]?.current?.value,
         }
       }
       state.onSubmit(state.currentInput)
