@@ -19,6 +19,7 @@ function Options({ children }: Props): React.ReactElement {
   } = useAutoComplete()
   const [refs, setRefs] = useState<RefObject<OptionRef>[]>([])
   useLayoutEffect(() => {
+    // using layout effect to ensure refs up to date before any effect call
     const newRefs: RefObject<OptionRef>[] = []
     React.Children.forEach(children, (child) => {
       if (isOption(child)) {
