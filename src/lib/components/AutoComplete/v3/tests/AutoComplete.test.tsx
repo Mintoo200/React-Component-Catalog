@@ -172,6 +172,36 @@ describe('AutoComplete tests', () => {
     userEvent.keyboard('{Enter}')
     expect(onSubmit).toHaveBeenCalledWith('First')
   })
+  it('should match the text content when child provided to option', () => {
+    renderWithStyle(
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>Value1</Option>
+            <Option><div>Value2</div></Option>
+            <Option>
+              <div>
+                Val
+                <em>ue3</em>
+              </div>
+            </Option>
+          </Options>
+        </AutoComplete>
+      </>,
+    )
+    const input = screen.getByRole('textbox')
+    input.focus()
+    expect(input).toHaveFocus()
+    const options = screen.getAllByText(/Val/)
+    expect(options).toHaveLength(3)
+    userEvent.type(input, 'Value')
+    // All three versions should match
+    options.forEach((option) => {
+      expect(option).toBeVisible()
+    })
+  })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
       renderWithStyle(
