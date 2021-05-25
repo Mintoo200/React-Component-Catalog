@@ -29,18 +29,16 @@ function Options({ children }: Props): React.ReactElement {
   }, [children])
   useEffect(() => {
     const options: string[] = []
-    React.Children.forEach(children, (child, index) => {
-      if (isOption(child)) {
-        if (refs[index]?.current?.match(currentInput)) {
-          options.push(refs[index]?.current?.value)
-        }
+    refs.forEach((ref) => {
+      if (ref?.current?.match(currentInput)) {
+        options.push(ref?.current?.value)
       }
     })
     dispatch({
       type: ReducerActions.setOptions,
       options,
     })
-  }, [children, currentInput, refs])
+  }, [currentInput, refs])
   let itemIndex = -1
   return (
     <ul
