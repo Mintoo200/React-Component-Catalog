@@ -30,6 +30,17 @@ export default {
   },
 }
 
+type Country = { code: string, name: string }
+const countries = [
+  { code: 'FR', name: 'France' },
+  { code: 'CA', name: 'Canada' },
+  { code: 'US', name: 'United States' },
+  { code: 'DE', name: 'Germany' },
+  { code: 'EN', name: 'England' },
+  { code: 'SP', name: 'Spain' },
+  { code: 'FI', name: 'Finland' },
+]
+
 const Template: Story<AutoCompleteProps> = (args) => (
   <>
     <label id="my-label" htmlFor="autocomplete">AutoComplete</label>
@@ -42,25 +53,25 @@ Default.args = {
   children: [
     <Input />,
     <Options>
-      <Option>Test</Option>
-      <Option value="Test 2">Also a test</Option>
+      {countries.map((country) => (
+        <Option value={country.code}>{country.name}</Option>
+      ))}
     </Options>,
   ],
   /* eslint-disable-next-line no-alert */
-  onSubmit: (input) => alert(input),
+  onSubmit: (input) => alert(`submitted country with code ${input}`),
 }
 
 const AsyncTemplate: Story<AutoCompleteProps> = (args) => {
-  const [options, setOptions] = useState<string[]>([])
+  const [options, setOptions] = useState<Country[]>([])
   const [input, setInput] = useState('')
   useEffect(() => {
     setOptions([])
-    const timeout = setTimeout(() => setOptions([
-      'options 1',
-      'options 2',
-      'options 3',
-      'options 4',
-    ].filter((option) => option.includes(input))), 2000)
+    const timeout = setTimeout(() => (
+      setOptions(countries.filter((country) => (
+        country.name.includes(input) || country.code.includes(input)
+      )))
+    ), 2000)
     return () => clearTimeout(timeout)
   }, [input])
   return (
@@ -69,8 +80,8 @@ const AsyncTemplate: Story<AutoCompleteProps> = (args) => {
       <AutoComplete {...args} id="autocomplete-2" aria-labelledby="my-label-2" onChange={setInput}>
         <Input />
         <Options>
-          {options.map((option: string) => (
-            <Option key={option}>{option}</Option>
+          {options.map((option: Country) => (
+            <Option key={option.code} value={option.code}>{option.name}</Option>
           ))}
         </Options>
       </AutoComplete>
@@ -81,5 +92,5 @@ const AsyncTemplate: Story<AutoCompleteProps> = (args) => {
 export const Async = AsyncTemplate.bind({})
 Async.args = {
   /* eslint-disable-next-line no-alert */
-  onSubmit: (input) => alert(input),
+  onSubmit: (input) => alert(`submitted country with code ${input}`),
 }
