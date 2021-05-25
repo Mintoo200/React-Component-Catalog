@@ -223,6 +223,29 @@ describe('AutoComplete tests', () => {
     // should not filter non-Option elements
     expect(div).toBeVisible()
   })
+  it('should ignore non-matching options when submitting using keyboard', () => {
+    renderWithStyle(
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>Value1</Option>
+            <Option>Value2</Option>
+          </Options>
+        </AutoComplete>
+      </>,
+    )
+    const input = screen.getByRole('textbox')
+    input.focus()
+    expect(input).toHaveFocus()
+    const option1 = screen.getByText('Value1')
+    userEvent.type(input, 'Value2')
+    expect(option1).not.toBeVisible()
+    userEvent.keyboard('{ArrowDown}')
+    userEvent.keyboard('{Enter}')
+    expect(onSubmit).toHaveBeenCalledWith('Value2')
+  })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
       renderWithStyle(
