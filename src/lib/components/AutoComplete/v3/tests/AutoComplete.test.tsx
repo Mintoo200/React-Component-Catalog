@@ -202,6 +202,27 @@ describe('AutoComplete tests', () => {
       expect(option).toBeVisible()
     })
   })
+  it('should allow for non-Option elements in Options component', () => {
+    renderWithStyle(
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>Value1</Option>
+            <div>Value2</div>
+          </Options>
+        </AutoComplete>
+      </>,
+    )
+    const input = screen.getByRole('textbox')
+    input.focus()
+    expect(input).toHaveFocus()
+    const div = screen.getByText('Value2')
+    userEvent.type(input, 'Not a valid option')
+    // should not filter non-Option elements
+    expect(div).toBeVisible()
+  })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
       renderWithStyle(
