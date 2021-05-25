@@ -28,12 +28,7 @@ function Options({ children }: Props): React.ReactElement {
     setRefs(newRefs)
   }, [children])
   useEffect(() => {
-    const options: RefObject<OptionRef>[] = []
-    refs.forEach((ref) => {
-      if (ref?.current?.match(currentInput)) {
-        options.push(ref)
-      }
-    })
+    const options = refs.filter((ref) => ref?.current?.match(currentInput))
     dispatch({
       type: ReducerActions.setOptions,
       options,
