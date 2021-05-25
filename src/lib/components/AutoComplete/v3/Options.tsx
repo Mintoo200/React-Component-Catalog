@@ -28,10 +28,10 @@ function Options({ children }: Props): React.ReactElement {
     setRefs(newRefs)
   }, [children])
   useEffect(() => {
-    const options: string[] = []
+    const options: RefObject<OptionRef>[] = []
     refs.forEach((ref) => {
       if (ref?.current?.match(currentInput)) {
-        options.push(ref?.current?.value)
+        options.push(ref)
       }
     })
     dispatch({

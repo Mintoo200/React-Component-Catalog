@@ -1,5 +1,6 @@
-import { Reducer as ReducerType } from 'react'
+import { Reducer as ReducerType, RefObject } from 'react'
 import InvalidActionError from '../../../errors/InvalidActionError'
+import { OptionRef } from './Option'
 
 export enum ReducerActions {
   setCurrentInput,
@@ -17,7 +18,7 @@ export type Action = {
   input: string | undefined,
 } | {
   type: ReducerActions.setOptions,
-  options: string[],
+  options: RefObject<OptionRef>[],
 } | {
   type: ReducerActions.setFocussed,
   index: number,
@@ -36,7 +37,7 @@ export type State = {
   currentInput: string,
   isOpen: boolean,
   onSubmit: (value: string) => void,
-  options: string[],
+  options: RefObject<OptionRef>[],
   focussedItem: number,
 }
 
@@ -51,10 +52,10 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
 
     case ReducerActions.submit:
       if (state.focussedItem !== -1) {
-        state.onSubmit(state.options[state.focussedItem])
+        state.onSubmit(state.options[state.focussedItem]?.current?.value)
         return {
           ...state,
-          currentInput: state.options[state.focussedItem],
+          currentInput: state.options[state.focussedItem]?.current?.value,
         }
       }
       state.onSubmit(state.currentInput)
