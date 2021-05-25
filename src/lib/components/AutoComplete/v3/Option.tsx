@@ -16,7 +16,7 @@ export type OptionRef = {
 }
 
 const Option = React.forwardRef<OptionRef, Props>(({
-  children = null, value = null, onClick, hidden = false, focussed = false, onHover, id = '',
+  children = null, value = null, onClick, hidden = false, focussed = false, onHover, id = null,
 }, forwardedRef) => {
   const ref = useRef<HTMLLIElement>()
   useImperativeHandle(forwardedRef, () => ({
