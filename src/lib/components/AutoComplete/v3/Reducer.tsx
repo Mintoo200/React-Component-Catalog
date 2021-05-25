@@ -41,6 +41,13 @@ export type State = {
   focussedItem: number,
 }
 
+function filterMatching(list: RefObject<OptionRef>[], matcher: string) {
+  const matchingOptions = list.filter((optionRef) => (
+    optionRef?.current?.match(matcher)
+  ))
+  return matchingOptions
+}
+
 const Reducer: ReducerType<State, Action> = (state, action) => {
   switch (action.type) {
     case ReducerActions.setCurrentInput:
@@ -52,9 +59,7 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
 
     case ReducerActions.submit:
       if (state.focussedItem !== -1) {
-        const matchingOptions = state.options.filter((optionRef) => (
-          optionRef?.current?.match(state.currentInput)
-        ))
+        const matchingOptions = filterMatching(state.options, state.currentInput)
         state.onSubmit(matchingOptions[state.focussedItem]?.current?.value)
         return {
           ...state,
@@ -84,21 +89,25 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
         focussedItem: -1,
       }
 
-    case ReducerActions.focusNext:
+    case ReducerActions.focusNext: {
+      const matchingOptions = filterMatching(state.options, state.currentInput)
       return {
         ...state,
-        focussedItem: ((state.focussedItem + 2) % (state.options.length + 1)) - 1,
+        focussedItem: ((state.focussedItem + 2) % (matchingOptions.length + 1)) - 1,
         isOpen: true,
       }
+    }
 
-    case ReducerActions.focusPrevious:
+    case ReducerActions.focusPrevious: {
+      const matchingOptions = filterMatching(state.options, state.currentInput)
       return {
         ...state,
         focussedItem: (state.focussedItem === -1)
-          ? state.options.length - 1
+          ? matchingOptions.length - 1
           : state.focussedItem - 1,
         isOpen: true,
       }
+    }
 
     case ReducerActions.setFocussed:
       return {

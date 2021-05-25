@@ -327,7 +327,7 @@ describe('AutoComplete tests', () => {
       userEvent.keyboard('{Enter}')
       expect(onSubmit).toHaveBeenCalledWith('First')
     })
-    it('should select the input field when pressing down arrow on the last option', () => {
+    it('should select the input field when pressing down arrow on the last visible option', () => {
       renderWithStyle(
         <>
           <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
@@ -335,6 +335,7 @@ describe('AutoComplete tests', () => {
             <Input />
             <Options>
               <Option>First</Option>
+              <Option>Second</Option>
             </Options>
           </AutoComplete>
         </>,
@@ -342,12 +343,13 @@ describe('AutoComplete tests', () => {
       const input = screen.getByRole('textbox')
       input.focus()
       expect(input).toHaveFocus()
+      userEvent.type(input, 'Fir')
       userEvent.keyboard('{ArrowDown}')
       userEvent.keyboard('{ArrowDown}')
       userEvent.keyboard('{Enter}')
-      expect(onSubmit).toHaveBeenCalledWith('')
+      expect(onSubmit).toHaveBeenCalledWith('Fir')
     })
-    it('should select the last option when pressing up arrow on the input field', () => {
+    it('should select the last visible option when pressing up arrow on the input field', () => {
       renderWithStyle(
         <>
           <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
@@ -355,6 +357,7 @@ describe('AutoComplete tests', () => {
             <Input />
             <Options>
               <Option>First</Option>
+              <Option>Second</Option>
             </Options>
           </AutoComplete>
         </>,
@@ -362,6 +365,7 @@ describe('AutoComplete tests', () => {
       const input = screen.getByRole('textbox')
       input.focus()
       expect(input).toHaveFocus()
+      userEvent.type(input, 'Fir')
       userEvent.keyboard('{ArrowUp}')
       userEvent.keyboard('{Enter}')
       expect(onSubmit).toHaveBeenCalledWith('First')
