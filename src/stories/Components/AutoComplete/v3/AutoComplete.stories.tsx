@@ -80,9 +80,14 @@ const AsyncTemplate: Story<AutoCompleteProps> = (args) => {
       <AutoComplete {...args} id="autocomplete-2" aria-labelledby="my-label-2" onChange={setInput}>
         <Input />
         <Options>
-          {options.map((option: Country) => (
-            <Option key={option.code} value={option.code}>{option.name}</Option>
-          ))}
+          {(() => {
+            if (options.length > 0) {
+              return options.map((option: Country) => (
+                <Option key={option.code} value={option.code}>{option.name}</Option>
+              ))
+            }
+            return <div className="loading">Loading...</div>
+          })()}
         </Options>
       </AutoComplete>
     </>
