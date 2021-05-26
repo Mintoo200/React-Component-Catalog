@@ -246,6 +246,28 @@ describe('AutoComplete tests', () => {
     userEvent.keyboard('{Enter}')
     expect(onSubmit).toHaveBeenCalledWith('Value2')
   })
+  it('should reset the focus to the input when unhovering options', () => {
+    renderWithStyle(
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option>Value1</Option>
+            <Option>Value2</Option>
+          </Options>
+        </AutoComplete>
+      </>,
+    )
+    const input = screen.getByRole('textbox')
+    input.focus()
+    expect(input).toHaveFocus()
+    const option1 = screen.getByText('Value1')
+    userEvent.hover(option1)
+    userEvent.unhover(option1)
+    userEvent.keyboard('{Enter}')
+    expect(onSubmit).toHaveBeenCalledWith('')
+  })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
       renderWithStyle(

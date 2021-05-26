@@ -61,6 +61,12 @@ function Options({ children }: Props): React.ReactElement {
                   index: indexCopy,
                 })
               ),
+              onUnHover: () => (
+                dispatch({
+                  type: ReducerActions.setFocussed,
+                  index: -1,
+                })
+              ),
               id: `${id}-options-${itemIndex}`,
               ref: refs[index],
             })

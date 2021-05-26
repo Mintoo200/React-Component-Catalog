@@ -7,6 +7,7 @@ export type Props = {
   hidden?: boolean,
   focussed?: boolean,
   onHover?: () => void,
+  onUnHover?: () => void,
   id?: string,
 }
 
@@ -16,7 +17,14 @@ export type OptionRef = {
 }
 
 const Option = React.forwardRef<OptionRef, Props>(({
-  children = null, value = null, onClick, hidden = false, focussed = false, onHover, id = null,
+  children = null,
+  value = null,
+  onClick,
+  hidden = false,
+  focussed = false,
+  onHover,
+  onUnHover,
+  id = null,
 }, forwardedRef) => {
   const ref = useRef<HTMLLIElement>()
   useImperativeHandle(forwardedRef, () => ({
@@ -30,6 +38,7 @@ const Option = React.forwardRef<OptionRef, Props>(({
     <li
       className={`option ${hidden ? 'hidden' : ''} ${focussed ? 'focussed' : ''}`}
       onMouseEnter={onHover}
+      onMouseLeave={onUnHover}
       id={id}
       aria-selected={focussed}
       role="option"
