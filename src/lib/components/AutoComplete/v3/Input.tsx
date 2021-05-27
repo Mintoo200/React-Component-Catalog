@@ -2,10 +2,6 @@ import React from 'react'
 import useAutoComplete from './Context'
 import { ReducerActions } from './Reducer'
 
-export type Props = {
-  children?: React.ReactElement
-}
-
 export type InputProps = {
   type?: 'text',
   autoComplete?: 'off',
@@ -15,6 +11,10 @@ export type InputProps = {
   'aria-activedescendant'?: string | null,
   value?: string,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+}
+
+export type Props = {
+  children?: React.ReactElement | ((props: InputProps) => React.ReactElement)
 }
 
 function Input({ children = null }: Props): React.ReactElement {
@@ -64,39 +64,49 @@ function Input({ children = null }: Props): React.ReactElement {
       onKeyDown={handleKeyPress}
       role="presentation">
       {(function renderInput() {
+        let result: React.ReactElement = null
+        const props = {
+          type: 'text',
+          autoComplete: 'off',
+          'aria-autocomplete': 'list',
+          id,
+          'aria-controls': `${id}-options`,
+          'aria-activedescendant': focussedItem !== -1 ? `${id}-options-${focussedItem}` : null,
+          value: currentInput,
+          onChange: (event: React.ChangeEvent<HTMLInputElement>) => (
+            dispatch({
+              type: ReducerActions.setCurrentInput,
+              input: event.currentTarget.value,
+            })
+          ),
+        } as const
         if (children != null) {
-          return React.cloneElement(children, {
-            type: 'text',
-            autoComplete: 'off',
-            'aria-autocomplete': 'list',
-            id,
-            'aria-controls': `${id}-options`,
-            'aria-activedescendant': focussedItem !== -1 ? `${id}-options-${focussedItem}` : null,
-            value: currentInput,
-            onChange: (event: React.ChangeEvent<HTMLInputElement>) => (
-              dispatch({
-                type: ReducerActions.setCurrentInput,
-                input: event.currentTarget.value,
-              })
-            ),
-          })
+          if (React.isValidElement(children)) {
+            result = React.cloneElement(children, props)
+          } else if (typeof children === 'function') {
+            result = children(props)
+          } else {
+            throw new Error('Invalid children type')
+          }
+        } else {
+          result = (
+            <input
+              type="text"
+              autoComplete="off"
+              aria-autocomplete="list"
+              id={id}
+              aria-controls={`${id}-options`}
+              aria-activedescendant={focussedItem !== -1 ? `${id}-options-${focussedItem}` : null}
+              value={currentInput}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
+                dispatch({
+                  type: ReducerActions.setCurrentInput,
+                  input: event.currentTarget.value,
+                })
+              )} />
+          )
         }
-        return (
-          <input
-            type="text"
-            autoComplete="off"
-            aria-autocomplete="list"
-            id={id}
-            aria-controls={`${id}-options`}
-            aria-activedescendant={focussedItem !== -1 ? `${id}-options-${focussedItem}` : null}
-            value={currentInput}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
-              dispatch({
-                type: ReducerActions.setCurrentInput,
-                input: event.currentTarget.value,
-              })
-            )} />
-        )
+        return result
       }())}
     </div>
   )

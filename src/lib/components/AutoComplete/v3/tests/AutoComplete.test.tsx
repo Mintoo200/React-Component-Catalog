@@ -268,26 +268,45 @@ describe('AutoComplete tests', () => {
     userEvent.keyboard('{Enter}')
     expect(onSubmit).toHaveBeenCalledWith('')
   })
-  it('should render a custom input component when provided as child', () => {
+  describe('Custom input tests', () => {
     function MyInput(props: InputProps) {
       // eslint-disable-next-line react/jsx-props-no-spreading
       return <input {...props} id="custom-input" />
     }
-    renderWithStyle(
-      <>
-        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
-        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
-          <Input><MyInput /></Input>
-          <Options>
-            <Option>Value1</Option>
-            <Option>Value2</Option>
-          </Options>
-        </AutoComplete>
-      </>,
-    )
-    const inputs = screen.getAllByRole('textbox')
-    expect(inputs).toHaveLength(1)
-    expect(inputs[0]).toHaveAttribute('id', 'custom-input')
+    it('should render a custom input component when provided as child', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input><MyInput /></Input>
+            <Options>
+              <Option>Value1</Option>
+              <Option>Value2</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const inputs = screen.getAllByRole('textbox')
+      expect(inputs).toHaveLength(1)
+      expect(inputs[0]).toHaveAttribute('id', 'custom-input')
+    })
+    it('should render a custom input component when provided as a child function', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input>{(props) => <MyInput {...props} />}</Input>
+            <Options>
+              <Option>Value1</Option>
+              <Option>Value2</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const inputs = screen.getAllByRole('textbox')
+      expect(inputs).toHaveLength(1)
+      expect(inputs[0]).toHaveAttribute('id', 'custom-input')
+    })
   })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
