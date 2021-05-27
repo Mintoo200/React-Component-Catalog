@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer } from 'react'
 import { Context } from './Context'
+import Input from './Input'
 import Reducer from './Reducer'
 
 import './style.css'
@@ -25,6 +26,9 @@ function AutoComplete({
   useEffect(() => {
     onChange(state.currentInput)
   }, [state.currentInput])
+  const childrenContainInput = React.Children
+    .toArray(children)
+    .some((child) => React.isValidElement(child) && child.type === Input)
   return (
     <Context.Provider value={{
       ...state,
@@ -40,6 +44,7 @@ function AutoComplete({
         /* FIXME: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/issues/789 */
         /* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */
         role="combobox">
+        {childrenContainInput || <Input />}
         {children}
       </div>
     </Context.Provider>

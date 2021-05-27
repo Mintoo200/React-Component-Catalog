@@ -374,6 +374,21 @@ describe('AutoComplete tests', () => {
       expect(inputs).toHaveLength(1)
       expect(inputs[0]).toHaveAttribute('id', 'autocomplete')
     })
+    it('should render the default Input if none is provided', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Options>
+              <Option>Value</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const inputs = screen.getAllByRole('textbox')
+      expect(inputs).toHaveLength(1)
+      expect(inputs[0]).toHaveAttribute('id', 'autocomplete')
+    })
   })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
