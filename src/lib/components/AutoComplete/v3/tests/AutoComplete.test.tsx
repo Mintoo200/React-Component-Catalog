@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import AutoComplete from '../AutoComplete'
-import Input from '../Input'
+import Input, { InputProps } from '../Input'
 import Options from '../Options'
 import Option from '../Option'
 
@@ -267,6 +267,27 @@ describe('AutoComplete tests', () => {
     userEvent.unhover(option1)
     userEvent.keyboard('{Enter}')
     expect(onSubmit).toHaveBeenCalledWith('')
+  })
+  it('should render a custom input component when provided as child', () => {
+    function MyInput(props: InputProps) {
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      return <input {...props} id="custom-input" />
+    }
+    renderWithStyle(
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input><MyInput /></Input>
+          <Options>
+            <Option>Value1</Option>
+            <Option>Value2</Option>
+          </Options>
+        </AutoComplete>
+      </>,
+    )
+    const inputs = screen.getAllByRole('textbox')
+    expect(inputs).toHaveLength(1)
+    expect(inputs[0]).toHaveAttribute('id', 'custom-input')
   })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
