@@ -20,6 +20,8 @@ function Options({ children }: Props): React.ReactElement {
   const [refs, setRefs] = useState<RefObject<OptionRef>[]>([])
   useLayoutEffect(() => {
     // using layout effect to ensure refs up to date before any effect call
+    // also, using forEach with push because toArray.filter.map would be slower for small arrays
+    // cf. https://codesandbox.io/s/children-toarrayfiltermap-vs-foreach-t5wb3?file=/src/App.tsx
     const newRefs: RefObject<OptionRef>[] = []
     React.Children.forEach(children, (child) => {
       if (isOption(child)) {
