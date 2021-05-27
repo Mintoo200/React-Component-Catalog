@@ -15,13 +15,19 @@ export type InputProps = {
 
 export type Props = {
   children?: React.ReactElement | ((props: InputProps) => React.ReactElement),
-  component?: never
+  component?: never,
+  render?: never,
 } | {
   children?: never,
   component?: string | React.FC<InputProps> | React.ComponentClass<InputProps>,
+  render?: never,
+} | {
+  children?: never,
+  component?: never,
+  render?: React.ReactElement,
 }
 
-function Input({ children = null, component = null }: Props): React.ReactElement {
+function Input({ children = null, component = null, render = null }: Props): React.ReactElement {
   const {
     currentInput, id, focussedItem, dispatch,
   } = useAutoComplete()
@@ -94,6 +100,8 @@ function Input({ children = null, component = null }: Props): React.ReactElement
           }
         } else if (component != null) {
           result = React.createElement(component, props)
+        } else if (render != null) {
+          result = React.cloneElement(render, props)
         } else {
           result = (
             <input
