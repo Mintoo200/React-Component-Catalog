@@ -14,10 +14,14 @@ export type InputProps = {
 }
 
 export type Props = {
-  children?: React.ReactElement | ((props: InputProps) => React.ReactElement)
+  children?: React.ReactElement | ((props: InputProps) => React.ReactElement),
+  component?: never
+} | {
+  children?: never,
+  component?: string | React.FC<InputProps> | React.ComponentClass<InputProps>,
 }
 
-function Input({ children = null }: Props): React.ReactElement {
+function Input({ children = null, component = null }: Props): React.ReactElement {
   const {
     currentInput, id, focussedItem, dispatch,
   } = useAutoComplete()
@@ -88,6 +92,8 @@ function Input({ children = null }: Props): React.ReactElement {
           } else {
             throw new Error('Invalid children type')
           }
+        } else if (component != null) {
+          result = React.createElement(component, props)
         } else {
           result = (
             <input

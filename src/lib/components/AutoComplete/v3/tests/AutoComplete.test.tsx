@@ -307,6 +307,23 @@ describe('AutoComplete tests', () => {
       expect(inputs).toHaveLength(1)
       expect(inputs[0]).toHaveAttribute('id', 'custom-input')
     })
+    it('should render a custom input component when provided as a component prop', () => {
+      renderWithStyle(
+        <>
+          <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+          <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+            <Input component={MyInput} />
+            <Options>
+              <Option>Value1</Option>
+              <Option>Value2</Option>
+            </Options>
+          </AutoComplete>
+        </>,
+      )
+      const inputs = screen.getAllByRole('textbox')
+      expect(inputs).toHaveLength(1)
+      expect(inputs[0]).toHaveAttribute('id', 'custom-input')
+    })
   })
   describe('Keyboard controls tests', () => {
     it('should submit the content of the input when pressing enter', () => {
