@@ -24,7 +24,7 @@ export type Props = {
 } | {
   children?: never,
   component?: never,
-  render?: React.ReactElement,
+  render?: React.ReactElement | ((props: InputProps) => React.ReactElement),
 }
 
 function Input({ children = null, component = null, render = null }: Props): React.ReactElement {
@@ -101,7 +101,13 @@ function Input({ children = null, component = null, render = null }: Props): Rea
         } else if (component != null) {
           result = React.createElement(component, props)
         } else if (render != null) {
-          result = React.cloneElement(render, props)
+          if (React.isValidElement(render)) {
+            result = React.cloneElement(render, props)
+          } else if (typeof render === 'function') {
+            result = render(props)
+          } else {
+            throw new Error('Invalid render type')
+          }
         } else {
           result = (
             <input
