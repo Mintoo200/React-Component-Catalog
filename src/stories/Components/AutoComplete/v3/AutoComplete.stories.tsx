@@ -6,6 +6,8 @@ import Options from '../../../../lib/components/AutoComplete/v3/Options'
 import Option from '../../../../lib/components/AutoComplete/v3/Option'
 import documentation from './AutoComplete.doc'
 
+import './style.css'
+
 export default {
   title: 'Components/AutoComplete/v3 ⭐ - Option list without datalist',
   component: AutoComplete,
