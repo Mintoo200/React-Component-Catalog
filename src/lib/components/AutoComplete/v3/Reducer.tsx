@@ -36,7 +36,7 @@ export type Action = {
 export type State = {
   currentInput: string,
   isOpen: boolean,
-  onSubmit: (value: string) => void,
+  onSubmit: (value: string | unknown) => void,
   options: RefObject<OptionRef>[],
   focussedItem: number,
 }
@@ -63,7 +63,7 @@ const Reducer: ReducerType<State, Action> = (state, action) => {
         state.onSubmit(matchingOptions[state.focussedItem]?.current?.value)
         return {
           ...state,
-          currentInput: matchingOptions[state.focussedItem]?.current?.value,
+          currentInput: matchingOptions[state.focussedItem]?.current?.textValue,
         }
       }
       state.onSubmit(state.currentInput)

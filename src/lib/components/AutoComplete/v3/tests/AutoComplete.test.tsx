@@ -268,6 +268,27 @@ describe('AutoComplete tests', () => {
     userEvent.keyboard('{Enter}')
     expect(onSubmit).toHaveBeenCalledWith('')
   })
+  it('should support non-string values', () => {
+    const value = { test: 'hello' }
+    renderWithStyle(
+      <>
+        <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
+        <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
+          <Input />
+          <Options>
+            <Option value={value}>Value1</Option>
+          </Options>
+        </AutoComplete>
+      </>,
+    )
+    const input = screen.getByRole('textbox')
+    input.focus()
+    expect(input).toHaveFocus()
+    const option = screen.getByText('Value1')
+    userEvent.click(option)
+    expect(onSubmit).toHaveBeenCalledWith(value)
+    expect(input).toHaveValue('Value1')
+  })
   describe('Custom input tests', () => {
     function MyInput(props: InputProps) {
       // eslint-disable-next-line react/jsx-props-no-spreading

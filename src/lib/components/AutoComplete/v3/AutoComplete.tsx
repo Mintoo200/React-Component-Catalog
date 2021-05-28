@@ -7,7 +7,7 @@ import './style.css'
 
 export type Props = {
   children: React.ReactNode,
-  onSubmit: (value: string) => void,
+  onSubmit: (value: string | unknown) => void,
   id: string,
   'aria-labelledby': string,
   onChange?: (value: string) => void,

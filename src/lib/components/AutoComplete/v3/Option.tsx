@@ -2,7 +2,7 @@ import React, { useImperativeHandle, useRef } from 'react'
 
 export type Props = {
   children?: React.ReactNode,
-  value?: string,
+  value?: string | unknown,
   onClick?: () => void,
   hidden?: boolean,
   focussed?: boolean,
@@ -13,7 +13,8 @@ export type Props = {
 
 export type OptionRef = {
   match: (matcher: string) => boolean,
-  value: string,
+  value: string | unknown,
+  textValue: string,
 }
 
 const Option = React.forwardRef<OptionRef, Props>(({
@@ -30,9 +31,10 @@ const Option = React.forwardRef<OptionRef, Props>(({
   useImperativeHandle(forwardedRef, () => ({
     match: (matcher) => (
       ref?.current?.textContent.toLowerCase().includes(matcher.toLowerCase())
-      || value?.toLowerCase().includes(matcher.toLowerCase())
+      || (typeof value === 'string' && value?.toLowerCase().includes(matcher.toLowerCase()))
     ),
     value: value ?? ref?.current?.textContent,
+    textValue: value != null && typeof value === 'string' ? value : ref?.current?.textContent,
   }))
   return (
     <li
