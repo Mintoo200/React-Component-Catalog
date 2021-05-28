@@ -1,7 +1,8 @@
 const documentation = `
 ## API
 \`\`\`tsx
-<AutoComplete onSubmit={(input: string) => null}>
+<label id="my-label" htmlFor="autocomplete">AutoComplete</label>
+<AutoComplete id="autocomplete" aria-labelledby="my-label" onSubmit={(input: string) => null}>
     <Input />
     <Options>
       <Option>Test</Option>
