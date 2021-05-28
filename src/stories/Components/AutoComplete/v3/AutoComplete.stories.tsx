@@ -43,15 +43,16 @@ const countries = [
   { code: 'FI', name: 'Finland' },
 ]
 
-const Template: Story<AutoCompleteProps> = (args) => (
+const Template: Story<AutoCompleteProps> = ({ id, ...args }) => (
   <>
-    <label id="my-label" htmlFor="autocomplete">AutoComplete</label>
-    <AutoComplete {...args} id="autocomplete" aria-labelledby="my-label" />
+    <label id={`${id}-label`} htmlFor={id}>Select a country</label>
+    <AutoComplete {...args} id={id} aria-labelledby={`${id}-label`} />
   </>
 )
 
 export const Default = Template.bind({})
 Default.args = {
+  id: 'country-selector-0',
   children: [
     <Input />,
     <Options>
@@ -64,7 +65,7 @@ Default.args = {
   onSubmit: (input) => alert(`submitted country with code ${input}`),
 }
 
-const AsyncTemplate: Story<AutoCompleteProps> = (args) => {
+const AsyncTemplate: Story<AutoCompleteProps> = ({ id, ...args }) => {
   const [options, setOptions] = useState<Country[]>([])
   const [input, setInput] = useState('')
   useEffect(() => {
@@ -78,8 +79,8 @@ const AsyncTemplate: Story<AutoCompleteProps> = (args) => {
   }, [input])
   return (
     <>
-      <label id="my-label-2" htmlFor="autocomplete-2">AutoComplete</label>
-      <AutoComplete {...args} id="autocomplete-2" aria-labelledby="my-label-2" onChange={setInput}>
+      <label id={`${id}-label`} htmlFor={id}>Select a country</label>
+      <AutoComplete {...args} id={id} aria-labelledby={`${id}-label`} onChange={setInput}>
         <Input />
         <Options>
           {(() => {
@@ -98,12 +99,14 @@ const AsyncTemplate: Story<AutoCompleteProps> = (args) => {
 
 export const Async = AsyncTemplate.bind({})
 Async.args = {
+  id: 'country-selector-1',
   /* eslint-disable-next-line no-alert */
   onSubmit: (input) => alert(`submitted country with code ${input}`),
 }
 
 export const WithObjectValues = Template.bind({})
 WithObjectValues.args = {
+  id: 'country-selector-2',
   children: [
     <Input />,
     <Options>
