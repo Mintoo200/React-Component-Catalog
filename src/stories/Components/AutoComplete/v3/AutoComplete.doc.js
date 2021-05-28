@@ -30,6 +30,7 @@ Remember to add a \`<label for id />\` for the input field and option list, e.g.
 \`\`\`
 
 If your options are focussable, please ensure that they are not part of the tab order with \`tabindex="-1"\` since all focus is handled by the AutoComplete.
+You might need to declare the AutoComplete component as a control for the \`jsx-a11y/label-has-associated-control\` linting rule by adding \`"jsx-a11y/label-has-associated-control": ["error", {"controlComponents": ["AutoComplete"]}]\` to your configuration.
 
 <p className="warning">If you plan on modifying the source code, please ensure that you still comply with <a href="https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html">the ARIA spec</a> since simple changes can require some tweaks to aria properties.</p>
 
