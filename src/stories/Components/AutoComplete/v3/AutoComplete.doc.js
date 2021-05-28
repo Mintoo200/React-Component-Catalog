@@ -28,6 +28,8 @@ Remember to add a \`<label for id />\` for the input field and option list, e.g.
 </AutoComplete>
 \`\`\`
 
+<p className="warning">If you plan on modifying the source code, please ensure that you still comply with <a href="https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html">the ARIA spec</a> since simple changes can require some tweaks to aria properties.</p>
+
 <hr />
 learn more [here](/story/components-autocomplete-study--page#version-3--option-list-without-datalist)
 `
