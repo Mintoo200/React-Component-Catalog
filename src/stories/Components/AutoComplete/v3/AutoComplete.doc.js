@@ -5,11 +5,15 @@ const documentation = `
 <AutoComplete id="autocomplete" aria-labelledby="my-label" onSubmit={(input: string) => null}>
     <Input />
     <Options>
-      <Option>Test</Option>
-      <Option value="Test 2">Also a test</Option>
+      <Option>Value 1</Option>
+      <Option value="Test 2">Value 2</Option>
+      <Option value={{ id: 1, value: 'Test 3'}}>Value 3</Option>
     </Options>
 </AutoComplete>
 \`\`\`
+
+Note that providing an object as value to the option will prevent filtering on it, e.g.:
+In the example above, typing "Test 3" will display no result whereas typing "Test 2" will display only the second option.
 
 This component supports custom input in any of the following ways:
 
