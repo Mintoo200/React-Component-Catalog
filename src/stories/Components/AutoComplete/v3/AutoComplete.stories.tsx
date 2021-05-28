@@ -101,3 +101,21 @@ Async.args = {
   /* eslint-disable-next-line no-alert */
   onSubmit: (input) => alert(`submitted country with code ${input}`),
 }
+
+export const WithObjectValues = Template.bind({})
+WithObjectValues.args = {
+  children: [
+    <Input />,
+    <Options>
+      {countries.map((country) => (
+        <Option value={country}>{country.name}</Option>
+      ))}
+    </Options>,
+  ],
+  /* eslint-disable-next-line no-alert */
+  onSubmit: (input) => alert(
+    typeof input === 'string'
+      ? `submitted direct input: ${input}`
+      : `submitted country ${JSON.stringify(input)}`,
+  ),
+}
