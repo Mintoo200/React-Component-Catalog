@@ -11,6 +11,54 @@ const documentation = `
 </AutoComplete>
 \`\`\`
 
+This component supports custom input in any of the following ways:
+
+\`\`\`tsx
+<Input><MyInput /></Input>
+// or
+<Input>{(props: InputProps) => <MyInput {...props} />}</Input>
+// or
+<Input component={MyInput} />
+// or
+<Input render={<MyInput />} />
+// or
+<Input render={(props: InputProps) => <MyInput {...props} />} />
+\`\`\`
+
+It will render a default input field if no custom component is provided, e.g.:
+
+\`\`\`tsx
+<AutoComplete>
+  <Input />
+  ...
+</AutoComplete>
+\`\`\`
+
+Or if no Input is provided at all:
+
+\`\`\`tsx
+<AutoComplete>
+  <Options>
+    ...
+  </Options>
+</AutoComplete>
+\`\`\`
+
+Your custom input component should accept the following props and pass them on to the input element:
+
+\`\`\`ts
+export type InputProps = {
+  type?: 'text',
+  autoComplete?: 'off',
+  'aria-autocomplete'?: 'list',
+  id?: string,
+  'aria-controls'?: string,
+  'aria-activedescendant'?: string | null,
+  value?: string,
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+}
+\`\`\`
+
 ## Accessibility
 
 This component implements the accessibility features described in [the W3C example for the matching component](https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html) with some minor tweaks including:
