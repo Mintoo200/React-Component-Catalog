@@ -1,6 +1,10 @@
 import React, { useLayoutEffect, useRef } from 'react'
 
-export default function useFocus<T extends HTMLElement>(
+export type FocussableElement = {
+  focus: (options?: FocusOptions) => void
+}
+
+export default function useFocus<T extends FocussableElement>(
   hasFocus: boolean,
   ref: React.MutableRefObject<T> = useRef<T>(),
 )

@@ -1,6 +1,6 @@
-import React from 'react'
-import useCombinedRef from '../../../hooks/useCombinedRef/useCombinedRef'
+import React, { useImperativeHandle } from 'react'
 import useFocus from '../../../hooks/useFocus/useFocus'
+import { FocussableElement, TextContent } from './Utils'
 
 export type Props = {
   children: React.ReactElement,
@@ -9,12 +9,14 @@ export type Props = {
   onClick?: (event: React.MouseEvent) => void
 }
 
-const Item = React.forwardRef<HTMLElement, Props>(
+const Item = React.forwardRef<TextContent, Props>(
   ({
     children, hasFocus = false, tabIndex = -1, onClick,
   }, forwardedRef) => {
-    const ref = useCombinedRef(forwardedRef)
-    useFocus<HTMLElement>(hasFocus, ref)
+    const ref = useFocus<FocussableElement & TextContent>(hasFocus)
+    useImperativeHandle(forwardedRef, () => ({
+      textContent: ref?.current?.textContent,
+    }))
     return (
     // onClick is used as a pass-through from the click on the link
     // as long as the link does not have a stopPropagation on click

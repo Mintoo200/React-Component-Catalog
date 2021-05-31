@@ -1,10 +1,12 @@
 import React, {
-  RefObject, useEffect, useLayoutEffect, useReducer, useState,
+  RefObject, useEffect, useImperativeHandle, useLayoutEffect, useReducer, useRef, useState,
 } from 'react'
 import InvalidActionError from '../../../errors/InvalidActionError'
-import useCombinedRef from '../../../hooks/useCombinedRef/useCombinedRef'
+import { FocussableElement } from '../../../hooks/useFocus/useFocus'
 import Item from './Item'
-import { findNextMatching, isCharacter } from './Utils'
+import {
+  findNextMatching, isCharacter, TextContent,
+} from './Utils'
 
 function actualBlur(event: React.FocusEvent) {
   return (
@@ -35,7 +37,7 @@ enum Actions {
 
 type Action = {
   type: Actions.setRefs,
-  refs: RefObject<HTMLElement>[],
+  refs: RefObject<TextContent>[],
 } | {
   type: Actions.setIsOpen,
   isOpen: boolean,
@@ -67,7 +69,7 @@ type State = {
   isHovered: boolean,
   focussedItem: number,
   submenuHasFocus: boolean,
-  refs: RefObject<HTMLElement>[],
+  refs: RefObject<TextContent>[],
 }
 
 function Reducer(state: State, action: Action) {
@@ -181,7 +183,7 @@ export type LabelProps<T> = {
   role: string,
 }
 
-const Menu = React.forwardRef<HTMLButtonElement, Props>(({
+const Menu = React.forwardRef<FocussableElement & TextContent, Props>(({
   children,
   label,
   tabIndex = -1,
@@ -199,17 +201,21 @@ const Menu = React.forwardRef<HTMLButtonElement, Props>(({
     isHovered: false,
     focussedItem: -1,
     submenuHasFocus: false,
-    refs: [],
+    refs: React.Children.map(children, () => React.createRef<TextContent>()),
   })
   const [ariaLabel, setAriaLabel] = useState('')
-  const labelRef = useCombinedRef(forwardedRef)
+  const labelRef = useRef<HTMLButtonElement>()
+  useImperativeHandle(forwardedRef, () => ({
+    focus: () => labelRef?.current?.focus(),
+    textContent: labelRef?.current?.textContent,
+  }))
   useLayoutEffect(() => {
     setAriaLabel(labelRef?.current?.textContent)
   }, [labelRef?.current?.textContent])
   useEffect(() => {
     dispatch({
       type: Actions.setRefs,
-      refs: React.Children.map(children, () => React.createRef<HTMLElement>()),
+      refs: React.Children.map(children, () => React.createRef<TextContent>()),
     })
   }, [children])
   useLayoutEffect(() => {

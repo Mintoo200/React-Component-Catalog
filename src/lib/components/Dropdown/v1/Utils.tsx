@@ -1,3 +1,5 @@
+import { RefObject } from 'react'
+
 export function isCharacter(key: string): boolean {
   return key != null && key.length === 1 && key !== ' '
 }
@@ -13,24 +15,22 @@ export function shiftArray<T>(array: T[], from: number): T[] {
   return newArray
 }
 
-interface TextContent {
-  current: {
-    textContent?: string
-  }
+export type TextContent = {
+  textContent?: string
 }
 
 export function findFirstMatchingElement(
-  array: TextContent[],
+  array: RefObject<TextContent>[],
   match: string,
 ): number {
-  const predicate = (item: TextContent) => (
+  const predicate = (item: RefObject<TextContent>) => (
     matchFirstCharacter(item?.current?.textContent, match)
   )
   return array.findIndex(predicate)
 }
 
 export function findNextMatching(
-  array: TextContent[],
+  array: RefObject<TextContent>[],
   match: string,
   from: number,
 ): number {

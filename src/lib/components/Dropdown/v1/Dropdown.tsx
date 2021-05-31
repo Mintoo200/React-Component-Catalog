@@ -5,7 +5,7 @@ import Item from './Item'
 import Menu from './Menu'
 import InvalidActionError from '../../../errors/InvalidActionError'
 import {
-  findNextMatching, isCharacter,
+  findNextMatching, isCharacter, TextContent,
 } from './Utils'
 
 import '../style.css'
@@ -29,7 +29,7 @@ enum Actions {
 
 type Action = {
   type: Actions.setRefs,
-  refs: RefObject<HTMLElement>[],
+  refs: RefObject<TextContent>[],
 } | {
   type: Actions.setFocussedItem,
   index: number,
@@ -59,7 +59,7 @@ type State = {
   focussedItem: number,
   hasFocus: boolean,
   submenuHasFocus: boolean,
-  refs: RefObject<HTMLElement>[],
+  refs: RefObject<TextContent>[],
 }
 
 function Reducer(state: State, action: Action) {
@@ -160,7 +160,7 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
     focussedItem, refs, hasFocus, previewMenu, submenuHasFocus,
   }, dispatch] = useReducer(Reducer, {
     focussedItem: 0,
-    refs: [],
+    refs: React.Children.map(children, () => React.createRef<TextContent>()),
     hasFocus: false,
     submenuHasFocus: false,
     previewMenu: false,
@@ -168,7 +168,7 @@ const Dropdown = ({ children, ...a11y }: Props): React.ReactElement => {
   useEffect(() => {
     dispatch({
       type: Actions.setRefs,
-      refs: React.Children.map(children, () => React.createRef<HTMLElement>()),
+      refs: React.Children.map(children, () => React.createRef<TextContent>()),
     })
   }, [children])
   function handleKey(event: React.KeyboardEvent) {
