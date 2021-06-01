@@ -21,6 +21,7 @@ describe('AutoComplete tests', () => {
   it('should display the list only if focussed', () => {
     renderWithStyle(
       <>
+        <button type="button">Focus</button>
         <label id="my-label" htmlFor="autocomplete">My AutoComplete</label>
         <AutoComplete onSubmit={onSubmit} id="autocomplete" aria-labelledby="my-label">
           <Input />
@@ -32,11 +33,14 @@ describe('AutoComplete tests', () => {
     )
     const input = screen.getByRole('textbox')
     const list = screen.getByText('Value')
+    const otherButton = screen.getByText('Focus')
     expect(input).not.toHaveFocus()
     expect(list).not.toBeVisible()
     input.focus()
     expect(input).toHaveFocus()
-    expect(list).toBeVisible()
+    otherButton.focus()
+    expect(input).not.toHaveFocus()
+    expect(list).not.toBeVisible()
   })
   it('should filter the list when typing in the input field', () => {
     renderWithStyle(
