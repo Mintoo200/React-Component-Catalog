@@ -4,20 +4,7 @@ import AutoComplete, { Props as AutoCompleteProps } from '../../../../lib/compon
 import Input from '../../../../lib/components/AutoComplete/v3/Input'
 import Options from '../../../../lib/components/AutoComplete/v3/Options'
 import Option from '../../../../lib/components/AutoComplete/v3/Option'
-
-const documentation = `
-## API
-\`\`\`tsx
-<AutoComplete onSubmit={(input: string) => null}>
-    <Input />
-    <Options>
-      <Option>Test</Option>
-      <Option value="Test 2">Also a test</Option>
-    </Options>
-</AutoComplete>
-\`\`\`
-learn more [here](/story/components-autocomplete-study--page#version-3--option-list-without-datalist)
-`
+import documentation from './AutoComplete.doc'
 
 export default {
   title: 'Components/AutoComplete/v3 ⭐ - Option list without datalist',

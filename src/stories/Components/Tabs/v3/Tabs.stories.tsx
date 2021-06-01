@@ -4,27 +4,11 @@ import Tabs, { Props as TabsProps } from '../../../../lib/components/Tabs/v3/Tab
 import TabList from '../../../../lib/components/Tabs/v3/TabList'
 import TabContent from '../../../../lib/components/Tabs/v3/TabContent'
 import Tab from '../../../../lib/components/Tabs/v3/Tab'
+import useTabs from '../../../../lib/components/Tabs/v3/Context'
+import documentation from './Tabs.doc'
 
 import { ReactComponent as CodeBrackets } from '../../../assets/code-brackets.svg'
 import { ReactComponent as Comments } from '../../../assets/comments.svg'
-import useTabs from '../../../../lib/components/Tabs/v3/Context'
-
-const documentation = `
-## API
-\`\`\`tsx
-<Tabs>
-  <TabList>
-    <Tab>Tab 1</Tab>
-    <Tab>Tab 2</Tab>
-  </TabList>
-  <TabContent>
-    <div>Content 1</div>
-    <div>Content 2</div>
-  </TabContent>
-</Tabs>
-\`\`\`
-learn more [here](/story/components-tabs-study--page#version-3---sub-components)
-`
 
 export default {
   title: 'Components/Tabs/v3 ⭐ - Sub-components',

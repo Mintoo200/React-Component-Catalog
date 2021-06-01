@@ -1,19 +1,7 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
 import Toastr, { Props as ToastrProps } from '../../../lib/components/Toastr/Toastr'
-
-const documentation = `
-## API
-\`\`\`tsx
-<Toastr isOpen onClose={() => null}>
-  Content
-</Toastr>
-\`\`\`
-
-## Optional props
-- \`timer\`: timer before the toastr automatically closes in ms (defaults to 1000ms)
-- \`onClick\`: callback when toastr is clicked
-`
+import documentation from './Toastr.doc'
 
 export default {
   title: 'Components/Toastr/Toastr',
