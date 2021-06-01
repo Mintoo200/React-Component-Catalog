@@ -1,26 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { Story } from '@storybook/react'
 import Overlay, { Props as OverlayProps } from '../../../lib/components/Overlay/Overlay'
+import documentation from './Overlay.doc'
 
 import './style.css'
-
-const documentation = `
-## API
-\`\`\`tsx
-<Overlay isOpen onClose={() => setIsOpen()}>
-  <div onClick={(event: React.MouseEvent) => event.stopPropagation()}>
-    Content of the overlay
-  </div>
-</Overlay>
-\`\`\`
-**Remember to stop the click propagation if you want the overlay to stay open when you click on your content!** \n
-e.g.:\n
-\`\`\`tsx
-const childClickHandler = (event: React.MouseEvent) => {
-  event.stopPropagation()
-}
-\`\`\`
-`
 
 export default {
   title: 'Components/Overlay/Overlay',
