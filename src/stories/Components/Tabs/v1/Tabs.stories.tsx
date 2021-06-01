@@ -1,21 +1,10 @@
 import React from 'react'
 import { Story } from '@storybook/react'
 import Tabs, { Props as TabsProps } from '../../../../lib/components/Tabs/v1/Tabs'
+import documentation from './Tabs.doc'
 
 import { ReactComponent as CodeBrackets } from '../../../assets/code-brackets.svg'
 import { ReactComponent as Comments } from '../../../assets/comments.svg'
-
-const documentation = `
-## API
-\`\`\`tsx
-const content = [
-  {label: 'Tab 1', content: 'Content 1'},
-  {label: 'Tab 2', content: 'Content 2'},
-]
-<Tabs tabs={content} />
-\`\`\`
-learn more [here](/story/components-tabs-study--page#version-1---tabs-as-props)
-`
 
 export default {
   title: 'Components/Tabs/v1 🚫 - Tabs as props',

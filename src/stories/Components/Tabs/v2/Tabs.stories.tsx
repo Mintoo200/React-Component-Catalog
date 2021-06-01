@@ -2,24 +2,10 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import Tabs, { Props as TabsProps } from '../../../../lib/components/Tabs/v2/Tabs'
 import Tab from '../../../../lib/components/Tabs/v2/Tab'
+import documentation from './Tabs.doc'
 
 import { ReactComponent as CodeBrackets } from '../../../assets/code-brackets.svg'
 import { ReactComponent as Comments } from '../../../assets/comments.svg'
-
-const documentation = `
-## API
-\`\`\`tsx
-<Tabs>
-  <Tab label="Tab 1">
-    Content 1
-  </Tab>
-  <Tab label="Tab 2">
-    Content 2
-  </Tab>
-</Tabs>
-\`\`\`
-learn more [here](/story/components-tabs-study--page#version-2---labels-as-props)
-`
 
 export default {
   title: 'Components/Tabs/v2 - Labels as props',
