@@ -1,21 +1,9 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
 import useFocus from '../../../lib/hooks/useFocus/useFocus'
+import documentation from './useFocus.doc'
 
 import './style.css'
-
-const documentation = `
-## API
-
-\`\`\`tsx
-const MyComponent = ({ hasFocus: boolean }) => {
-  const ref = useFocus<HTMLButtonElement>(hasFocus)
-  return (
-    <button ref={ref} />
-  )
-}
-\`\`\`
-`
 
 export default {
   title: 'Hooks/useFocus/useFocus',
