@@ -3,33 +3,7 @@ import { Story } from '@storybook/react'
 import Accordion, {
   AccordeonItem, AccordeonLabel, AccordeonPanel, AccordeonProps,
 } from '../../../lib/components/Accordion/Accordion'
-
-const documentation = `
-Courtesy of LETO (Camille Toulouse) \n
-## API
-\`\`\`tsx
-<Accordeon isOpen={-1}>
-  <AccordeonItem>
-    <AccordeonLabel>My first item</AccordeonLabel>
-    <AccordeonPanel>
-      My first content
-    </AccordeonPanel>
-  </AccordeonItem>
-  <AccordeonItem>
-    <AccordeonLabel>My second item</AccordeonLabel>
-    <AccordeonPanel>
-      My second content
-    </AccordeonPanel>
-  </AccordeonItem>
-  <AccordeonItem>
-    <AccordeonLabel>My third item</AccordeonLabel>
-    <AccordeonPanel>
-      My third content
-    </AccordeonPanel>
-  </AccordeonItem>
-</Accordeon>
-\`\`\`
-`
+import documentation from './Accordion.doc'
 
 export default {
   title: 'Components/Accordion/Accordion - By Camille',
