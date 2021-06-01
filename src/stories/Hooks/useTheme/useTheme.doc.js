@@ -1,4 +1,6 @@
 const documentation = `
+<p className="warning">Using CSS variables, this hook will not work with Internet Explorer as of version 11.0</p>
+
 ## API
 
 \`\`\`tsx
