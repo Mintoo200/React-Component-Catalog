@@ -3,17 +3,7 @@ import { Story } from '@storybook/react'
 import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v3/Modal'
 import ModalContent from '../../../../lib/components/Modal/v3/ModalContent'
 import ModalTitle from '../../../../lib/components/Modal/v3/ModalTitle'
-
-const documentation = `
-## API
-\`\`\`tsx
-<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-  <ModalTitle>My title</ModalTitle>
-  <ModalContent>Try clicking outside of the modal or pressing 'Escape'!</ModalContent>
-</Modal>
-\`\`\`
-learn more [here](/story/components-modal-study--page#version-3---sub-components)
-`
+import documentation from './Modal.doc'
 
 export default {
   title: 'Components/Modal/v3 - Sub-components',

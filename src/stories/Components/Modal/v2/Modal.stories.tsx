@@ -1,16 +1,7 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
 import Modal, { Props as ModalProps } from '../../../../lib/components/Modal/v2/Modal'
-
-const documentation = `
-## API
-\`\`\`tsx
-<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Title">
-  Try clicking outside of the modal or pressing 'Escape'!
-</Modal>
-\`\`\`
-learn more [here](/story/components-modal-study--page#version-2---title-as-prop)
-`
+import documentation from './Modal.doc'
 
 export default {
   title: 'Components/Modal/v2 - Title as prop',
