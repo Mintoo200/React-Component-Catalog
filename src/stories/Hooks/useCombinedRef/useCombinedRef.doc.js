@@ -26,35 +26,36 @@ This hook takes a variadic ref array, allowing for any number of ref given as ar
 It is cleaner to use a combination of custom types and \`useImperativeHandle\` as follow:
 
 \`\`\`diff
-function MyParentComponent(props) {
-- const ref = useRef<HTMLElement>()
-+ const ref = useRef<FocussableRef>()
-  useLayoutEffect(() => {
-    if (shouldFocusChild) {
-      ref?.current?.focus()
-    }
-  }, [ref])
-  return <MyChildComponent ref={ref} />
-}
+  function MyParentComponent(props) {
+-   const ref = useRef<HTMLElement>()
++   const ref = useRef<FocussableElement>()
+    useLayoutEffect(() => {
+      if (shouldFocusChild) {
+        ref?.current?.focus()
+      }
+    }, [ref])
+    return <MyChildComponent ref={ref} />
+  }
 
-+ type FocussableRef = {
++ type FocussableElement = {
 +   focus: () => void
 +   // and that's it, no textContent, no nothing (although you can add any other property if needed)
 + }
 
-const MyChildComponent = forwardRef((props, forwardedRef) => {
-- const ref = useCombinedRef(forwardedRef)
-+ const ref = useRef<HTMLDivElement>()
-+ useImperativeHandle((forwardedRef) => {
-+   focus: () => ref?.current?.focus()
-+ })
-  useLayoutEffect(() => {
-    if (shouldFocus) {
-      ref?.current?.focus()
-    }
-  }, [ref])
-  return <div ref={ref} />
-})
+- const MyChildComponent = forwardRef<HTMLElement, PropsType>((props, forwardedRef) => {
++ const MyChildComponent = forwardRef<FocussableElement, PropsType>((props, forwardedRef) => {
+-   const ref = useCombinedRef(forwardedRef)
++   const ref = useRef<HTMLDivElement>()
++   useImperativeHandle((forwardedRef) => {
++     focus: () => ref?.current?.focus()
++   })
+    useLayoutEffect(() => {
+      if (shouldFocus) {
+        ref?.current?.focus()
+      }
+    }, [ref])
+    return <div ref={ref} />
+  })
 \`\`\`
 
 The new version allows 2 things:
