@@ -2,23 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react'
 import Dropdown, { Props as DropdownProps } from '../../../../lib/components/Dropdown/v1/Dropdown'
 import Menu from '../../../../lib/components/Dropdown/v1/Menu'
-
-const documentation = `
-## API
-\`\`\`tsx
-<Dropdown>
-  <button type="button">Link 1</button>
-  <Menu label={<button type="button">Submenu 1</button>}>
-    <button type="button">Link 2</button>
-    <Menu label={<button type="button">Submenu 2</button>}>
-      <button type="button">Link 3</button>
-    </Menu>
-    <button type="button">Link 4</button>
-  </Menu>
-</Dropdown>
-\`\`\`
-learn more [here](/story/components-dropdown-study--page#version-1---label-as-prop)
-`
+import documentation from './Dropdown.doc'
 
 export default {
   title: 'Components/Dropdown/v1 ⭐ - Label as prop',
