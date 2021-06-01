@@ -6,27 +6,7 @@ import Slide from '../../../../lib/components/Carousel/v2/Slide'
 import Dots from '../../../../lib/components/Carousel/v2/Dots'
 import Controls from '../../../../lib/components/Carousel/v2/Controls'
 import { Next, Play, Previous } from '../../../../lib/components/Carousel/v2/Buttons'
-
-const documentation = `
-## API
-\`\`\`tsx
-<Carousel isPlaying={true}>
-  <Slides>
-    <Slide><img src="https://picsum.photos/id/237/200/200" alt="A good boi" /></Slide>
-    <Slide><img src="https://picsum.photos/id/1/200/200" alt="me rn" /></Slide>
-    <Slide><img src="https://picsum.photos/id/1002/200/200" alt="Now I'm thirsty" /></Slide>
-    <Slide><img src="https://picsum.photos/id/1003/200/200" alt="Oh deer!" /></Slide>
-    <Slide><img src="https://picsum.photos/id/1015/200/200" alt="The amazon or something" /></Slide>
-  </Slides>
-  <Dots />
-  <Controls>
-    <Previous />
-    <Play />
-    <Next />
-  </Controls>
-</Carousel>
-\`\`\`
-`
+import documentation from './Carousel.doc'
 
 export default {
   title: 'Components/Carousel/v2 - By Gauthier',
