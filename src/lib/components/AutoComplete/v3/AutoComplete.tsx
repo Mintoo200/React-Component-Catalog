@@ -1,51 +1,53 @@
-import React, { useReducer } from 'react'
-import NoContextError from '../../../errors/NoContextError'
+import React, { useEffect, useReducer } from 'react'
 import { Context } from './Context'
-import Reducer, { ReducerActions } from './Reducer'
+import Input from './Input'
+import Reducer from './Reducer'
 
 import './style.css'
 
 export type Props = {
   children: React.ReactNode,
-  onSubmit: (value: string) => void,
+  onSubmit: (value: string | unknown) => void,
+  id: string,
+  'aria-labelledby': string,
+  onChange?: (value: string) => void,
 }
 
-const AutoComplete = ({ children, onSubmit }: Props): React.ReactElement => {
+function AutoComplete({
+  children, onSubmit, id, 'aria-labelledby': labelledby, onChange = () => null,
+}: Props): React.ReactElement {
   const [state, dispatch] = useReducer(Reducer, {
     currentInput: '',
-    hasFocus: false,
+    isOpen: false,
     onSubmit,
     focussedItem: -1,
-    dispatch: () => { throw new NoContextError() },
+    options: [],
   })
+  useEffect(() => {
+    onChange(state.currentInput)
+  }, [state.currentInput])
+  const childrenContainInput = React.Children
+    .toArray(children)
+    .some((child) => React.isValidElement(child) && child.type === Input)
   return (
-    <div
-      className="autocomplete"
-      onFocus={() => dispatch({ type: ReducerActions.gotFocus })}
-      onBlur={() => dispatch({ type: ReducerActions.lostFocus })}
-      onKeyDown={(event: React.KeyboardEvent) => {
-        if (event.key === 'ArrowDown') {
-          dispatch({
-            type: ReducerActions.focusNext,
-          })
-        } else if (event.key === 'ArrowUp') {
-          dispatch({
-            type: ReducerActions.focusPrevious,
-          })
-        } else if (event.key === 'Enter') {
-          dispatch({
-            type: ReducerActions.submit,
-          })
-        }
-      }}
-      role="presentation">
-      <Context.Provider value={{
-        ...state,
-        dispatch,
-      }}>
+    <Context.Provider value={{
+      ...state,
+      id,
+      'aria-labelledby': labelledby,
+      dispatch,
+    }}>
+      <div
+        className="autocomplete"
+        aria-expanded={state.isOpen}
+        aria-haspopup="listbox"
+        aria-owns={`${id}-options`}
+        /* FIXME: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/issues/789 */
+        /* eslint-disable-next-line jsx-a11y/role-has-required-aria-props */
+        role="combobox">
+        {childrenContainInput || <Input />}
         {children}
-      </Context.Provider>
-    </div>
+      </div>
+    </Context.Provider>
   )
 }
 

@@ -76,11 +76,13 @@ import '../../style.css'
 <div className="subheading">API</div>
 
 ```tsx
-<AutoComplete onSubmit={(input: string) => null}>
+<label id="my-label" htmlFor="autocomplete">AutoComplete</label>
+<AutoComplete id="autocomplete" aria-labelledby="my-label" onSubmit={(input: string | unknown) => null}>
     <Input />
     <Options>
-      <Option>Test</Option>
-      <Option value="Test 2">Also a test</Option>
+      <Option>Value 1</Option>
+      <Option value="Test 2">Value 2</Option>
+      <Option value={{ id: 1, value: 'Test 3'}}>Value 3</Option>
     </Options>
 </AutoComplete>
 ```
@@ -94,5 +96,23 @@ import '../../style.css'
 
 <div className="subheading">Drawbacks</div>
 <ul>
-  <li>Complex implementation to have the same accessibility features</li>
+  <li>Complex implementation to have the same features</li>
 </ul>
+
+<div className="subheading" id="v3-a11y">Accessibility</div>
+
+This component implements the accessibility features described in [the W3C example for the matching component](https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html) with some minor tweaks including:
+
+- [Full keyboard controls](https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html#kbd_label) with minor tweak:
+  - Escape key does not clear the input field [in conformity with upcoming version 1.2](https://github.com/w3c/aria-practices/issues/1066).
+- [ARIA attributes for roles, haspopup, owns, expanded, autocomplete, controls, activedescendant, labelledby and selected](https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html#rps_label) with minor tweak:
+  - Includes a polite `aria-live` region for the list to allow async options.
+
+Remember to add a `<label for id />` for the input field and option list, e.g.:
+
+```tsx
+<label id="my-label" htmlFor="autocomplete">AutoComplete</label>
+<AutoComplete id="autocomplete" aria-labelledby="my-label">
+  ...
+</AutoComplete>
+```

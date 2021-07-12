@@ -1,0 +1,12 @@
+@keyframes breathing {
+  0% {
+    color: rgb(201, 201, 201);
+  }
+  100% {
+    color: grey;
+  }
+}
+
+.loading {
+  animation: breathing .75s linear infinite alternate;
+}

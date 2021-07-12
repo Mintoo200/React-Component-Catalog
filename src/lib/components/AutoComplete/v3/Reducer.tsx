@@ -1,12 +1,12 @@
-import { Reducer as ReducerType } from 'react'
+import { Reducer as ReducerType, RefObject } from 'react'
 import InvalidActionError from '../../../errors/InvalidActionError'
-import { ContextType } from './Context'
+import { OptionRef } from './Option'
 
 export enum ReducerActions {
   setCurrentInput,
   submit,
-  gotFocus,
-  lostFocus,
+  openList,
+  closeList,
   setOptions,
   focusNext,
   focusPrevious,
@@ -18,14 +18,14 @@ export type Action = {
   input: string | undefined,
 } | {
   type: ReducerActions.setOptions,
-  options: string[],
+  options: RefObject<OptionRef>[],
 } | {
   type: ReducerActions.setFocussed,
   index: number,
 } | {
   type: ReducerActions.submit
-    | ReducerActions.gotFocus
-    | ReducerActions.lostFocus
+    | ReducerActions.openList
+    | ReducerActions.closeList
     | ReducerActions.focusNext
     | ReducerActions.focusPrevious,
   input?: never,
@@ -33,7 +33,22 @@ export type Action = {
   index?: never,
 }
 
-const Reducer: ReducerType<ContextType, Action> = (state, action) => {
+export type State = {
+  currentInput: string,
+  isOpen: boolean,
+  onSubmit: (value: string | unknown) => void,
+  options: RefObject<OptionRef>[],
+  focussedItem: number,
+}
+
+function filterMatching(list: RefObject<OptionRef>[], matcher: string) {
+  const matchingOptions = list.filter((optionRef) => (
+    optionRef?.current?.match(matcher)
+  ))
+  return matchingOptions
+}
+
+const Reducer: ReducerType<State, Action> = (state, action) => {
   switch (action.type) {
     case ReducerActions.setCurrentInput:
       return {
@@ -44,25 +59,27 @@ const Reducer: ReducerType<ContextType, Action> = (state, action) => {
 
     case ReducerActions.submit:
       if (state.focussedItem !== -1) {
-        state.onSubmit(state.options[state.focussedItem])
+        const matchingOptions = filterMatching(state.options, state.currentInput)
+        state.onSubmit(matchingOptions[state.focussedItem]?.current?.value)
         return {
           ...state,
-          currentInput: state.options[state.focussedItem],
+          currentInput: matchingOptions[state.focussedItem]?.current?.textValue,
         }
       }
       state.onSubmit(state.currentInput)
       return state
 
-    case ReducerActions.gotFocus:
+    case ReducerActions.openList:
       return {
         ...state,
-        hasFocus: true,
+        isOpen: true,
       }
 
-    case ReducerActions.lostFocus:
+    case ReducerActions.closeList:
       return {
         ...state,
-        hasFocus: false,
+        focussedItem: -1,
+        isOpen: false,
       }
 
     case ReducerActions.setOptions:
@@ -72,19 +89,25 @@ const Reducer: ReducerType<ContextType, Action> = (state, action) => {
         focussedItem: -1,
       }
 
-    case ReducerActions.focusNext:
+    case ReducerActions.focusNext: {
+      const matchingOptions = filterMatching(state.options, state.currentInput)
       return {
         ...state,
-        focussedItem: ((state.focussedItem + 2) % (state.options.length + 1)) - 1,
+        focussedItem: ((state.focussedItem + 2) % (matchingOptions.length + 1)) - 1,
+        isOpen: true,
       }
+    }
 
-    case ReducerActions.focusPrevious:
+    case ReducerActions.focusPrevious: {
+      const matchingOptions = filterMatching(state.options, state.currentInput)
       return {
         ...state,
         focussedItem: (state.focussedItem === -1)
-          ? state.options.length - 1
+          ? matchingOptions.length - 1
           : state.focussedItem - 1,
+        isOpen: true,
       }
+    }
 
     case ReducerActions.setFocussed:
       return {

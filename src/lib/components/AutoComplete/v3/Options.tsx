@@ -1,56 +1,52 @@
-import React, { useEffect } from 'react'
+import React, {
+  RefObject, useEffect, useLayoutEffect, useState,
+} from 'react'
 import useAutoComplete from './Context'
-import Option from './Option'
+import Option, { OptionRef } from './Option'
 import { ReducerActions } from './Reducer'
 
 export type Props = {
   children: React.ReactNode,
 }
 
-const isOption = (node: React.ReactNode): node is React.ReactElement => (
-  React.isValidElement(node) && node.type === Option
-)
+function isOption(node: React.ReactNode): node is React.ReactElement {
+  return React.isValidElement(node) && node.type === Option
+}
 
-const match = (option: string, input: string) => (
-  option.toLowerCase().includes(input.toLowerCase())
-)
-
-const valueMatch = (node: React.ReactElement, input: string) => (
-  node.props.value && match(node.props.value, input)
-)
-
-const childrenMatch = (node: React.ReactElement, input: string) => (
-  node.props.children
-  && (typeof node.props.children === 'string'
-    && match(node.props.children, input))
-)
-
-const Options = ({ children }: Props): React.ReactElement => {
+function Options({ children }: Props): React.ReactElement {
   const {
-    currentInput, dispatch, hasFocus, focussedItem,
+    currentInput, dispatch, isOpen, focussedItem, id, 'aria-labelledby': labeledby,
   } = useAutoComplete()
-  useEffect(() => {
-    const options: string[] = []
+  const [refs, setRefs] = useState<RefObject<OptionRef>[]>([])
+  useLayoutEffect(() => {
+    // using layout effect to ensure refs up to date before any effect call
+    // also, using forEach with push because toArray.filter.map would be slower for small arrays
+    // cf. https://codesandbox.io/s/children-toarrayfiltermap-vs-foreach-t5wb3?file=/src/App.tsx
+    const newRefs: RefObject<OptionRef>[] = []
     React.Children.forEach(children, (child) => {
       if (isOption(child)) {
-        if (valueMatch(child, currentInput)
-        || childrenMatch(child, currentInput)) {
-          options.push(child.props.value ?? child.props.children)
-        }
+        newRefs.push(React.createRef<OptionRef>())
       }
     })
+    setRefs(newRefs)
+  }, [children])
+  useEffect(() => {
     dispatch({
       type: ReducerActions.setOptions,
-      options,
+      options: refs,
     })
-  }, [children, currentInput])
+  }, [refs])
   let itemIndex = -1
   return (
-    <ol className={`options ${hasFocus ? '' : 'hidden'}`}>
-      {React.Children.map(children, (child) => {
+    <ul
+      className={`options ${isOpen ? '' : 'hidden'}`}
+      id={`${id}-options`}
+      role="listbox"
+      aria-labelledby={labeledby}
+      aria-live="polite">
+      {React.Children.map(children, (child, index) => {
         if (isOption(child)) {
-          if (valueMatch(child, currentInput)
-          || childrenMatch(child, currentInput)) {
+          if (refs[index]?.current?.match(currentInput)) {
             itemIndex += 1
             // action needs to be set here for closure
             const indexCopy = itemIndex
@@ -67,15 +63,24 @@ const Options = ({ children }: Props): React.ReactElement => {
                   index: indexCopy,
                 })
               ),
+              onUnHover: () => (
+                dispatch({
+                  type: ReducerActions.setFocussed,
+                  index: -1,
+                })
+              ),
+              id: `${id}-options-${itemIndex}`,
+              ref: refs[index],
             })
           }
           return React.cloneElement(child, {
             hidden: true,
+            ref: refs[index],
           })
         }
         return child
       })}
-    </ol>
+    </ul>
   )
 }
 
