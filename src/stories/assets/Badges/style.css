@@ -9,13 +9,17 @@
   outline: none;
 }
 
-.try-it:hover {
+.try-it:hover, .a11y:hover {
   cursor: pointer;
 }
 
 .try-it {
   background: aquamarine;
   color: rgb(54, 54, 54);
+}
+
+.a11y {
+  background: yellow;
 }
 
 .deprecated {

@@ -1,10 +1,10 @@
 import {
-  ForwardedRef, RefObject, useEffect, useRef,
+  ForwardedRef, RefObject, useLayoutEffect, useRef,
 } from 'react'
 
 export default function useCombinedRef<T>(...forwardedRefs: ForwardedRef<T>[]): RefObject<T> {
   const localRef = useRef<T>()
-  useEffect(() => {
+  useLayoutEffect(() => {
     forwardedRefs.forEach((ref) => {
       if (ref == null) {
         return

@@ -9,6 +9,14 @@ const MyComponent = ({ hasFocus: boolean }) => {
   )
 }
 \`\`\`
+
+You can provide a RefObject to be focussed as secondary argument if needed:
+
+\`\`\`tsx
+const ref = useRef<HTMLElement>()
+const focusRef = useFocus(true, ref)
+// ref === focusRef
+\`\`\`
 `
 
 export default documentation

@@ -1,44 +1,400 @@
-import React, { useState } from 'react'
+import React, {
+  RefObject, useEffect, useImperativeHandle, useLayoutEffect, useReducer, useRef, useState,
+} from 'react'
+import InvalidActionError from '../../../errors/InvalidActionError'
+import { FocussableElement } from '../../../hooks/useFocus/useFocus'
+import Item from './Item'
+import {
+  findNextMatching, isCharacter, TextContent,
+} from './Utils'
 
-export type Props = {
-  children: React.ReactNode,
-  label: React.ReactNode,
+function actualBlur(event: React.FocusEvent) {
+  return (
+    event.type === 'blur'
+    && (
+      !(event.relatedTarget instanceof HTMLElement)
+      || !(event.currentTarget.contains(event.relatedTarget))
+    )
+  )
 }
 
-const Menu: React.FC<Props> = ({ children, label }) => {
-  const [hasFocus, setFocus] = useState(false)
-  const [timeoutId, setTimeoutId] = useState(null)
-  // The timeout is needed here because without it,
-  // React looses focus of the label before grabbing focus on the submenu
-  // causing the submenu loosing display and loosing "focussability" before grabbing it
-  // TL;DR: need to delay focus lost to keep focus when accessing submenu (for a11y)
-  const closeMenu = () => {
-    const newTimeout = setTimeout(() => setFocus(false), 0)
-    setTimeoutId(newTimeout)
-  }
-  const openMenu = () => {
-    if (timeoutId != null) {
-      clearTimeout(timeoutId)
+enum Actions {
+  setRefs,
+  setIsOpen,
+  closeMenu,
+  openMenu,
+  setFocussedItem,
+  focusFirst,
+  focusLast,
+  focusNext,
+  focusPrevious,
+  focusMatching,
+  hover,
+  unhover,
+  submenuGrabFocus,
+  submenuLoseFocus,
+}
+
+type Action = {
+  type: Actions.setRefs,
+  refs: RefObject<TextContent>[],
+} | {
+  type: Actions.setIsOpen,
+  isOpen: boolean,
+} | {
+  type: Actions.setFocussedItem,
+  index: number,
+} | {
+  type: Actions.focusMatching,
+  match: string
+} | {
+  type: Actions.closeMenu
+  | Actions.openMenu
+  | Actions.focusFirst
+  | Actions.focusLast
+  | Actions.focusNext
+  | Actions.focusPrevious
+  | Actions.hover
+  | Actions.unhover
+  | Actions.submenuGrabFocus
+  | Actions.submenuLoseFocus,
+  isOpen?: never,
+  index?: never,
+  refs?: never,
+  match?: never
+}
+
+type State = {
+  isOpen: boolean,
+  isHovered: boolean,
+  focussedItem: number,
+  submenuHasFocus: boolean,
+  refs: RefObject<TextContent>[],
+}
+
+function Reducer(state: State, action: Action) {
+  switch (action.type) {
+    case Actions.setRefs:
+      return {
+        ...state,
+        refs: action.refs,
+      }
+    case Actions.setIsOpen:
+      return {
+        ...state,
+        isOpen: action.isOpen,
+        focussedItem: (action.isOpen) ? state.focussedItem : -1,
+      }
+    case Actions.closeMenu:
+      return {
+        ...state,
+        isOpen: false,
+        focussedItem: -1,
+      }
+    case Actions.openMenu:
+      return {
+        ...state,
+        isOpen: true,
+      }
+    case Actions.setFocussedItem:
+      return {
+        ...state,
+        focussedItem: action.index,
+      }
+    case Actions.focusFirst:
+      return {
+        ...state,
+        focussedItem: 0,
+      }
+    case Actions.focusLast:
+      return {
+        ...state,
+        focussedItem: state.refs.length - 1,
+      }
+    case Actions.focusNext:
+      return {
+        ...state,
+        focussedItem: (state.focussedItem + 1) % state.refs.length,
+      }
+    case Actions.focusPrevious:
+      return {
+        ...state,
+        focussedItem: (state.focussedItem - 1 + state.refs.length) % state.refs.length,
+      }
+    case Actions.focusMatching: {
+      if (!isCharacter(action.match)) {
+        break
+      }
+      if (state.isOpen && state.focussedItem !== -1) {
+        const newIndex = findNextMatching(state.refs, action.match, state.focussedItem)
+        if (newIndex === -1) {
+          break
+        }
+        return {
+          ...state,
+          focussedItem: newIndex,
+        }
+      }
+      break
     }
-    setFocus(true)
+    case Actions.hover:
+      return {
+        ...state,
+        isHovered: true,
+      }
+    case Actions.unhover:
+      return {
+        ...state,
+        isHovered: false,
+      }
+    case Actions.submenuGrabFocus:
+      return {
+        ...state,
+        submenuHasFocus: true,
+      }
+    case Actions.submenuLoseFocus:
+      return {
+        ...state,
+        submenuHasFocus: false,
+      }
+    default:
+      throw new InvalidActionError()
   }
+  return state
+}
+
+export type Props = {
+  children: React.ReactElement | React.ReactElement[],
+  label: React.ReactNode | ((props: LabelProps<HTMLElement>) => React.ReactElement),
+  tabIndex?: number,
+  grabFocus?: () => void,
+  loseFocus?: () => void,
+  opensDownward?: boolean,
+  openNextSibling?: () => void,
+  openPreviousSibling?: () => void,
+  preview?: boolean
+}
+
+export type LabelProps<T> = {
+  ref: React.ForwardedRef<T>,
+  tabIndex: number,
+  'aria-haspopup': boolean | 'dialog' | 'menu' | 'false' | 'true' | 'listbox' | 'tree' | 'grid',
+  'aria-expanded': boolean | 'false' | 'true',
+  role: string,
+}
+
+const Menu = React.forwardRef<FocussableElement & TextContent, Props>(({
+  children,
+  label,
+  tabIndex = -1,
+  grabFocus = () => null,
+  loseFocus = () => null,
+  opensDownward = false,
+  openNextSibling = () => null,
+  openPreviousSibling = () => null,
+  preview = false,
+}: Props, forwardedRef) => {
+  const [{
+    isOpen, focussedItem, refs, isHovered, submenuHasFocus,
+  }, dispatch] = useReducer(Reducer, {
+    isOpen: false,
+    isHovered: false,
+    focussedItem: -1,
+    submenuHasFocus: false,
+    refs: React.Children.map(children, () => React.createRef<TextContent>()),
+  })
+  const [ariaLabel, setAriaLabel] = useState('')
+  const labelRef = useRef<HTMLButtonElement>()
+  useImperativeHandle(forwardedRef, () => ({
+    focus: () => labelRef?.current?.focus(),
+    textContent: labelRef?.current?.textContent,
+  }))
+  useLayoutEffect(() => {
+    setAriaLabel(labelRef?.current?.textContent)
+  }, [labelRef?.current?.textContent])
+  useEffect(() => {
+    dispatch({
+      type: Actions.setRefs,
+      refs: React.Children.map(children, () => React.createRef<TextContent>()),
+    })
+  }, [children])
+  useLayoutEffect(() => {
+    if (!isOpen) {
+      loseFocus()
+    }
+  }, [isOpen])
+  useLayoutEffect(() => {
+    if (isOpen) {
+      grabFocus()
+    }
+    // "focussedItem === -1" => call when switching between === -1 and !== -1
+  }, [isOpen, focussedItem === -1])
+
+  function handleKeyOnLabel(event: React.KeyboardEvent) {
+    let shouldStopPropagation = true
+    let shouldPreventDefault = true
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        dispatch({ type: Actions.openMenu })
+        dispatch({ type: Actions.focusFirst })
+        break
+      case 'ArrowDown':
+        if (opensDownward) {
+          dispatch({ type: Actions.openMenu })
+          dispatch({ type: Actions.focusFirst })
+        } else {
+          shouldStopPropagation = false
+        }
+        break
+      case 'ArrowUp':
+        if (opensDownward) {
+          dispatch({ type: Actions.openMenu })
+          dispatch({ type: Actions.focusLast })
+        } else {
+          shouldStopPropagation = false
+        }
+        break
+      case 'ArrowRight':
+        if (!opensDownward) {
+          dispatch({ type: Actions.openMenu })
+          dispatch({ type: Actions.focusFirst })
+        } else {
+          shouldStopPropagation = false
+        }
+        break
+      default:
+        shouldPreventDefault = false
+        shouldStopPropagation = false
+        break
+    }
+    if (shouldPreventDefault) {
+      event.preventDefault()
+    }
+    if (shouldStopPropagation) {
+      event.stopPropagation()
+    }
+  }
+
+  function handleKeyOnMenu(event: React.KeyboardEvent) {
+    let shouldStopPropagation = true
+    let shouldPreventDefault = true
+    switch (event.key) {
+      case 'Escape':
+        if (opensDownward) {
+          shouldStopPropagation = false
+        }
+        dispatch({ type: Actions.closeMenu })
+        break
+      case 'ArrowRight': {
+        const child = React.Children.toArray(children)[focussedItem]
+        if (!React.isValidElement(child) || child.type !== Menu) {
+          dispatch({ type: Actions.closeMenu })
+          openNextSibling()
+        }
+        break
+      }
+      case 'ArrowLeft':
+        dispatch({ type: Actions.closeMenu })
+        if (opensDownward) {
+          openPreviousSibling()
+        }
+        break
+      case 'ArrowDown':
+        dispatch({ type: Actions.focusNext })
+        break
+      case 'ArrowUp':
+        dispatch({ type: Actions.focusPrevious })
+        break
+      case 'Home':
+        dispatch({ type: Actions.focusFirst })
+        break
+      case 'End':
+        dispatch({ type: Actions.focusLast })
+        break
+      default: {
+        if (!isCharacter(event.key)) {
+          shouldPreventDefault = false
+        }
+        dispatch({ type: Actions.focusMatching, match: event.key })
+        break
+      }
+    }
+    if (shouldPreventDefault) {
+      event.preventDefault()
+    }
+    if (shouldStopPropagation) {
+      event.stopPropagation()
+    }
+  }
+
   return (
     <div
-      onMouseEnter={openMenu}
-      onFocus={openMenu}
-      onMouseLeave={closeMenu}
-      onBlur={closeMenu}
-      className="label">
-      {label}
-      <ul className={`submenu ${hasFocus ? 'open' : 'closed'}`}>
+      onMouseEnter={() => { dispatch({ type: Actions.hover }) }}
+      onMouseLeave={() => { dispatch({ type: Actions.unhover }) }}
+      onBlur={(event) => { if (actualBlur(event)) dispatch({ type: Actions.closeMenu }) }}
+      className="label"
+      role="presentation">
+      <div role="presentation" className="label" onKeyDown={handleKeyOnLabel}>
+        {(function renderLabel() {
+          let result: React.ReactElement
+          if (React.isValidElement(label)) {
+            result = React.cloneElement(label, {
+              ref: labelRef,
+              tabIndex,
+              'aria-haspopup': 'menu',
+              'aria-expanded': isOpen,
+              role: 'menuitem',
+            })
+          } else if (typeof label === 'function') {
+            result = label({
+              ref: labelRef,
+              tabIndex,
+              'aria-haspopup': 'menu',
+              'aria-expanded': isOpen,
+              role: 'menuitem',
+            })
+          } else {
+            result = (
+              <button type="button" tabIndex={tabIndex} role="menuitem" aria-haspopup="menu" aria-expanded={isOpen} ref={labelRef}>
+                {label}
+              </button>
+            )
+          }
+          return result
+        }())}
+      </div>
+      <ul
+        onKeyDown={handleKeyOnMenu}
+        className={`submenu ${(isOpen || preview || isHovered) ? 'open' : 'closed'}`}
+        role="menu"
+        aria-label={ariaLabel}>
         {React.Children.map(children, (child, index) => (
-          <li key={index}>
-            {child}
-          </li>
+          <Item
+            key={index}
+            hasFocus={focussedItem === index && isOpen && !submenuHasFocus}
+            ref={refs[index]}
+            onClick={() => dispatch({ type: Actions.setFocussedItem, index })}>
+            {(child.type === Menu)
+              ? React.cloneElement(child, {
+                grabFocus: () => { dispatch({ type: Actions.submenuGrabFocus }) },
+                loseFocus: () => { dispatch({ type: Actions.submenuLoseFocus }) },
+                openNextSibling: () => {
+                  dispatch({ type: Actions.closeMenu })
+                  openNextSibling()
+                },
+                openPreviousSibling: () => {
+                  dispatch({ type: Actions.closeMenu })
+                  openPreviousSibling()
+                },
+                preview: false,
+              })
+              : child}
+          </Item>
         ))}
       </ul>
     </div>
   )
-}
+})
 
 export default Menu
