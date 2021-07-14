@@ -2,10 +2,9 @@ import React, {
   RefObject, useEffect, useImperativeHandle, useLayoutEffect, useReducer, useRef, useState,
 } from 'react'
 import InvalidActionError from '../../../errors/InvalidActionError'
-import { FocussableElement } from '../../../hooks/useFocus/useFocus'
 import Item from './Item'
 import {
-  findNextMatching, isCharacter, TextContent,
+  findNextMatching, isCharacter, TextContent, FocussableElement,
 } from './Utils'
 
 function actualBlur(event: React.FocusEvent) {

@@ -41,3 +41,7 @@ export function findNextMatching(
   }
   return (newShiftedIndex + from + 1) % array.length
 }
+
+export type FocussableElement = {
+  focus: () => void,
+}
