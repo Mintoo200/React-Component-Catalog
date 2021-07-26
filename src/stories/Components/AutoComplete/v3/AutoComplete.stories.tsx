@@ -9,7 +9,7 @@ import documentation from './AutoComplete.doc'
 import './style.css'
 
 export default {
-  title: 'Components/AutoComplete/v3 ⭐ - Option list without datalist',
+  title: 'Components/AutoComplete/v3 ⭐ ♿ - Option list without datalist',
   component: AutoComplete,
   parameters: {
     componentSource: {
