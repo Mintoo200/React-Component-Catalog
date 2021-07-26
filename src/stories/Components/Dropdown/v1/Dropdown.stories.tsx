@@ -5,7 +5,7 @@ import Menu from '../../../../lib/components/Dropdown/v1/Menu'
 import documentation from './Dropdown.doc'
 
 export default {
-  title: 'Components/Dropdown/v1 ⭐ - Label as prop',
+  title: 'Components/Dropdown/v1 ⭐ ♿ - Label as prop',
   component: Dropdown,
   parameters: {
     componentSource: {
