@@ -63,7 +63,8 @@
    "@typescript-eslint/no-unused-vars": "error",
    "no-shadow": "off",
    "@typescript-eslint/no-shadow": ["error"],
-   "jsx-a11y/label-has-associated-control": ["error", {"controlComponents": ["AutoComplete"]}]
+   "jsx-a11y/label-has-associated-control": ["error", {"controlComponents": ["AutoComplete"]}],
+   "no-param-reassign": ["error", { "props": false }]
   },
   "overrides": [
     {
