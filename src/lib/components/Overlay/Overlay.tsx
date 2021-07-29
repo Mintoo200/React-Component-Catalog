@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
+import FocusTrap from '../FocusTrap/FocusTrap'
 
 import './style.css'
 
@@ -25,7 +26,9 @@ const Overlay = ({ children, isOpen = false, onClose }: Props): React.ReactEleme
       onClick={onClose}
       onKeyPress={handleEscape}
       role="button">
-      {children}
+      <FocusTrap active={isOpen}>
+        {children}
+      </FocusTrap>
     </div>
   )
 }
