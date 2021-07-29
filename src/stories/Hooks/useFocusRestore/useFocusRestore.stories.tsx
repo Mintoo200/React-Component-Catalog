@@ -9,7 +9,7 @@ export default {
   parameters: {
     componentSource: {
       url: [
-        // 'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseFocus%2FuseFocus%2Etsx/raw?ref=master',
+        'https://gitlab.com/api/v4/projects/24477877/repository/files/src%2Flib%2Fhooks%2FuseFocusRestore%2FuseFocusRestore%2Etsx/raw?ref=master',
       ],
       language: 'javascript',
     },
