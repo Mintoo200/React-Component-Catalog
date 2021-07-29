@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react'
 import { Story } from '@storybook/react'
 import useFocusRestore from '../../../lib/hooks/useFocusRestore/useFocusRestore'
 import Overlay from '../../../lib/components/Overlay/Overlay'
-// import documentation from './useFocus.doc'
+import documentation from './useFocusRestore.doc'
 
 export default {
   title: 'Hooks/useFocusRestore/useFocusRestore',
@@ -15,7 +15,7 @@ export default {
     },
     docs: {
       description: {
-        // component: documentation,
+        component: documentation,
       },
     },
   },
