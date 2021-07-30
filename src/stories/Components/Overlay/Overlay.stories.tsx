@@ -6,7 +6,7 @@ import documentation from './Overlay.doc'
 import './style.css'
 
 export default {
-  title: 'Components/Overlay/Overlay',
+  title: 'Components/Overlay/♿ Overlay',
   component: Overlay,
   argTypes: {
     isOpen: {
