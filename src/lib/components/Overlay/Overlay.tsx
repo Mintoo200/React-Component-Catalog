@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
+import useFocusRestore from '../../hooks/useFocusRestore/useFocusRestore'
+import FocusTrap from '../FocusTrap/FocusTrap'
 
 import './style.css'
 
@@ -12,6 +14,7 @@ const Overlay = ({ children, isOpen = false, onClose }: Props): React.ReactEleme
   const handleEscape = useCallback((event: React.KeyboardEvent|KeyboardEvent) => {
     if (event.key === 'Escape') { onClose() }
   }, [])
+  useFocusRestore(!isOpen)
   useEffect(() => {
     document.addEventListener('keydown', handleEscape, false)
     return () => {
@@ -25,7 +28,9 @@ const Overlay = ({ children, isOpen = false, onClose }: Props): React.ReactEleme
       onClick={onClose}
       onKeyPress={handleEscape}
       role="button">
-      {children}
+      <FocusTrap active={isOpen}>
+        {children}
+      </FocusTrap>
     </div>
   )
 }
