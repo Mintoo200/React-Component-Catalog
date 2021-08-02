@@ -1,14 +1,12 @@
-.overlay-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .modal {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: fit-content;
   height: fit-content;
   background: white;
   border-radius: 1em;
+  margin: 0;
 }
 
 .modal .title {

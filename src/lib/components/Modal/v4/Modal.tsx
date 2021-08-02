@@ -25,13 +25,11 @@ export type Props = {
 const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement => (
   <Context.Provider value={{ onClose }}>
     <Overlay isOpen={isOpen} onClose={onClose}>
-      <div className="overlay-wrapper">
-        <div
-          className="modal"
-          onClick={(event: React.MouseEvent) => event.stopPropagation()}
-          role="presentation">
-          {children}
-        </div>
+      <div
+        className="modal"
+        onClick={(event: React.MouseEvent) => event.stopPropagation()}
+        role="presentation">
+        {children}
       </div>
     </Overlay>
   </Context.Provider>
