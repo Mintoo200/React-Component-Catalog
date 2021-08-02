@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import FocusTrap from '../FocusTrap'
 
-describe('AutoComplete tests', () => {
+describe('FocusTrap tests', () => {
   it('should trap the focus when active', () => {
     render(
       <>
