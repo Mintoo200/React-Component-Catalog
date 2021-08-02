@@ -27,7 +27,7 @@ const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement
     <Overlay isOpen={isOpen} onClose={onClose}>
       <div
         className="modal"
-        role="presentation">
+        role="dialog">
         {children}
       </div>
     </Overlay>

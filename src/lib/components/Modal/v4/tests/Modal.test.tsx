@@ -91,4 +91,13 @@ describe('Modal tests', () => {
     userEvent.click(inside)
     expect(onClose).not.toHaveBeenCalled()
   })
+  it('should have the dialog role', () => {
+    render(
+      <Modal isOpen onClose={() => null}>
+        <div />
+      </Modal>,
+    )
+    const dialog = screen.getByRole('dialog')
+    expect(dialog).toBeDefined()
+  })
 })
