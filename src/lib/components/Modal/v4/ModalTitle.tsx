@@ -10,7 +10,7 @@ const ModalTitle = ({ children }: Props): React.ReactElement => {
   return (
     <>
       <div className="title">
-        <h1>{children}</h1>
+        <h2>{children}</h2>
         <button
           className="quit"
           type="button"
