@@ -27,7 +27,8 @@ const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement
     <Overlay isOpen={isOpen} onClose={onClose}>
       <div
         className="modal"
-        role="dialog">
+        role="dialog"
+        aria-modal>
         {children}
       </div>
     </Overlay>

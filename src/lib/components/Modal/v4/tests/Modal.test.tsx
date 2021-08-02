@@ -100,4 +100,13 @@ describe('Modal tests', () => {
     const dialog = screen.getByRole('dialog')
     expect(dialog).toBeDefined()
   })
+  it('should have aria-modal set to true', () => {
+    render(
+      <Modal isOpen onClose={() => null}>
+        <div />
+      </Modal>,
+    )
+    const dialog = screen.getByRole('dialog')
+    expect(dialog).toHaveAttribute('aria-modal', 'true')
+  })
 })
