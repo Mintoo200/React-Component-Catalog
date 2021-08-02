@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Story } from '@storybook/react'
 import useFocusTrap from '../../../lib/hooks/useFocusTrap/useFocusTrap'
-// import documentation from './useFocusTrap.doc'
+import documentation from './useFocusTrap.doc'
 
 import './style.css'
 
@@ -16,7 +16,7 @@ export default {
     },
     docs: {
       description: {
-        // component: documentation,
+        component: documentation,
       },
     },
   },
