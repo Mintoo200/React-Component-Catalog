@@ -15,6 +15,12 @@ const Overlay = ({ children, isOpen = false, onClose }: Props): React.ReactEleme
   const handleEscape = useCallback((event: React.KeyboardEvent|KeyboardEvent) => {
     if (event.key === 'Escape') { onClose() }
   }, [])
+  const handleClick = useCallback((event: React.MouseEvent) => {
+    // ignore bubbling and propagation
+    if (event.target === event.currentTarget) {
+      onClose()
+    }
+  }, [trapRef, onClose])
   useFocusRestore(!isOpen)
   useEffect(() => {
     document.addEventListener('keydown', handleEscape, false)
@@ -25,11 +31,10 @@ const Overlay = ({ children, isOpen = false, onClose }: Props): React.ReactEleme
   return (
     <div
       ref={trapRef}
-      tabIndex={0}
       className={`overlay ${isOpen ? '' : 'hidden'}`}
-      onClick={onClose}
+      onClick={handleClick}
       onKeyPress={handleEscape}
-      role="button">
+      role="presentation">
       {children}
     </div>
   )
