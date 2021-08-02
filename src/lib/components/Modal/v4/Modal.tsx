@@ -27,7 +27,6 @@ const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement
     <Overlay isOpen={isOpen} onClose={onClose}>
       <div
         className="modal"
-        onClick={(event: React.MouseEvent) => event.stopPropagation()}
         role="presentation">
         {children}
       </div>
