@@ -19,7 +19,7 @@ Most notably:
 
 To keep your component accessible, remember to:
 
-- Focus the first element of the content when openning
+- Focus the first element of the content when opening
   - If the first element is not in the viewport, focus the first element of the modal even if it is not normally focussable to avoid automatically scrolling.
   - If the content does not warrant any user interraction, focus the button used to close the overlay to ease the user experience
 - Add the proper attributes to the content of the overlay:
