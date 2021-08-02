@@ -34,13 +34,17 @@ function extractFocussableNodes(
   return result
 }
 
-export default function useFocusTrap<T extends HTMLElement>(active = false): RefObject<T> {
-  const ref = useRef<HTMLElement>()
+export default function useFocusTrap<T extends HTMLElement>(
+  active = false,
+  providedRef?: RefObject<T>,
+): RefObject<T> {
+  const ref = useRef<T>()
+  const resultingRef = providedRef ?? ref
   const [outsideElements, setOutsideElements] = useState<FocussableListNode[]>([])
   useEffect(() => {
-    const elements = extractFocussableNodes(document, ref?.current)
+    const elements = extractFocussableNodes(document, resultingRef?.current)
     setOutsideElements(elements)
-  }, [ref, setOutsideElements])
+  }, [resultingRef, setOutsideElements])
   useEffect(() => {
     if (active) {
       outsideElements.forEach(({ target }) => {
@@ -52,5 +56,5 @@ export default function useFocusTrap<T extends HTMLElement>(active = false): Ref
       })
     }
   }, [active, outsideElements])
-  return ref
+  return resultingRef
 }

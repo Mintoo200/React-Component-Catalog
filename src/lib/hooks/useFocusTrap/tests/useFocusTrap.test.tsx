@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import useFocusTrap from '../useFocusTrap'
 
 describe('useFocusTrap tests', () => {
@@ -107,5 +107,19 @@ describe('useFocusTrap tests', () => {
     expect(document.body).toHaveFocus()
     userEvent.tab()
     expect(second).toHaveFocus()
+  })
+
+  it('should take a ref as optional parameter', () => {
+    let initialRef = null
+    let resultingRef = null
+    function Component() {
+      initialRef = useRef<HTMLDivElement>()
+      resultingRef = useFocusTrap(false, initialRef)
+      return (
+        <div ref={initialRef} />
+      )
+    }
+    render(<Component />)
+    expect(resultingRef).toBe(initialRef)
   })
 })
