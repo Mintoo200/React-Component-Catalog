@@ -6,7 +6,7 @@ import ModalTitle from '../../../../lib/components/Modal/v4/ModalTitle'
 import documentation from './Modal.doc'
 
 export default {
-  title: 'Components/Modal/v4 ⭐ - Sub-components with Context',
+  title: 'Components/Modal/v4 ⭐ ♿ - Sub-components with Context',
   component: Modal,
   argTypes: {
     isOpen: {
