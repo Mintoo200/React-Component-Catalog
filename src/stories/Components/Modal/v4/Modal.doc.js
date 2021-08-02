@@ -1,9 +1,9 @@
 const documentation = `
 ## API
 \`\`\`tsx
-<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} aria-describedby="content">
   <ModalTitle>My title</ModalTitle>
-  <ModalContent>Try clicking outside of the modal or pressing 'Escape'!</ModalContent>
+  <ModalContent><p id="content">Try clicking outside of the modal or pressing 'Escape'!</p></ModalContent>
 </Modal>
 \`\`\`
 
