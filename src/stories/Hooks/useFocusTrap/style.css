@@ -1,0 +1,14 @@
+.trap {
+  border: 1px solid black;
+  padding: 5px;
+  width: max-content;
+  height: max-content;
+}
+
+.trap.active {
+  background: greenyellow;
+}
+
+.trap.inactive {
+  background: rgba(255, 0, 0, 0.58);
+}
