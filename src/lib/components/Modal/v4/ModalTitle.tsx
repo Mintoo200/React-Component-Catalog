@@ -6,11 +6,11 @@ export type Props = {
 }
 
 const ModalTitle = ({ children }: Props): React.ReactElement => {
-  const { onClose } = useModal()
+  const { onClose, id } = useModal()
   return (
     <>
       <div className="title">
-        <h1>{children}</h1>
+        <h2 id={`${id}-title`}>{children}</h2>
         <button
           className="quit"
           type="button"

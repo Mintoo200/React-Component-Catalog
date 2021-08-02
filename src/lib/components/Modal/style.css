@@ -1,14 +1,12 @@
-.overlay-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .modal {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: fit-content;
   height: fit-content;
   background: white;
   border-radius: 1em;
+  margin: 0;
 }
 
 .modal .title {
@@ -16,6 +14,7 @@
   border-bottom: 1px solid black;
 }
 
+.modal .title h2,
 .modal .title h1 {
   flex-grow: 1;
   font-size: large;

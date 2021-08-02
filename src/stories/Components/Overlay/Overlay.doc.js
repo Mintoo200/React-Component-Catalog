@@ -7,13 +7,6 @@ const documentation = `
   </div>
 </Overlay>
 \`\`\`
-**Remember to stop the click propagation if you want the overlay to stay open when you click on your content!** \n
-e.g.:\n
-\`\`\`tsx
-const childClickHandler = (event: React.MouseEvent) => {
-  event.stopPropagation()
-}
-\`\`\`
 
 ## Accessibility
 This component implements the accessibility specification described on [the W3C example page for the dialog component](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/dialog-modal/dialog.html).
@@ -26,7 +19,7 @@ Most notably:
 
 To keep your component accessible, remember to:
 
-- Focus the first element of the content when openning
+- Focus the first element of the content when opening
   - If the first element is not in the viewport, focus the first element of the modal even if it is not normally focussable to avoid automatically scrolling.
   - If the content does not warrant any user interraction, focus the button used to close the overlay to ease the user experience
 - Add the proper attributes to the content of the overlay:

@@ -6,7 +6,7 @@ import ModalTitle from '../../../../lib/components/Modal/v4/ModalTitle'
 import documentation from './Modal.doc'
 
 export default {
-  title: 'Components/Modal/v4 ⭐ - Sub-components with Context',
+  title: 'Components/Modal/v4 ⭐ ♿ - Sub-components with Context',
   component: Modal,
   argTypes: {
     isOpen: {
@@ -47,9 +47,10 @@ Default.args = {
   children: [
     <ModalTitle>This is my modal</ModalTitle>,
     <ModalContent>
-      Try clicking outside of the modal or pressing &lsquo;Escape&rsquo;!
+      <p id="content-1">Try clicking outside of the modal or pressing &lsquo;Escape&rsquo;!</p>
     </ModalContent>,
   ],
+  'aria-describedby': 'content-1',
 }
 
 export const withNonModal = Template.bind({})
@@ -57,8 +58,9 @@ withNonModal.args = {
   children: [
     <ModalTitle>This is my modal</ModalTitle>,
     <ModalContent>
-      Try clicking outside of the modal or pressing &lsquo;Escape&rsquo;!
+      <p id="content-2">Try clicking outside of the modal or pressing &lsquo;Escape&rsquo;!</p>
     </ModalContent>,
     <div>This is neither in &lsquo;ModalTitle&rsquo; nor in &lsquo;ModalContent&rsquo;.</div>,
   ],
+  'aria-describedby': 'content-2',
 }

@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import TryBadge from '../../assets/Badges/TryBadge'
+import A11yBadge from '../../assets/Badges/A11yBadge'
 import DeprecatedBadge from '../../assets/Badges/DeprecatedBadge'
 import LinkTo from '@storybook/addon-links/react';
 
@@ -71,9 +72,17 @@ Very similar to <a href="#version-3---sub-components">version 3</a>
 
 ### Version 4 - Sub-components with Context
 
-<TryBadge kind="components-modal-v4-⭐-sub-components-with-context" story="default" />
+<TryBadge kind="components-modal-v4-⭐-♿-sub-components-with-context" story="default" />
+<A11yBadge href="#v4-a11y" />
 
-Exactly like <a href="#version-3---sub-components">version 3</a> but using a context
+<div className="subheading">API</div>
+
+```tsx
+<Modal isOpen={isOpen} onClose={() => setIsOpen(false)} aria-describedby="content">
+  <ModalTitle>My title</ModalTitle>
+  <ModalContent><p id="content">Try clicking outside of the modal or pressing 'Escape'!</p></ModalContent>
+</Modal>
+```
 
 <div className="subheading">Advantages</div>
 <ul>
@@ -84,3 +93,21 @@ Exactly like <a href="#version-3---sub-components">version 3</a> but using a con
 <ul>
   <li>Uses a context</li>
 </ul>
+
+<div className="subheading" id="v4-a11y">Accessibility</div>
+
+This component implements the accessibility specification described on [the W3C example page for the dialog component](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/dialog-modal/dialog.html).
+
+Most notably:
+
+- Traps the focus in the modal when opened.
+- Pressing `Escape` closes the modal.
+- Closing the modal returns the focus to the last focussed item.
+- Has the attributes `role="dialog"`, `aria-modal="true"` and `aria-labelledby="title-id"`
+
+To keep your component accessible, remember to:
+
+- Focus the first element of the content when openning
+  - If the first element is not in the viewport, focus the first element of the modal even if it is not normally focussable to avoid automatically scrolling.
+  - If the content does not warrant any user interraction, focus the button used to close the overlay to ease the user experience
+- Add the `aria-describedby="paragraph-id"` prop if the content contains a paragraph that describes the primary message
