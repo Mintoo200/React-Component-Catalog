@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import FocusTrap from '../FocusTrap'
 
-describe('AutoComplete tests', () => {
+describe('FocusTrap tests', () => {
   it('should trap the focus when active', () => {
     render(
       <>
@@ -26,7 +26,7 @@ describe('AutoComplete tests', () => {
   it('should not trap the focus when not active', () => {
     render(
       <>
-        <FocusTrap active>
+        <FocusTrap>
           <button type="button">Inside</button>
         </FocusTrap>
         <button type="button">Outside</button>
@@ -36,7 +36,7 @@ describe('AutoComplete tests', () => {
     const insideTrap = screen.getByText('Inside')
     insideTrap.focus()
     userEvent.tab()
-    expect(outsideTrap).not.toHaveFocus()
+    expect(outsideTrap).toHaveFocus()
   })
   it('should keep the tab order inside of the trap', () => {
     render(
