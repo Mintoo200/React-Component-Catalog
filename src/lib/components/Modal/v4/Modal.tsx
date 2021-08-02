@@ -1,12 +1,18 @@
 import React, { useContext } from 'react'
 import NoContextError from '../../../errors/NoContextError'
+import useID from '../../../hooks/useID/useID'
 import Overlay from '../../Overlay/Overlay'
 
 import '../style.css'
 
-const Context = React.createContext(undefined)
+export type ContextType = {
+  onClose: () => void,
+  id: string,
+}
 
-export function useModal(): {onClose: () => void} {
+const Context = React.createContext<ContextType>(undefined)
+
+export function useModal(): ContextType {
   const context = useContext(Context)
 
   if (context == null) {
@@ -22,17 +28,21 @@ export type Props = {
   onClose: () => void,
 }
 
-const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement => (
-  <Context.Provider value={{ onClose }}>
-    <Overlay isOpen={isOpen} onClose={onClose}>
-      <div
-        className="modal"
-        role="dialog"
-        aria-modal>
-        {children}
-      </div>
-    </Overlay>
-  </Context.Provider>
-)
+const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement => {
+  const id = `modal-${useID()}`
+  return (
+    <Context.Provider value={{ onClose, id }}>
+      <Overlay isOpen={isOpen} onClose={onClose}>
+        <div
+          className="modal"
+          role="dialog"
+          aria-modal
+          aria-labelledby={`${id}-title`}>
+          {children}
+        </div>
+      </Overlay>
+    </Context.Provider>
+  )
+}
 
 export default Modal

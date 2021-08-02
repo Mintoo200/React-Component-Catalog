@@ -109,4 +109,15 @@ describe('Modal tests', () => {
     const dialog = screen.getByRole('dialog')
     expect(dialog).toHaveAttribute('aria-modal', 'true')
   })
+  it('should have a aria-labelledby set to the title id', () => {
+    render(
+      <Modal isOpen onClose={() => null}>
+        <ModalTitle>Hello</ModalTitle>
+      </Modal>,
+    )
+    const dialog = screen.getByRole('dialog')
+    const title = screen.getByRole('heading')
+    expect(title).toHaveAttribute('id')
+    expect(dialog).toHaveAttribute('aria-labelledby', title.id)
+  })
 })
