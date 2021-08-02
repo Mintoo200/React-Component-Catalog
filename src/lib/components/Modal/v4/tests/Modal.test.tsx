@@ -65,4 +65,30 @@ describe('Modal tests', () => {
     act(() => { userEvent.keyboard('{Escape}') })
     expect(openButton).toHaveFocus()
   })
+  it('should close when clicking outside', () => {
+    const onClose = jest.fn()
+    render(
+      <>
+        <Modal isOpen onClose={onClose}>
+          <div>inside</div>
+        </Modal>
+      </>,
+    )
+    const outside = screen.getByRole('presentation')
+    userEvent.click(outside)
+    expect(onClose).toHaveBeenCalledTimes(1)
+  })
+  it('should ignore bubbling and propagation', () => {
+    const onClose = jest.fn()
+    render(
+      <>
+        <Modal isOpen onClose={onClose}>
+          <div>inside</div>
+        </Modal>
+      </>,
+    )
+    const inside = screen.getByText('inside')
+    userEvent.click(inside)
+    expect(onClose).not.toHaveBeenCalled()
+  })
 })
