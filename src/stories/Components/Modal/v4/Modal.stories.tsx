@@ -58,9 +58,9 @@ withNonModal.args = {
   children: [
     <ModalTitle>This is my modal</ModalTitle>,
     <ModalContent>
-      <p id="content-1">Try clicking outside of the modal or pressing &lsquo;Escape&rsquo;!</p>
+      <p id="content-2">Try clicking outside of the modal or pressing &lsquo;Escape&rsquo;!</p>
     </ModalContent>,
     <div>This is neither in &lsquo;ModalTitle&rsquo; nor in &lsquo;ModalContent&rsquo;.</div>,
   ],
-  'aria-describedby': 'content-1',
+  'aria-describedby': 'content-2',
 }
