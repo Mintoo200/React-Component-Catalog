@@ -120,4 +120,14 @@ describe('Modal tests', () => {
     expect(title).toHaveAttribute('id')
     expect(dialog).toHaveAttribute('aria-labelledby', title.id)
   })
+  it('should add the aria-describedby attribute when provided', () => {
+    render(
+      <Modal isOpen onClose={() => null} aria-describedby="content">
+        <div id="content">content</div>
+      </Modal>,
+    )
+    const dialog = screen.getByRole('dialog')
+    const content = screen.getByText('content')
+    expect(dialog).toHaveAttribute('aria-describedby', content.id)
+  })
 })

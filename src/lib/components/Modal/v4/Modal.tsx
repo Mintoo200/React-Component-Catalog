@@ -26,9 +26,12 @@ export type Props = {
   children: React.ReactNode,
   isOpen?: boolean,
   onClose: () => void,
+  'aria-describedby'?: string,
 }
 
-const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement => {
+const Modal = ({
+  isOpen = false, onClose, children, 'aria-describedby': ariaDescribedby,
+}: Props): React.ReactElement => {
   const id = `modal-${useID()}`
   return (
     <Context.Provider value={{ onClose, id }}>
@@ -37,7 +40,8 @@ const Modal = ({ isOpen = false, onClose, children }: Props): React.ReactElement
           className="modal"
           role="dialog"
           aria-modal
-          aria-labelledby={`${id}-title`}>
+          aria-labelledby={`${id}-title`}
+          aria-describedby={ariaDescribedby}>
           {children}
         </div>
       </Overlay>
