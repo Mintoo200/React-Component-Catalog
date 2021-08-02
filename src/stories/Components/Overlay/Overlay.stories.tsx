@@ -38,11 +38,8 @@ function Example1Component({ isOpen = false }) {
     }
   }, [isOpen])
   return (
-    /* eslint-disable-next-line max-len */
-    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */
     <div
       className="overlay-content"
-      onClick={(event: React.MouseEvent) => event.stopPropagation()}
       role="dialog"
       aria-modal
       aria-labelledby="overlay-toggle-button"
@@ -78,12 +75,8 @@ function Modal({ isOpen = false }) {
     }
   }, [isOpen])
   return (
-    /* eslint-disable-next-line max-len */
-    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */
     <div
       className="modal"
-      onClick={(event: React.MouseEvent) => event.stopPropagation()}
-      onKeyPress={() => null}
       role="dialog"
       aria-modal
       aria-labelledby="modal-title">

@@ -7,13 +7,6 @@ const documentation = `
   </div>
 </Overlay>
 \`\`\`
-**Remember to stop the click propagation if you want the overlay to stay open when you click on your content!** \n
-e.g.:\n
-\`\`\`tsx
-const childClickHandler = (event: React.MouseEvent) => {
-  event.stopPropagation()
-}
-\`\`\`
 
 ## Accessibility
 This component implements the accessibility specification described on [the W3C example page for the dialog component](https://www.w3.org/TR/2019/NOTE-wai-aria-practices-1.1-20190814/examples/dialog-modal/dialog.html).
