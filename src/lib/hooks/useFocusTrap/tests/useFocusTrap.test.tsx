@@ -108,7 +108,6 @@ describe('useFocusTrap tests', () => {
     userEvent.tab()
     expect(second).toHaveFocus()
   })
-
   it('should take a ref as optional parameter', () => {
     let initialRef = null
     let resultingRef = null
