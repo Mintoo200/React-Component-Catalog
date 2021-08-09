@@ -1,4 +1,4 @@
-# Welcome to test-lib (working title)
+# Welcome to React Component Catalog
 
 ## What is this?
 
