@@ -1,8 +1,8 @@
 import React from 'react'
 
 const links = {
-  general: 'https://gitlab.com/Mintoo200/test-lib/-/issues/new?issuable_template=component_suggestion',
-  comment: 'https://gitlab.com/Mintoo200/test-lib/-/merge_requests/41/diffs',
+  general: 'https://gitlab.com/Mintoo200/react-component-catalog/-/issues/new?issuable_template=component_suggestion',
+  comment: 'https://gitlab.com/Mintoo200/react-component-catalog/-/merge_requests/41/diffs',
 }
 
 export type Props = {
